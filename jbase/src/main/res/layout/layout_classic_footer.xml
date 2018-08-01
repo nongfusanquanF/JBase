@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--列表上拉加载样式-->
+<com.geya.jbase.rvview.ClassicLoadMoreFooterView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:orientation="horizontal"
+        android:gravity="center"
+        >
+
+
+     <com.tuyenmonkey.mkloader.MKLoader
+         android:id="@+id/progressbar"
+         android:layout_width="15dp"
+         android:layout_height="15dp"
+         app:mk_type="TwinFishesSpinner"
+         app:mk_color="@color/main_tone"
+         />
+        <!--类型-->
+        <!--TwinFishesSpinner    类似太极-->
+
+
+
+
+        <TextView
+            android:id="@+id/tvLoadMore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="LoadMore"
+            android:textSize="10sp"
+            android:textColor="#555"
+            android:layout_marginLeft="10dp"
+            />
+    </LinearLayout>
+
+</com.geya.jbase.rvview.ClassicLoadMoreFooterView>

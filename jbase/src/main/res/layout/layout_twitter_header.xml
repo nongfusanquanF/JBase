@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--list 下拉刷新样式-->
+<com.geya.jbase.rvview.TwitterRefreshHeaderView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/refresh_header_height_twitter"
+        android:layout_gravity="center">
+
+        <!--箭头-->
+        <ImageView
+            android:id="@+id/ivArrow"
+            android:layout_width="15dp"
+            android:layout_height="35dp"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
+            android:layout_toLeftOf="@+id/tvRefresh"
+            android:background="@drawable/twitter_pull_arrow"
+            android:visibility="invisible"
+
+            />
+
+
+
+
+        <com.tuyenmonkey.mkloader.MKLoader
+            android:id="@+id/progressbar"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            app:mk_type="LineSpinner"
+            app:mk_color="#b6b6b6"
+            android:layout_toLeftOf="@id/tvRefresh"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
+
+            />
+
+
+        <TextView
+            android:id="@+id/tvRefresh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:textColor="#b6b6b6"
+            android:text="下拉刷新"
+
+            />
+
+
+    </RelativeLayout>
+</com.geya.jbase.rvview.TwitterRefreshHeaderView>
