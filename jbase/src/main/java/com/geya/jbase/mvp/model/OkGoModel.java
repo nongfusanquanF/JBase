@@ -1,11 +1,8 @@
 package com.geya.jbase.mvp.model;
 
-import android.sax.StartElementListener;
-import android.text.TextUtils;
 
 
-import com.geya.jbase.constant.BaseData;
-import com.geya.jbase.constant.RequestType;
+import com.geya.jbase.constant.RequestTypes;
 import com.geya.jbase.mvp.presenter.IBasePresenter;
 import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
@@ -62,14 +59,15 @@ public class OkGoModel implements IBaseModel {
 
     @Override
     public void sendRequestToServers(String method, String url, Class obj, HashMap<String, String> map) {
+        System.out.println("----------------  sendRequestToServers ");
         switch (method) {
-            case RequestType.OKGO_GET:
+            case RequestTypes.OKGO_GET:
                 okRxGET(url, obj, map);
                 break;
-            case RequestType.OKGO_GET_CACHE:
+            case RequestTypes.OKGO_GET_CACHE:
                 okRxCacheGET(url, obj, map);
                 break;
-            case RequestType.OKGO_POST:
+            case RequestTypes.OKGO_POST:
                 okRxPOST(url, obj, map);
                 break;
         }
@@ -117,13 +115,15 @@ public class OkGoModel implements IBaseModel {
                 .map(new Function<Response<String>, Object>() {
 
                     @Override
-                    public Object apply(Response<String> stringResponse) throws Exception {
-                        BaseData data = new Gson().fromJson(stringResponse.body(), BaseData.class);
-                        if (data.getRetcode() == 200) {
-                            return new Gson().fromJson(stringResponse.body(), obj);
-                        } else {
-                            return data;
-                        }
+                    public Object apply(Response<String> stringResponse) {
+                        System.out.println("-----------------  apply  " + stringResponse.body());
+                        return new Gson().fromJson(stringResponse.body(), obj);
+//                        BaseData data = new Gson().fromJson(stringResponse.body(), BaseData.class);
+//                        if (data.getRetcode() == 200) {
+//                            return new Gson().fromJson(stringResponse.body(), obj);
+//                        } else {
+//                            return data;
+//                        }
                     }
                 }).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<Object>() {
@@ -134,6 +134,7 @@ public class OkGoModel implements IBaseModel {
 
                     @Override
                     public void onNext(@NonNull Object serverModel) {
+                        System.out.println("--------------------  onNext " +   serverModel.toString());
                         onSuccess(serverModel);
                     }
 
@@ -167,12 +168,7 @@ public class OkGoModel implements IBaseModel {
 
                     @Override
                     public Object apply(Response<String> stringResponse) throws Exception {
-                        BaseData data = new Gson().fromJson(stringResponse.body(), BaseData.class);
-                        if (data.getRetcode() == 200) {
-                            return new Gson().fromJson(stringResponse.body(), obj);
-                        } else {
-                            return data;
-                        }
+                        return new Gson().fromJson(stringResponse.body(), obj);
                     }
                 }).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<Object>() {
@@ -215,12 +211,14 @@ public class OkGoModel implements IBaseModel {
 
                     @Override
                     public Object apply(Response<String> stringResponse) throws Exception {
-                        BaseData data = new Gson().fromJson(stringResponse.body(), BaseData.class);
-                        if (data.getRetcode() == 200) {
-                            return new Gson().fromJson(stringResponse.body(), obj);
-                        } else {
-                            return data;
-                        }
+
+                        return new Gson().fromJson(stringResponse.body(), obj);
+//                        BaseData data = new Gson().fromJson(stringResponse.body(), BaseData.class);
+//                        if (data.getRetcode() == 200) {
+//                            return new Gson().fromJson(stringResponse.body(), obj);
+//                        } else {
+//                            return data;
+//                        }
 
                     }
                 }).observeOn(AndroidSchedulers.mainThread())
@@ -264,7 +262,7 @@ public class OkGoModel implements IBaseModel {
                     @Override
                     public void onError(Response<File> response) {
                         if (basePresenter != null) {
-                            basePresenter.okgoError(0, RequestType.SERVER_ERROR, "");
+                            basePresenter.okgoError(0, RequestTypes.SERVER_ERROR, "");
                         }
                     }
 
@@ -302,7 +300,7 @@ public class OkGoModel implements IBaseModel {
                     @Override
                     public void onError(Response<String> response) {
                         if (basePresenter != null) {
-                            basePresenter.okgoError(0, RequestType.SERVER_ERROR, "");
+                            basePresenter.okgoError(0, RequestTypes.SERVER_ERROR, "");
                         }
                     }
 
@@ -351,7 +349,7 @@ public class OkGoModel implements IBaseModel {
     private void onErrors(Throwable e) {
         if (e instanceof UnknownHostException || e instanceof ConnectException) {
             if (basePresenter != null) {
-                basePresenter.okgoError(0, RequestType.INTERNET_ERROR, ""); //当前网络不可用
+                basePresenter.okgoError(0, RequestTypes.INTERNET_ERROR, ""); //当前网络不可用
             }
         }
 

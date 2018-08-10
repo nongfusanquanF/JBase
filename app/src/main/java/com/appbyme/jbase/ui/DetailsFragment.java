@@ -10,7 +10,7 @@ import com.appbyme.jbase.databinding.ActivityDetailBinding;
 import com.appbyme.jbase.mvp.presenter.MainPresenter;
 import com.appbyme.jbase.mvp.view.IMainView;
 import com.geya.jbase.basefragment.BaseDetailsFragment;
-import com.geya.jbase.constant.RequestType;
+import com.geya.jbase.constant.RequestTypes;
 
 import java.util.HashMap;
 
@@ -41,7 +41,7 @@ public class DetailsFragment extends BaseDetailsFragment<MainPresenter> implemen
                 HashMap<String,String> map = new HashMap<>();
                 map.put("uid","7826");
                 map.put("_token","47e2b91bf3efa5adacfd2e1920e0c030");
-                mPresenter.accessServers(RequestType.OKGO_GET,RequestType.ADDRESS,RequestType.LIST, ListData.class,map);
+                mPresenter.accessServers(RequestTypes.OKGO_GET, RequestTypes.ADDRESS, RequestTypes.LIST, ListData.class,map);
             }
         });
 
@@ -52,7 +52,7 @@ public class DetailsFragment extends BaseDetailsFragment<MainPresenter> implemen
                 map.put("uid","7826");
                 map.put("_token","47e2b91bf3efa5adacfd2e1920e0c030");
                 map.put("id","5");
-                mPresenter.accessServers(RequestType.OKGO_GET,RequestType.ADDRESS,RequestType.DATA, ObjData.class,map);
+                mPresenter.accessServers(RequestTypes.OKGO_GET, RequestTypes.ADDRESS, RequestTypes.DATA, ObjData.class,map);
             }
         });
     }

@@ -12,6 +12,7 @@ import com.geya.jbase.R;
 import com.geya.jbase.mvp.presenter.BasePresenter;
 import com.geya.jbase.mvp.view.IMvpView;
 import com.geya.jbase.uiview.LoadDialog;
+import com.geya.jbase.uiview.ToastUtil;
 
 
 /**
@@ -96,14 +97,16 @@ public abstract class BaseDetailsActivity<P extends BasePresenter> extends BaseF
     @Override
     public void showNetworkError(int errorCode, String errorDesc, String type) {
         LoadDialog.dismiss(this);
-        Toast.makeText(this,errorDesc,Toast.LENGTH_SHORT).show();
+        ToastUtil.showShort(errorDesc);
+//        Toast.makeText(this,errorDesc,Toast.LENGTH_SHORT).show();
     }
 
     //服务器错误
     @Override
     public void showServerError(int errorCode, String errorDesc) {
         LoadDialog.dismiss(this);
-        Toast.makeText(this,errorDesc,Toast.LENGTH_SHORT).show();
+        ToastUtil.showShort(errorDesc);
+//        Toast.makeText(this,errorDesc,Toast.LENGTH_SHORT).show();
     }
 
     @Override

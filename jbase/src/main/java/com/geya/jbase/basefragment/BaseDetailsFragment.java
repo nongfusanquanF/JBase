@@ -10,6 +10,7 @@ import com.geya.jbase.R;
 import com.geya.jbase.mvp.presenter.BasePresenter;
 import com.geya.jbase.mvp.view.IMvpView;
 import com.geya.jbase.uiview.LoadDialog;
+import com.geya.jbase.uiview.ToastUtil;
 
 
 /**
@@ -95,7 +96,8 @@ public abstract class BaseDetailsFragment<P extends BasePresenter> extends LazyT
 
     @Override
     public void showNetworkError(int errorCode, String errorDesc, String type) {
-        Toast.makeText(getActivity(),errorDesc,Toast.LENGTH_LONG).show();
+        ToastUtil.showShort(errorCode);
+//        Toast.makeText(getActivity(),errorDesc,Toast.LENGTH_LONG).show();
     }
 
     @Override

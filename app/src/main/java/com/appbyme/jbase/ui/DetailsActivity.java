@@ -4,15 +4,13 @@ import android.databinding.DataBindingUtil;
 import android.view.View;
 
 import com.appbyme.jbase.R;
-import com.appbyme.jbase.data.BaseList;
-import com.appbyme.jbase.data.BaseList2;
 import com.appbyme.jbase.data.ListData;
 import com.appbyme.jbase.data.ObjData;
 import com.appbyme.jbase.databinding.ActivityDetailBinding;
 import com.appbyme.jbase.mvp.presenter.MainPresenter;
 import com.appbyme.jbase.mvp.view.IMainView;
 import com.geya.jbase.baseactivity.BaseDetailsActivity;
-import com.geya.jbase.constant.RequestType;
+import com.geya.jbase.constant.RequestTypes;
 
 import java.util.HashMap;
 
@@ -37,7 +35,7 @@ public class DetailsActivity extends BaseDetailsActivity<MainPresenter> implemen
                  HashMap<String,String> map = new HashMap<>();
                  map.put("uid","7826");
                  map.put("_token","47e2b91bf3efa5adacfd2e1920e0c030");
-                 mPresenter.accessServers(RequestType.OKGO_GET,RequestType.ADDRESS,RequestType.LIST, ListData.class,map);
+                 mPresenter.accessServers(RequestTypes.OKGO_GET, RequestTypes.ADDRESS, RequestTypes.LIST, ListData.class,map);
 
              }
          });
@@ -48,8 +46,8 @@ public class DetailsActivity extends BaseDetailsActivity<MainPresenter> implemen
                  HashMap<String,String> map = new HashMap<>();
                  map.put("uid","7826");
                  map.put("_token","47e2b91bf3efa5adacfd2e1920e0c030");
-                 map.put("id","5");
-                 mPresenter.accessServers(RequestType.OKGO_GET,RequestType.ADDRESS,RequestType.DATA, ObjData.class,map);
+//                 map.put("id","5");
+                 mPresenter.accessServers(RequestTypes.OKGO_GET, RequestTypes.ADDRESS, RequestTypes.DATA, ListData.class,map);
              }
          });
     }

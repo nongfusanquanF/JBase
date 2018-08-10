@@ -11,14 +11,14 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
+
 import com.alibaba.fastjson.JSON;
 import com.aspsine.swipetoloadlayout.OnLoadMoreListener;
 import com.aspsine.swipetoloadlayout.OnRefreshListener;
 import com.aspsine.swipetoloadlayout.SwipeToLoadLayout;
 import com.geya.jbase.R;
 import com.geya.jbase.constant.PageParams;
-import com.geya.jbase.constant.RequestType;
+import com.geya.jbase.constant.RequestTypes;
 import com.geya.jbase.mvp.presenter.BasePresenter;
 import com.geya.jbase.mvp.view.IMvpView;
 
@@ -229,10 +229,10 @@ public abstract class BaseRvFragment<T, P extends BasePresenter> extends LazyTab
         //页码重置为1
         pageParams.reset();
 //                    //重新传如页码
-//                    mPresennter.setParams(RequestType.PAGE_INDEX, String.valueOf(pageParams.getPageNo()));
+//                    mPresennter.setParams(RequestTypes.PAGE_INDEX, String.valueOf(pageParams.getPageNo()));
 //                    //访问服务器
 //                    mPresennter.accessServer();
-        listMap.put(RequestType.PAGE_INDEX, String.valueOf(pageParams.getPageNo()));
+        listMap.put(RequestTypes.PAGE_INDEX, String.valueOf(pageParams.getPageNo()));
 //                    mPresennter.accessServer(method, adderss, url,classType ,listMap);
         mPresennter.accessServers(method,adderss,url,classType,listMap);
     }
@@ -244,10 +244,10 @@ public abstract class BaseRvFragment<T, P extends BasePresenter> extends LazyTab
         //页码增加
         pageParams.addPage();
 //                    //传入新页码
-//                    mPresennter.setParams(RequestType.PAGE_INDEX, String.valueOf(pageParams.getPageNo()));
+//                    mPresennter.setParams(RequestTypes.PAGE_INDEX, String.valueOf(pageParams.getPageNo()));
 //                    //访问服务器
 //                    mPresennter.accessServer();
-        listMap.put(RequestType.PAGE_INDEX, String.valueOf(pageParams.getPageNo()));
+        listMap.put(RequestTypes.PAGE_INDEX, String.valueOf(pageParams.getPageNo()));
 //                    mPresennter.accessServer(method, adderss, url,classType ,listMap);
         mPresennter.accessServers(method,adderss,url,classType,listMap);
     }
@@ -308,7 +308,7 @@ public abstract class BaseRvFragment<T, P extends BasePresenter> extends LazyTab
      * @param color 颜色 16进制色值  0xfff6f6f6
      */
     protected void initRV(final int row, final int color) {
-        final int sColor=color==0?RequestType.DIVISION_COLOR:color;
+        final int sColor=color==0? RequestTypes.DIVISION_COLOR:color;
         if (row < 1) {
             //设置RecyclerView的显示模式  当前List模式
             mListView.setLayoutManager(new LinearLayoutManager(mContext));
@@ -374,8 +374,8 @@ public abstract class BaseRvFragment<T, P extends BasePresenter> extends LazyTab
 //        mPresennter.getModel().setApiInterface(url);
 //        mPresennter.getModel().setMethod(method);
         mPresennter.getModel().setClassTyer(classType);
-        mPresennter.setParams(RequestType.PAGE_INDEX, String.valueOf(pageParams.getPageNo()));
-        mPresennter.setParams(RequestType.PAGE_SIZE, String.valueOf(pageParams.getPageSize()));
+        mPresennter.setParams(RequestTypes.PAGE_INDEX, String.valueOf(pageParams.getPageNo()));
+        mPresennter.setParams(RequestTypes.PAGE_SIZE, String.valueOf(pageParams.getPageSize()));
 //        mPresennter.initDatas(url, type, queryParams);
         mPresennter.accessServer();//访问服务器
 
@@ -399,8 +399,8 @@ public abstract class BaseRvFragment<T, P extends BasePresenter> extends LazyTab
             mQuickAdapter.notifyDataSetChanged();
         }
         pageParams.reset();
-        listMap.put(RequestType.PAGE_INDEX, String.valueOf(pageParams.getPageNo()));
-        listMap.put(RequestType.PAGE_SIZE, String.valueOf(pageParams.getPageSize()));
+        listMap.put(RequestTypes.PAGE_INDEX, String.valueOf(pageParams.getPageNo()));
+        listMap.put(RequestTypes.PAGE_SIZE, String.valueOf(pageParams.getPageSize()));
         this.adderss = adderss;
         this.url = url;
         this.method = method;
@@ -430,8 +430,8 @@ public abstract class BaseRvFragment<T, P extends BasePresenter> extends LazyTab
             mQuickAdapter.removeAllFooterView();
         }
         pageParams.reset();
-        listMap.put(RequestType.PAGE_INDEX, String.valueOf(pageParams.getPageNo()));
-        listMap.put(RequestType.PAGE_SIZE, String.valueOf(pageParams.getPageSize()));
+        listMap.put(RequestTypes.PAGE_INDEX, String.valueOf(pageParams.getPageNo()));
+        listMap.put(RequestTypes.PAGE_SIZE, String.valueOf(pageParams.getPageSize()));
         this.adderss = adderss;
         this.url = url;
         this.method = method;
@@ -499,7 +499,7 @@ public abstract class BaseRvFragment<T, P extends BasePresenter> extends LazyTab
         } else {
             //是否有数据
             if (list.size() == 0) {
-                showServerError(RequestType.NO_DATA, "没有数据");
+                showServerError(RequestTypes.NO_DATA, "没有数据");
 //                mProgress.showEmpty(getResources().getDrawable(R.drawable.nodata),//设置错误页面图片
 //                        "木有数据~",    //  错误信息1
 //                        "");           //  错误信息2
@@ -560,18 +560,18 @@ public abstract class BaseRvFragment<T, P extends BasePresenter> extends LazyTab
 
     @Override
     public void showNetworkError(int errorCode, String errorDesc, String type) {
-        mProgress.showEmpty(getResources().getDrawable(R.drawable.nodata),//设置错误页面图片
+        mProgress.showEmpty(getResources().getDrawable(RequestTypes.IMG_DRAWABLE),//设置错误页面图片
                 errorDesc,    //  错误信息1
-                "请稍后在试");           //  错误信息2
+                "");           //  错误信息2
 
     }
 
     @Override
     public void showServerError(int errorCode, String errorDesc) {
-
-        mProgress.showEmpty(getResources().getDrawable(R.drawable.nodata),//设置错误页面图片
+        mProgress.showContent();
+        mProgress.showEmpty(getResources().getDrawable(RequestTypes.IMG_DRAWABLE),//设置错误页面图片
                 errorDesc,    //  错误信息1
-                "请稍后在试");           //  错误信息2
+                "");           //  错误信息2
 //        mProgress.showError(getResources().getDrawable(R.drawable.network_error), //设置错误页面图片
 //                "errorDesc",      //  错误信息1
 //                "请稍后在试",      //  错误信息2

@@ -11,6 +11,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.geya.jbase.R;
+import com.geya.jbase.constant.RequestType;
+import com.geya.jbase.constant.RequestTypes;
 import com.gyf.barlibrary.ImmersionBar;
 
 
@@ -34,8 +36,10 @@ public  class BaseFragmentActivity extends FragmentActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mImmersionBar = ImmersionBar.with(this);
-        mImmersionBar.statusBarColor(R.color.main_tone);
-//        mImmersionBar.statusBarDarkFont(true, 0.2f) ;
+        mImmersionBar.statusBarColor(RequestTypes.MAIN_COLOR);
+        if (RequestTypes.MAIN_COLOR == R.color.white){
+            mImmersionBar.statusBarDarkFont(true, 0.2f) ;
+        }
         mImmersionBar.init();   //所有子类都将继承这些相同的属性
         //要使用沉浸式状态栏的话，布局文件要设置fitsSystemWindows = true
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {

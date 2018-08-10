@@ -1,10 +1,10 @@
 package com.geya.jbase.mvp.presenter;
 
 
-
 import android.content.Intent;
 
 import com.geya.jbase.constant.RequestType;
+import com.geya.jbase.constant.RequestTypes;
 import com.geya.jbase.mvp.model.IBaseModel;
 import com.geya.jbase.mvp.model.OkGoModel;
 import com.geya.jbase.mvp.view.IMvpView;
@@ -21,10 +21,10 @@ import java.util.Map;
  * Created by Administrator on 2017/2/14.
  */
 
-public abstract  class BasePresenter<T extends IMvpView> implements IBasePresenter {
+public abstract class BasePresenter<T extends IMvpView> implements IBasePresenter {
 
     /**
-     *  从服务器获取的数据 交由具体子类实现
+     * 从服务器获取的数据 交由具体子类实现
      */
 //    public abstract void serverResponse(String data,String type);
     public abstract void serverResponseObj(Object object);
@@ -35,17 +35,17 @@ public abstract  class BasePresenter<T extends IMvpView> implements IBasePresent
     private WeakReference<T> mvpView;
 
 
-    private HashMap<String,Object> map;
+    private HashMap<String, Object> map;
 
 
-    public BasePresenter(T mvpView){
+    public BasePresenter(T mvpView) {
 //        this.mvpView = mvpView;
-        this.mvpView=new WeakReference<>(mvpView);
+        this.mvpView = new WeakReference<>(mvpView);
         this.baseModel = new OkGoModel(this);
-        map=new HashMap<>();
+        map = new HashMap<>();
     }
 
-    public T getView(){
+    public T getView() {
         return mvpView.get();
     }
 
@@ -88,7 +88,7 @@ public abstract  class BasePresenter<T extends IMvpView> implements IBasePresent
 //            System.out.println("!!!!!!!!!!!!!!!! 解析数据"+response);
 //            JSONObject jsonObject=new JSONObject(response);
 //            //此处判断默认和服务器端约定的是Boolean类型，可根据需求做相应修改
-//            if (jsonObject.optBoolean(RequestType.IS_SUCCESS)){
+//            if (jsonObject.optBoolean(RequestTypes.IS_SUCCESS)){
 //                //正确的数据交由子类处理
 //                System.out.println("!!!!!!!!!!!!!!!! 解析数据 传递给子类");
 ////                serverResponse(response,type);
@@ -96,40 +96,64 @@ public abstract  class BasePresenter<T extends IMvpView> implements IBasePresent
 //                //将服务器返回的错误码或错误信息返回
 ////                System.out.println("!!!!!!!!!!!!!!!! 解析数据 错误" + response );
 ////                serverResponse(response,type);
-////                mvpView.showServerError(0,jsonObject.optString(RequestType.MESSAGE));
+////                mvpView.showServerError(0,jsonObject.optString(RequestTypes.MESSAGE));
 //            }
 //
 //        } catch (JSONException e) {
 //            e.printStackTrace();
 //            //数据解析异常
 //            System.out.println("!!!!!!!!!!!!!!!! 解析数据 异常");
-////            mvpView.showServerError(0,RequestType.DATA_ERROR);
-//            mvpView.get().showServerError(0,RequestType.DATA_ERROR);
+////            mvpView.showServerError(0,RequestTypes.DATA_ERROR);
+//            mvpView.get().showServerError(0,RequestTypes.DATA_ERROR);
 //        }
 //
 //    }
 
 
     @Override
-    public void accessSucceedObj(Object object,String json) {
+    public void accessSucceedObj(Object object, String json) {
         mvpView.get().showProgress(false);
         try {
-            JSONObject jsonObject=new JSONObject(json);
-            //此处判断默认和服务器端约定的是Boolean类型，可根据需求做相应修改
-            if (jsonObject.optInt(RequestType.IS_SUCCESS)== 200){
-                //正确的数据交由子类处理
-                serverResponseObj(object);
-            }else if (jsonObject.optInt(RequestType.IS_SUCCESS)== -2){
-                mvpView.get().showServerError(jsonObject.optInt(RequestType.IS_SUCCESS),jsonObject.optString(RequestType.MESSAGE));
-            }else {
-                mvpView.get().showServerError(jsonObject.optInt(RequestType.IS_SUCCESS),jsonObject.optString(RequestType.MESSAGE));
+            JSONObject jsonObject = new JSONObject(json);
+            if (RequestTypes.IS_STRING) {
+                //此处判断默认和服务器端约定的是Boolean类型，可根据需求做相应修改
+                if (jsonObject.optString(RequestTypes.IS_SUCCESS).equals("200")) {
+                    //正确的数据交由子类处理
+                    serverResponseObj(object);
+                } else {
+                    if (jsonObject.optString(RequestTypes.IS_SUCCESS).equals( RequestTypes.AGAIN_LOGIN)) {
+                        Intent intent = new Intent();
+                        intent.setAction("IS_LOGIN");
+                        intent.putExtra("info", "-2");
+                        RequestType.mContext.sendBroadcast(intent);
+                    }
+
+                    mvpView.get().showServerError( Integer.parseInt(jsonObject.optString(RequestTypes.IS_SUCCESS)), jsonObject.optString(RequestTypes.MESSAGE));
+                }
+            } else {
+                //此处判断默认和服务器端约定的是Boolean类型，可根据需求做相应修改
+                if (jsonObject.optInt(RequestTypes.IS_SUCCESS) == 200) {
+                    //正确的数据交由子类处理
+                    serverResponseObj(object);
+                }
+                else {
+
+                    if (jsonObject.optInt(RequestTypes.IS_SUCCESS) == Integer.parseInt(RequestTypes.AGAIN_LOGIN)) {
+                        Intent intent = new Intent();
+                        intent.setAction("IS_LOGIN");
+                        intent.putExtra("info", "-2");
+                        RequestType.mContext.sendBroadcast(intent);
+                    }
+
+                    mvpView.get().showServerError(jsonObject.optInt(RequestTypes.IS_SUCCESS), jsonObject.optString(RequestTypes.MESSAGE));
+                }
             }
 
         } catch (JSONException e) {
             e.printStackTrace();
             //数据解析异常
-//            mvpView.showServerError(0,RequestType.DATA_ERROR);
-            mvpView.get().showServerError(0,RequestType.DATA_ERROR);
+//            mvpView.showServerError(0,RequestTypes.DATA_ERROR);
+            mvpView.get().showServerError(0, RequestTypes.DATA_ERROR);
         }
 
     }
@@ -141,7 +165,7 @@ public abstract  class BasePresenter<T extends IMvpView> implements IBasePresent
 
     @Override
     public void setParams(String key, Object v) {
-        this.map.put(key,v);
+        this.map.put(key, v);
     }
 
     @Override
@@ -161,9 +185,9 @@ public abstract  class BasePresenter<T extends IMvpView> implements IBasePresent
 
     @Override
     public void okgoError(int errorCode, String errorDesc, String type) {
-          //网络请求错误 通知View层显示 错误信息或做相关操作
+        //网络请求错误 通知View层显示 错误信息或做相关操作
 //        mvpView.showNetworkError(errorCode,errorDesc,type);
-        mvpView.get().showNetworkError(errorCode,errorDesc,type);
+        mvpView.get().showNetworkError(errorCode, errorDesc, type);
     }
 
     @Override
@@ -178,31 +202,29 @@ public abstract  class BasePresenter<T extends IMvpView> implements IBasePresent
 
     @Override
     public void dealloc() {
-       //释放资源
+        //释放资源
 
-        if (this.mvpView!=null) {
+        if (this.mvpView != null) {
             this.mvpView.clear();
         }
 
-        if (this.baseModel!=null) {
+        if (this.baseModel != null) {
             this.baseModel.dealloc();
         }
     }
 
 
     /**
-     *
-     * @param address  服务器地址
-     * @param url      接口地址
+     * @param address 服务器地址
+     * @param url     接口地址
      * @param type
      * @param map
      */
 
-    public void accessServers(String Method,String address, String url, Class type, HashMap<String, String> map) {
+    public void accessServers(String Method, String address, String url, Class type, HashMap<String, String> map) {
 
-        getModel().sendRequestToServers(Method,address+url,type,map);
+        getModel().sendRequestToServers(Method, address + url, type, map);
     }
-
 
 
 }
