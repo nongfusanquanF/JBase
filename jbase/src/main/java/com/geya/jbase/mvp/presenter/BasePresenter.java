@@ -4,7 +4,6 @@ package com.geya.jbase.mvp.presenter;
 import android.content.Intent;
 
 import com.geya.jbase.constant.RequestType;
-import com.geya.jbase.constant.RequestTypes;
 import com.geya.jbase.mvp.model.IBaseModel;
 import com.geya.jbase.mvp.model.OkGoModel;
 import com.geya.jbase.mvp.view.IMvpView;
@@ -88,7 +87,7 @@ public abstract class BasePresenter<T extends IMvpView> implements IBasePresente
 //            System.out.println("!!!!!!!!!!!!!!!! 解析数据"+response);
 //            JSONObject jsonObject=new JSONObject(response);
 //            //此处判断默认和服务器端约定的是Boolean类型，可根据需求做相应修改
-//            if (jsonObject.optBoolean(RequestTypes.IS_SUCCESS)){
+//            if (jsonObject.optBoolean(RequestType.IS_SUCCESS)){
 //                //正确的数据交由子类处理
 //                System.out.println("!!!!!!!!!!!!!!!! 解析数据 传递给子类");
 ////                serverResponse(response,type);
@@ -96,15 +95,15 @@ public abstract class BasePresenter<T extends IMvpView> implements IBasePresente
 //                //将服务器返回的错误码或错误信息返回
 ////                System.out.println("!!!!!!!!!!!!!!!! 解析数据 错误" + response );
 ////                serverResponse(response,type);
-////                mvpView.showServerError(0,jsonObject.optString(RequestTypes.MESSAGE));
+////                mvpView.showServerError(0,jsonObject.optString(RequestType.MESSAGE));
 //            }
 //
 //        } catch (JSONException e) {
 //            e.printStackTrace();
 //            //数据解析异常
 //            System.out.println("!!!!!!!!!!!!!!!! 解析数据 异常");
-////            mvpView.showServerError(0,RequestTypes.DATA_ERROR);
-//            mvpView.get().showServerError(0,RequestTypes.DATA_ERROR);
+////            mvpView.showServerError(0,RequestType.DATA_ERROR);
+//            mvpView.get().showServerError(0,RequestType.DATA_ERROR);
 //        }
 //
 //    }
@@ -115,45 +114,45 @@ public abstract class BasePresenter<T extends IMvpView> implements IBasePresente
         mvpView.get().showProgress(false);
         try {
             JSONObject jsonObject = new JSONObject(json);
-            if (RequestTypes.IS_STRING) {
+            if (RequestType.IS_STRING) {
                 //此处判断默认和服务器端约定的是Boolean类型，可根据需求做相应修改
-                if (jsonObject.optString(RequestTypes.IS_SUCCESS).equals("200")) {
+                if (jsonObject.optString(RequestType.IS_SUCCESS).equals("200")) {
                     //正确的数据交由子类处理
                     serverResponseObj(object);
                 } else {
-                    if (jsonObject.optString(RequestTypes.IS_SUCCESS).equals( RequestTypes.AGAIN_LOGIN)) {
+                    if (jsonObject.optString(RequestType.IS_SUCCESS).equals( RequestType.AGAIN_LOGIN)) {
                         Intent intent = new Intent();
                         intent.setAction("IS_LOGIN");
                         intent.putExtra("info", "-2");
                         RequestType.mContext.sendBroadcast(intent);
                     }
 
-                    mvpView.get().showServerError( Integer.parseInt(jsonObject.optString(RequestTypes.IS_SUCCESS)), jsonObject.optString(RequestTypes.MESSAGE));
+                    mvpView.get().showServerError( Integer.parseInt(jsonObject.optString(RequestType.IS_SUCCESS)), jsonObject.optString(RequestType.MESSAGE));
                 }
             } else {
                 //此处判断默认和服务器端约定的是Boolean类型，可根据需求做相应修改
-                if (jsonObject.optInt(RequestTypes.IS_SUCCESS) == 200) {
+                if (jsonObject.optInt(RequestType.IS_SUCCESS) == 200) {
                     //正确的数据交由子类处理
                     serverResponseObj(object);
                 }
                 else {
 
-                    if (jsonObject.optInt(RequestTypes.IS_SUCCESS) == Integer.parseInt(RequestTypes.AGAIN_LOGIN)) {
+                    if (jsonObject.optInt(RequestType.IS_SUCCESS) == Integer.parseInt(RequestType.AGAIN_LOGIN)) {
                         Intent intent = new Intent();
                         intent.setAction("IS_LOGIN");
                         intent.putExtra("info", "-2");
                         RequestType.mContext.sendBroadcast(intent);
                     }
 
-                    mvpView.get().showServerError(jsonObject.optInt(RequestTypes.IS_SUCCESS), jsonObject.optString(RequestTypes.MESSAGE));
+                    mvpView.get().showServerError(jsonObject.optInt(RequestType.IS_SUCCESS), jsonObject.optString(RequestType.MESSAGE));
                 }
             }
 
         } catch (JSONException e) {
             e.printStackTrace();
             //数据解析异常
-//            mvpView.showServerError(0,RequestTypes.DATA_ERROR);
-            mvpView.get().showServerError(0, RequestTypes.DATA_ERROR);
+//            mvpView.showServerError(0,RequestType.DATA_ERROR);
+            mvpView.get().showServerError(0, RequestType.DATA_ERROR);
         }
 
     }

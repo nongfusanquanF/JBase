@@ -2,7 +2,7 @@ package com.geya.jbase.mvp.model;
 
 
 
-import com.geya.jbase.constant.RequestTypes;
+import com.geya.jbase.constant.RequestType;
 import com.geya.jbase.mvp.presenter.IBasePresenter;
 import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
@@ -61,13 +61,13 @@ public class OkGoModel implements IBaseModel {
     public void sendRequestToServers(String method, String url, Class obj, HashMap<String, String> map) {
         System.out.println("----------------  sendRequestToServers ");
         switch (method) {
-            case RequestTypes.OKGO_GET:
+            case RequestType.OKGO_GET:
                 okRxGET(url, obj, map);
                 break;
-            case RequestTypes.OKGO_GET_CACHE:
+            case RequestType.OKGO_GET_CACHE:
                 okRxCacheGET(url, obj, map);
                 break;
-            case RequestTypes.OKGO_POST:
+            case RequestType.OKGO_POST:
                 okRxPOST(url, obj, map);
                 break;
         }
@@ -262,7 +262,7 @@ public class OkGoModel implements IBaseModel {
                     @Override
                     public void onError(Response<File> response) {
                         if (basePresenter != null) {
-                            basePresenter.okgoError(0, RequestTypes.SERVER_ERROR, "");
+                            basePresenter.okgoError(0, RequestType.SERVER_ERROR, "");
                         }
                     }
 
@@ -300,7 +300,7 @@ public class OkGoModel implements IBaseModel {
                     @Override
                     public void onError(Response<String> response) {
                         if (basePresenter != null) {
-                            basePresenter.okgoError(0, RequestTypes.SERVER_ERROR, "");
+                            basePresenter.okgoError(0, RequestType.SERVER_ERROR, "");
                         }
                     }
 
@@ -349,7 +349,7 @@ public class OkGoModel implements IBaseModel {
     private void onErrors(Throwable e) {
         if (e instanceof UnknownHostException || e instanceof ConnectException) {
             if (basePresenter != null) {
-                basePresenter.okgoError(0, RequestTypes.INTERNET_ERROR, ""); //当前网络不可用
+                basePresenter.okgoError(0, RequestType.INTERNET_ERROR, ""); //当前网络不可用
             }
         }
 

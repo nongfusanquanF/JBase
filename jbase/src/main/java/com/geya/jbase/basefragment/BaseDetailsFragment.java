@@ -11,6 +11,7 @@ import com.geya.jbase.mvp.presenter.BasePresenter;
 import com.geya.jbase.mvp.view.IMvpView;
 import com.geya.jbase.uiview.LoadDialog;
 import com.geya.jbase.uiview.ToastUtil;
+import com.geya.jbase.uiview.TopTitleButton;
 
 
 /**
@@ -31,9 +32,8 @@ public abstract class BaseDetailsFragment<P extends BasePresenter> extends LazyT
      */
     protected View mView;
 
-    protected ImageView btn_img;
-    protected TextView tv_title;
-    protected TextView tv_title2;
+
+    protected TopTitleButton mTitleButton;
 
     /**
      *  初始化P
@@ -105,10 +105,18 @@ public abstract class BaseDetailsFragment<P extends BasePresenter> extends LazyT
 
     }
     public void initTitle(View view){
-        if (view.findViewById(R.id.tv_title)!=null){
-            btn_img=  view.findViewById(R.id.img_btn);
-            tv_title=  view.findViewById(R.id.tv_title);
-            tv_title2=  view.findViewById(R.id.tv_title2);
+
+
+        if (findViewById(R.id.top_title) != null) {
+            mTitleButton = view.findViewById(R.id.top_title);
+            mTitleButton.setBackClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    getActivity().finish();
+
+                }
+            });
         }
+
     }
 }

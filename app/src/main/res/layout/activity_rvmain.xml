@@ -7,6 +7,16 @@
         android:fitsSystemWindows="true"
     >
 
+
+
+    <include
+        layout="@layout/layout_title"
+        />
+    <com.geya.jbase.uiview.TopTitleButton
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:background="@color/colorAccent"
+        />
     <include
         layout="@layout/activity_swipe"
         />

@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.geya.jbase.R;
 import com.geya.jbase.constant.RequestType;
-import com.geya.jbase.constant.RequestTypes;
+import com.geya.jbase.uiview.TopTitleButton;
 import com.gyf.barlibrary.ImmersionBar;
 
 
@@ -26,9 +26,8 @@ import com.gyf.barlibrary.ImmersionBar;
 public  class BaseFragmentActivity extends FragmentActivity {
 
     //导航栏
-    protected ImageView btn_img;
-    protected TextView tv_title;
-    protected TextView tv_title2;
+    protected TopTitleButton mTitleButton;
+
 
     protected ImmersionBar mImmersionBar;
 
@@ -36,8 +35,8 @@ public  class BaseFragmentActivity extends FragmentActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mImmersionBar = ImmersionBar.with(this);
-        mImmersionBar.statusBarColor(RequestTypes.MAIN_COLOR);
-        if (RequestTypes.MAIN_COLOR == R.color.white){
+        mImmersionBar.statusBarColor(RequestType.MAIN_COLOR);
+        if (RequestType.MAIN_COLOR == R.color.white){
             mImmersionBar.statusBarDarkFont(true, 0.2f) ;
         }
         mImmersionBar.init();   //所有子类都将继承这些相同的属性
@@ -67,13 +66,13 @@ public  class BaseFragmentActivity extends FragmentActivity {
      *  初始化导航栏
      */
     public void initTitle(){
-        if (findViewById(R.id.tv_title)!=null){
-            btn_img= (ImageView) findViewById(R.id.img_btn);
-            tv_title= (TextView) findViewById(R.id.tv_title);
-            tv_title2= (TextView) findViewById(R.id.tv_title2);
-            btn_img.setOnClickListener(new View.OnClickListener() {
+
+
+        if (findViewById(R.id.top_title)!=null) {
+            mTitleButton = findViewById(R.id.top_title);
+            mTitleButton.setBackClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View v) {
+                public void onClick(View view) {
                     finish();
                 }
             });

@@ -15,7 +15,7 @@ import com.aspsine.swipetoloadlayout.SwipeToLoadLayout;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.geya.jbase.R;
 import com.geya.jbase.constant.PageParams;
-import com.geya.jbase.constant.RequestTypes;
+import com.geya.jbase.constant.RequestType;
 import com.geya.jbase.mvp.presenter.BasePresenter;
 import com.geya.jbase.mvp.view.IMvpView;
 
@@ -189,11 +189,11 @@ public abstract class BaseRVActivity<T, P extends BasePresenter> extends BaseFra
                     //页码重置为1
                     pageParams.reset();
 //                    //重新传如页码
-//                    mPresennter.setParams(RequestTypes.PAGE_INDEX, String.valueOf(pageParams.getPageNo()));
+//                    mPresennter.setParams(RequestType.PAGE_INDEX, String.valueOf(pageParams.getPageNo()));
 //                    //访问服务器
 //                    mPresennter.accessServer();
 
-                    listMap.put(RequestTypes.PAGE_INDEX, String.valueOf(pageParams.getPageNo()));
+                    listMap.put(RequestType.PAGE_INDEX, String.valueOf(pageParams.getPageNo()));
 //                    mPresennter.accessServer(method, adderss, url,classType ,listMap);
                     mPresennter.accessServers(method,adderss,url,classType,listMap);
 
@@ -207,10 +207,10 @@ public abstract class BaseRVActivity<T, P extends BasePresenter> extends BaseFra
                     pageParams.addPage();
                     //传入新页码
 //                    System.out.println("----------------------------------------------  页码 " + pageParams.getPageNo());
-//                    mPresennter.setParams(RequestTypes.PAGE_INDEX, String.valueOf(pageParams.getPageNo()));
+//                    mPresennter.setParams(RequestType.PAGE_INDEX, String.valueOf(pageParams.getPageNo()));
 //                    //访问服务器
 //                    mPresennter.accessServer();
-                    listMap.put(RequestTypes.PAGE_INDEX, String.valueOf(pageParams.getPageNo()));
+                    listMap.put(RequestType.PAGE_INDEX, String.valueOf(pageParams.getPageNo()));
 //                    mPresennter.accessServer(method, adderss, url,classType ,listMap);
                     mPresennter.accessServers(method,adderss,url,classType,listMap);
     }
@@ -222,7 +222,7 @@ public abstract class BaseRVActivity<T, P extends BasePresenter> extends BaseFra
      * @param color 颜色 16进制色值  0xfff6f6f6
      */
     protected void initRV(final int row, final int color) {
-        final int sColor = color == 0 ? RequestTypes.DIVISION_COLOR : color;
+        final int sColor = color == 0 ? RequestType.DIVISION_COLOR : color;
         if (row < 1) {
             //设置RecyclerView的显示模式  当前List模式
             mListView.setLayoutManager(new LinearLayoutManager(this));
@@ -286,8 +286,8 @@ public abstract class BaseRVActivity<T, P extends BasePresenter> extends BaseFra
             mList.clear();
             mQuickAdapter.notifyDataSetChanged();
         }
-        listMap.put(RequestTypes.PAGE_INDEX, String.valueOf(pageParams.getPageNo()));
-        listMap.put(RequestTypes.PAGE_SIZE, String.valueOf(pageParams.getPageSize()));
+        listMap.put(RequestType.PAGE_INDEX, String.valueOf(pageParams.getPageNo()));
+        listMap.put(RequestType.PAGE_SIZE, String.valueOf(pageParams.getPageSize()));
         this.adderss = adderss;
         this.url = url;
         this.method = method;
@@ -323,8 +323,8 @@ public abstract class BaseRVActivity<T, P extends BasePresenter> extends BaseFra
 
         //页码重置为1
         pageParams.reset();
-        listMap.put(RequestTypes.PAGE_INDEX, String.valueOf(pageParams.getPageNo()));
-        listMap.put(RequestTypes.PAGE_SIZE, String.valueOf(pageParams.getPageSize()));
+        listMap.put(RequestType.PAGE_INDEX, String.valueOf(pageParams.getPageNo()));
+        listMap.put(RequestType.PAGE_SIZE, String.valueOf(pageParams.getPageSize()));
         this.adderss = adderss;
         this.url = url;
         this.method = method;
@@ -351,7 +351,7 @@ public abstract class BaseRVActivity<T, P extends BasePresenter> extends BaseFra
     @Override
     public void showServerError(int errorCode, String errorDesc) {
         mProgress.showContent();
-        mProgress.showEmpty(getResources().getDrawable(RequestTypes.IMG_DRAWABLE),//设置错误页面图片
+        mProgress.showEmpty(getResources().getDrawable(RequestType.IMG_DRAWABLE),//设置错误页面图片
                 errorDesc,    //  错误信息1
                 "",
                 new View.OnClickListener() {
@@ -378,7 +378,7 @@ public abstract class BaseRVActivity<T, P extends BasePresenter> extends BaseFra
 
     @Override
     public void showNetworkError(int errorCode, String errorDesc, String type) {
-        mProgress.showEmpty(getResources().getDrawable(RequestTypes.IMG_DRAWABLE),//设置错误页面图片
+        mProgress.showEmpty(getResources().getDrawable(RequestType.IMG_DRAWABLE),//设置错误页面图片
                 errorDesc,    //  错误信息1
                 "请稍后在试");           //  错误信息2
 
@@ -458,7 +458,7 @@ public abstract class BaseRVActivity<T, P extends BasePresenter> extends BaseFra
         } else {
             //是否有数据
             if (list.size() == 0) {
-                showServerError(RequestTypes.NO_DATA, "没有数据");
+                showServerError(RequestType.NO_DATA, "没有数据");
 //                mProgress.showEmpty(getResources().getDrawable(R.drawable.nodata),//设置错误页面图片
 //                        "木有数据~",    //  错误信息1
 //                        "");           //  错误信息2

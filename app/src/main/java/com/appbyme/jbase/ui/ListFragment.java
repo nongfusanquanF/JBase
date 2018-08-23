@@ -7,7 +7,7 @@ import com.appbyme.jbase.mvp.view.IMainView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.geya.jbase.basefragment.BaseRvFragment;
-import com.geya.jbase.constant.RequestTypes;
+import com.geya.jbase.constant.RequestType;
 
 import java.util.HashMap;
 import java.util.List;
@@ -28,7 +28,7 @@ public class ListFragment extends BaseRvFragment<ListData2.DataBean,MainPresente
         HashMap<String,Object> map = new HashMap<>();
         map.put("uid","7826");
         map.put("_token","47e2b91bf3efa5adacfd2e1920e0c030");
-        requestData(RequestTypes.OKGO_GET, RequestTypes.ADDRESS, RequestTypes.LIST2, ListData2.class,map);
+        requestData(RequestType.OKGO_GET, RequestType.ADDRESS, RequestType.LIST2, ListData2.class,map);
 
     }
 

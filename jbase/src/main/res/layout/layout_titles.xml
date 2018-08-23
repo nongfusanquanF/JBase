@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--通用导航栏-->
 <RelativeLayout
+    android:id="@+id/ll"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="45dp"
-    android:background="@color/main_tone"
     android:orientation="horizontal"
     >
 
@@ -22,6 +22,7 @@
         android:text=""
         android:textColor="#fff"
         android:textSize="16sp"
+
         />
 
     <TextView

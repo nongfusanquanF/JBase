@@ -13,6 +13,7 @@ import com.geya.jbase.mvp.presenter.BasePresenter;
 import com.geya.jbase.mvp.view.IMvpView;
 import com.geya.jbase.uiview.LoadDialog;
 import com.geya.jbase.uiview.ToastUtil;
+import com.geya.jbase.uiview.TopTitleButton;
 
 
 /**
@@ -29,9 +30,7 @@ public abstract class BaseDetailsActivity<P extends BasePresenter> extends BaseF
     protected int mContentView=-1;
 
     //导航栏
-    protected ImageView btn_img;
-    protected TextView tv_title;
-    protected TextView tv_title2;
+    protected TopTitleButton mTitleButton;
 
 
     public abstract P newPresenter();
@@ -120,13 +119,13 @@ public abstract class BaseDetailsActivity<P extends BasePresenter> extends BaseF
     }
 
     public void initTitle(){
-        if (findViewById(R.id.tv_title)!=null){
-            btn_img= (ImageView) findViewById(R.id.img_btn);
-            tv_title= (TextView) findViewById(R.id.tv_title);
-            tv_title2= (TextView) findViewById(R.id.tv_title2);
-            btn_img.setOnClickListener(new View.OnClickListener() {
+
+
+        if (findViewById(R.id.top_title)!=null) {
+            mTitleButton = findViewById(R.id.top_title);
+            mTitleButton.setBackClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View v) {
+                public void onClick(View view) {
                     finish();
                 }
             });
