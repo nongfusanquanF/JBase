@@ -133,6 +133,11 @@ public class RequestType {
         return this;
     }
 
+    public RequestType setADDRESS(String ADDRESS) {
+        RequestType.ADDRESS = ADDRESS;
+        return this;
+    }
+
     //网路请求方式
     public static final String OKGO_GET = "GET";
     public static final String OKGO_GET_CACHE = "GET_CACHE";
@@ -152,8 +157,8 @@ public class RequestType {
     /**
      * 服务器地址
      */
-    public static final String ADDRESS="http://www.newzhihuishijiesy.com";
-    public static final String ADDRESS2="http://www.newzhihuishijiesy.com";
+    public  static String ADDRESS="";
+
 //    public static final String ADDRESS="http://www.syiptv.com/api/v2/";
 
     //    /**
