@@ -62,77 +62,152 @@ public class RequestType {
     }
 
 
+    /**
+     * 上下文
+     * @param app 上下文
+     * @return
+     */
     public RequestType init(Application app) {
         mContext = app;
         ToastUtil.sContext = app;
         return this;
     }
 
+    /**
+     * 当前页码
+     * @param pageIndex
+     * @return
+     */
     public RequestType setPageIndex(String pageIndex) {
         PAGE_INDEX = pageIndex;
         return this;
     }
 
+    /**
+     * 当前页条目数量
+     * @param pageSize
+     * @return
+     */
     public RequestType setPageSize(String pageSize) {
         PAGE_SIZE = pageSize;
         return this;
     }
 
+    /**
+     * 接口是否请求成功 字段是否是字符串
+     * @param isString 是字符串（每日true）
+     * @return
+     */
     public RequestType setIsString(boolean isString) {
         IS_STRING = isString;
         return this;
     }
 
+    /**
+     * 接口状态码 字段key
+     * @param isSuccess 接口状态码 字段key
+     * @return
+     */
     public RequestType setIsSuccess(String isSuccess) {
         IS_SUCCESS = isSuccess;
         return this;
     }
 
+    /**
+     * 接口消息 字段key
+     * @param MESSAGE 接口消息 字段key
+     * @return
+     */
     public RequestType setMESSAGE(String MESSAGE) {
         RequestType.MESSAGE = MESSAGE;
         return this;
     }
 
+    /**
+     * 接口数据 字段key
+     * @param listDatas 接口数据 字段key
+     * @return
+     */
     public RequestType setListDatas(String listDatas) {
         LIST_DATAS = listDatas;
         return this;
     }
 
+    /**
+     * 接口 重新登陆 返回码（特定返回值 如-2）
+     * @param againLogin
+     * @return
+     */
     public RequestType setAgainLogin(String againLogin) {
         AGAIN_LOGIN = againLogin;
         return this;
     }
 
+    /**
+     * APP 主色调 R.color...
+     * @param mainColor  APP 主色调 R.color...
+     * @return
+     */
     public RequestType setMainColor(int mainColor) {
         MAIN_COLOR = mainColor;
         return this;
     }
 
+    /**
+     * APP 头部颜色 0xffff0000
+     * @param topBarColor APP 头部颜色 0xffff0000
+     * @return
+     */
     public  RequestType setTopBarColor(int topBarColor) {
         TOP_BAR_COLOR = topBarColor;
         return this;
     }
 
+    /**
+     * 暂无数据 图片资源R...
+     * @param imgDrawable 暂无数据 图片资源R...
+     * @return
+     */
     public RequestType setImgDrawable(int imgDrawable) {
         IMG_DRAWABLE = imgDrawable;
         return this;
     }
 
+    /**
+     * 标题字体颜色
+     * @param titleColor 标题字体颜色
+     * @return
+     */
     public RequestType setTitleColor(int titleColor) {
         TITLE_COLOR = titleColor;
         return this;
     }
 
+    /**
+     * 副标题字体颜色
+     * @param subheadingColor 副标题字体颜色
+     * @return
+     */
     public RequestType setSubheadingColor(int subheadingColor) {
         SUBHEADING_COLOR = subheadingColor;
         return this;
     }
 
+    /**
+     *  返回按钮资源文件
+     * @param imgBack 返回按钮资源文件
+     * @return
+     */
     public RequestType setImgBack(int imgBack) {
         IMG_BACK = imgBack;
         return this;
     }
 
+    /**
+     * 服务器地址
+     * @param ADDRESS
+     * @return
+     */
     public RequestType setADDRESS(String ADDRESS) {
         RequestType.ADDRESS = ADDRESS;
         return this;
@@ -205,7 +280,7 @@ public class RequestType {
     public static int MAIN_COLOR = 0xffffffff;//主色调
     public static int TOP_BAR_COLOR = 0xffffffff;//主色调
     public static int TITLE_COLOR = 0xff000000;//标题字色
-    public static int SUBHEADING_COLOR = 0xff000000;//标题字色
+    public static int SUBHEADING_COLOR = 0xff000000;//副标题字色
     public static int IMG_DRAWABLE = R.drawable.nodata;//暂无数据图片
     public static int IMG_BACK = R.mipmap.icon_bac;//暂无数据图片
 }

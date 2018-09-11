@@ -29,7 +29,7 @@ public class TopTitleButton extends RelativeLayout {
 
 
         mTitle.setTextColor(RequestType.TITLE_COLOR);
-        mRButton.setTextColor(RequestType.TITLE_COLOR);
+        mRButton.setTextColor(RequestType.SUBHEADING_COLOR);
         rImg.setImageResource(RequestType.IMG_BACK);
         mRelativeLayout.setBackgroundColor(RequestType.TOP_BAR_COLOR);
     }
@@ -47,17 +47,13 @@ public class TopTitleButton extends RelativeLayout {
     }
 
 
-
     public void setMainColor(int color){
         mRelativeLayout.setBackgroundColor(color);
     }
 
-
     public void setBackClickListener(OnClickListener onClickListener){
         rImg.setOnClickListener(onClickListener);
     }
-
-
 
     public void setRButtonText(String text){
         mRButton.setText(text);
