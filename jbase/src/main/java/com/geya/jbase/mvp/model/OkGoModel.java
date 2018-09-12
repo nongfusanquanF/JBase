@@ -59,7 +59,6 @@ public class OkGoModel implements IBaseModel {
 
     @Override
     public void sendRequestToServers(String method, String url, Class obj, HashMap<String, String> map) {
-        System.out.println("----------------  sendRequestToServers ");
         switch (method) {
             case RequestType.OKGO_GET:
                 okRxGET(url, obj, map);
@@ -116,7 +115,6 @@ public class OkGoModel implements IBaseModel {
 
                     @Override
                     public Object apply(Response<String> stringResponse) {
-                        System.out.println("-----------------  apply  " + stringResponse.body());
                         return new Gson().fromJson(stringResponse.body(), obj);
 //                        BaseData data = new Gson().fromJson(stringResponse.body(), BaseData.class);
 //                        if (data.getRetcode() == 200) {
@@ -134,7 +132,6 @@ public class OkGoModel implements IBaseModel {
 
                     @Override
                     public void onNext(@NonNull Object serverModel) {
-                        System.out.println("--------------------  onNext " +   serverModel.toString());
                         onSuccess(serverModel);
                     }
 

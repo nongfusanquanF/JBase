@@ -118,7 +118,7 @@ public class RequestType {
      * @param MESSAGE 接口消息 字段key
      * @return
      */
-    public RequestType setMESSAGE(String MESSAGE) {
+    public RequestType setMessage(String MESSAGE) {
         RequestType.MESSAGE = MESSAGE;
         return this;
     }
@@ -208,7 +208,7 @@ public class RequestType {
      * @param ADDRESS
      * @return
      */
-    public RequestType setADDRESS(String ADDRESS) {
+    public RequestType setAddress(String ADDRESS) {
         RequestType.ADDRESS = ADDRESS;
         return this;
     }

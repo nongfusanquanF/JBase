@@ -41,18 +41,6 @@ public class ClassicLoadMoreFooterView extends SwipeLoadMoreFooterLayout {
         tvLoadMore = (TextView) findViewById(R.id.tvLoadMore);
 //        ivSuccess = (ImageView) findViewById(R.id.ivSuccess);
         progressBar = (MKLoader) findViewById(R.id.progressbar);
-        if (tvLoadMore!=null){
-            System.out.println("!!!!!!!!!!!!!!!! tvLoadMore");
-        }else{
-            System.out.println("!!!!!!!!!!!!!!!! tvLoadMore  初始化失败");
-        }
-
-        if (progressBar!=null){
-            System.out.println("!!!!!!!!!!!!!!!! progressBar");
-        }else{
-            System.out.println("!!!!!!!!!!!!!!!! progressBar  初始化失败");
-        }
-
 
     }
 
