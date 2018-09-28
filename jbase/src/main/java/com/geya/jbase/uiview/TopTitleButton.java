@@ -19,6 +19,22 @@ public class TopTitleButton extends RelativeLayout {
     private ImageView rImg;
     private RelativeLayout mRelativeLayout;
 
+    public TextView getTitles() {
+        return mTitle;
+    }
+
+    public TextView getRButton() {
+        return mRButton;
+    }
+
+    public ImageView getrImg() {
+        return rImg;
+    }
+
+    public RelativeLayout getRelativeLayout() {
+        return mRelativeLayout;
+    }
+
     public TopTitleButton(Context context, AttributeSet attrs) {
         super(context, attrs);
         LayoutInflater.from(context).inflate(R.layout.layout_titles, this);

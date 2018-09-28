@@ -4,10 +4,6 @@ package com.geya.jbase.baseactivity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
-
 import com.geya.jbase.R;
 import com.geya.jbase.mvp.presenter.BasePresenter;
 import com.geya.jbase.mvp.view.IMvpView;
@@ -55,24 +51,6 @@ public abstract class BaseDetailsActivity<P extends BasePresenter> extends BaseF
     }
 
 
-    /**
-     *
-     * @param adderss 服务器地址
-     * @param url     接口地址
-     * @param type    自定义类型
-     * @param method   接口类型 POST GET
-
-     */
-    protected void requestData(String adderss,String url, String type,String method) {
-//
-//        mPresenter.getModel().setMethod(method);
-//        mPresenter.getModel().setServerAddress(adderss);
-//        mPresenter.getModel().setApiInterface(url);
-//        mPresenter.getModel().setIdentify(type);
-//        mPresennter.initDatas(url, type, queryParams);
-        mPresenter.accessServer();//访问服务器
-
-    }
 
 
     //网络请求是否成功
@@ -97,7 +75,6 @@ public abstract class BaseDetailsActivity<P extends BasePresenter> extends BaseF
     public void showNetworkError(int errorCode, String errorDesc, String type) {
         LoadDialog.dismiss(this);
         ToastUtil.showShort(errorDesc);
-//        Toast.makeText(this,errorDesc,Toast.LENGTH_SHORT).show();
     }
 
     //服务器错误
@@ -105,8 +82,8 @@ public abstract class BaseDetailsActivity<P extends BasePresenter> extends BaseF
     public void showServerError(int errorCode, String errorDesc) {
         LoadDialog.dismiss(this);
         ToastUtil.showShort(errorDesc);
-//        Toast.makeText(this,errorDesc,Toast.LENGTH_SHORT).show();
     }
+
 
     @Override
     protected void onDestroy() {
@@ -115,11 +92,11 @@ public abstract class BaseDetailsActivity<P extends BasePresenter> extends BaseF
             mPresenter.dealloc();
             mPresenter=null;
         }
+
         super.onDestroy();
     }
 
     public void initTitle(){
-
 
         if (findViewById(R.id.top_title)!=null) {
             mTitleButton = findViewById(R.id.top_title);
@@ -136,4 +113,6 @@ public abstract class BaseDetailsActivity<P extends BasePresenter> extends BaseF
     public void getDatas(String json, String type) {
 
     }
+
+
 }
