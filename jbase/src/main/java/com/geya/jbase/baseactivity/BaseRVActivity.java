@@ -86,7 +86,8 @@ public abstract class BaseRVActivity<T, P extends BasePresenter> extends BaseFra
     /**
      * 适配器
      */
-    private BaseQuickAdapter mQuickAdapter;
+    protected BaseQuickAdapter mQuickAdapter;
+
 
     /**
      * 分页数据
