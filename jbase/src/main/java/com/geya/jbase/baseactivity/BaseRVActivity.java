@@ -330,7 +330,7 @@ public abstract class BaseRVActivity<T, P extends BasePresenter> extends BaseFra
         this.url = url;
         this.method = method;
         this.classType = classType;
-
+        mProgress.showLoading();
 //        mPresennter.accessServer(this.method, this.adderss, this.url,this.classType ,listMap);
         mPresennter.accessServers(this.method,this.adderss,this.url,this.classType,listMap);
     }
