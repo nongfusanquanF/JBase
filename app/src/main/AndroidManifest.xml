@@ -25,12 +25,15 @@
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.HOME" />
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity android:name=".ui.DetailsActivity"/>
         <activity android:name=".ui.FragmentObjActivity"/>
         <activity android:name=".ui.ListActivity"/>
         <activity android:name=".ui.FragmentListActivity"/>
+
     </application>
 
 </manifest>
