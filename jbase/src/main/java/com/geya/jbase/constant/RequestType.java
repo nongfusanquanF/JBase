@@ -221,18 +221,22 @@ public class RequestType {
 
     /**
      * code 是字符串时成功标识
+     *
      * @param stringCode
      */
-    public  void setStringCode(String stringCode) {
+    public  RequestType setStringCodes(String stringCode) {
         STRING_CODE = stringCode;
+        return this;
     }
 
     /**
      * code 是int时成功标识
+     *
      * @param intCode
      */
-    public  void setIntCode(int intCode) {
+    public  RequestType setIntCodes(int intCode) {
         INT_CODE = intCode;
+        return this;
     }
 
     /**
