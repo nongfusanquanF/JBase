@@ -223,7 +223,7 @@ public class RequestType {
      * code 是字符串时成功标识
      * @param stringCode
      */
-    public static void setStringCode(String stringCode) {
+    public  void setStringCode(String stringCode) {
         STRING_CODE = stringCode;
     }
 
@@ -231,7 +231,7 @@ public class RequestType {
      * code 是int时成功标识
      * @param intCode
      */
-    public static void setIntCode(int intCode) {
+    public  void setIntCode(int intCode) {
         INT_CODE = intCode;
     }
 
