@@ -116,7 +116,7 @@ public abstract class BasePresenter<T extends IMvpView> implements IBasePresente
             JSONObject jsonObject = new JSONObject(json);
             if (RequestType.IS_STRING) {
                 //此处判断默认和服务器端约定的是Boolean类型，可根据需求做相应修改
-                if (jsonObject.optString(RequestType.IS_SUCCESS).equals("200")) {
+                if (jsonObject.optString(RequestType.IS_SUCCESS).equals(RequestType.STRING_CODE)) {
                     //正确的数据交由子类处理
                     serverResponseObj(object);
                 } else {
@@ -131,7 +131,7 @@ public abstract class BasePresenter<T extends IMvpView> implements IBasePresente
                 }
             } else {
                 //此处判断默认和服务器端约定的是Boolean类型，可根据需求做相应修改
-                if (jsonObject.optInt(RequestType.IS_SUCCESS) == 1) {
+                if (jsonObject.optInt(RequestType.IS_SUCCESS) == RequestType.INT_CODE) {
                     //正确的数据交由子类处理
                     serverResponseObj(object);
                 }

@@ -436,7 +436,7 @@ public abstract class BaseRvFragment<T, P extends BasePresenter> extends LazyTab
         this.url = url;
         this.method = method;
         this.classType = classType;
-        mProgress.showLoading();
+
 //        mPresennter.accessServer(this.method, this.adderss, this.url,this.classType ,listMap);
         mPresennter.accessServers(method,adderss,url,classType,listMap);
     }

@@ -83,7 +83,13 @@ public class TopTitleButton extends RelativeLayout {
     public void setRButtonImg(int icon){
         Drawable drawable= getResources().getDrawable(icon);
         drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
-        mRButton.setCompoundDrawables(drawable,null,null,null);
+        mRButton.setCompoundDrawables(null,null,drawable,null);
+    }
+
+    public void setTitleImg(int icon){
+        Drawable drawable= getResources().getDrawable(icon);
+        drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
+        mTitle.setCompoundDrawables(null,null,drawable,null);
     }
 
 

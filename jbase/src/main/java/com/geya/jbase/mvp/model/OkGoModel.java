@@ -2,6 +2,7 @@ package com.geya.jbase.mvp.model;
 
 
 
+import com.geya.jbase.constant.BaseData;
 import com.geya.jbase.constant.RequestType;
 import com.geya.jbase.mvp.presenter.IBasePresenter;
 import com.google.gson.Gson;
@@ -115,13 +116,13 @@ public class OkGoModel implements IBaseModel {
 
                     @Override
                     public Object apply(Response<String> stringResponse) {
-                        return new Gson().fromJson(stringResponse.body(), obj);
-//                        BaseData data = new Gson().fromJson(stringResponse.body(), BaseData.class);
-//                        if (data.getRetcode() == 200) {
-//                            return new Gson().fromJson(stringResponse.body(), obj);
-//                        } else {
-//                            return data;
-//                        }
+//                        return new Gson().fromJson(stringResponse.body(), obj);
+                        BaseData data = new Gson().fromJson(stringResponse.body(), BaseData.class);
+                        if (RequestType.isCode(data.getCodes())) {
+                            return new Gson().fromJson(stringResponse.body(), obj);
+                        } else {
+                            return data;
+                        }
                     }
                 }).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<Object>() {
@@ -165,7 +166,12 @@ public class OkGoModel implements IBaseModel {
 
                     @Override
                     public Object apply(Response<String> stringResponse) throws Exception {
-                        return new Gson().fromJson(stringResponse.body(), obj);
+                        BaseData data = new Gson().fromJson(stringResponse.body(), BaseData.class);
+                        if (RequestType.isCode(data.getCodes())) {
+                            return new Gson().fromJson(stringResponse.body(), obj);
+                        } else {
+                            return data;
+                        }
                     }
                 }).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<Object>() {
@@ -209,13 +215,13 @@ public class OkGoModel implements IBaseModel {
                     @Override
                     public Object apply(Response<String> stringResponse) throws Exception {
 
-                        return new Gson().fromJson(stringResponse.body(), obj);
-//                        BaseData data = new Gson().fromJson(stringResponse.body(), BaseData.class);
-//                        if (data.getRetcode() == 200) {
-//                            return new Gson().fromJson(stringResponse.body(), obj);
-//                        } else {
-//                            return data;
-//                        }
+//                        return new Gson().fromJson(stringResponse.body(), obj);
+                        BaseData data = new Gson().fromJson(stringResponse.body(), BaseData.class);
+                        if (RequestType.isCode(data.getCodes())) {
+                            return new Gson().fromJson(stringResponse.body(), obj);
+                        } else {
+                            return data;
+                        }
 
                     }
                 }).observeOn(AndroidSchedulers.mainThread())

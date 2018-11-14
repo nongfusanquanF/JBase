@@ -37,13 +37,17 @@ public class RequestType {
      * @param againLogin 如果需要动过接口控制是否登录(重新登陆错误吗 int)
      * @param mainColor  主色调
      * @param imgDrawable 暂无数据图片
+     * @param stirngCode code 是字符串时成功标识
+     * @param intCode  code 是int时成功标识
      */
     public static void init(Application app,
                             String page, String size,boolean isString,
                             String isSuccess, String message, String listData,
                             String againLogin,
                             int mainColor,
-                            int imgDrawable
+                            int imgDrawable,
+                            String stirngCode,
+                            int intCode
 
     ) {
         mContext = app;
@@ -59,6 +63,8 @@ public class RequestType {
             IMG_DRAWABLE = imgDrawable;
         }
         IS_STRING = isString;
+        STRING_CODE = stirngCode;
+        INT_CODE = intCode;
     }
 
 
@@ -213,6 +219,38 @@ public class RequestType {
         return this;
     }
 
+    /**
+     * code 是字符串时成功标识
+     * @param stringCode
+     */
+    public static void setStringCode(String stringCode) {
+        STRING_CODE = stringCode;
+    }
+
+    /**
+     * code 是int时成功标识
+     * @param intCode
+     */
+    public static void setIntCode(int intCode) {
+        INT_CODE = intCode;
+    }
+
+    /**
+     * 更具后台返回的code判断是否请求成功
+     * @param code
+     * @return
+     */
+    public  static boolean  isCode(String code){
+
+        if (IS_STRING) {
+            return code.equals(STRING_CODE)?true:false;
+        }else {
+
+            return Integer.parseInt(code) == INT_CODE?true:false;
+        }
+
+    }
+
     //网路请求方式
     public static final String OKGO_GET = "GET";
     public static final String OKGO_GET_CACHE = "GET_CACHE";
@@ -273,6 +311,8 @@ public class RequestType {
     //于服务器约定的字段名
     //于服务器约定的字段名
     public static boolean IS_STRING = true;
+    public static String STRING_CODE = "200";
+    public static int INT_CODE = 1;
     public static String IS_SUCCESS = "retcode";//此次访问，服务器是否通过
     public static String MESSAGE = "massage";//服务器消息（失败原因等）
     public static String LIST_DATAS = "data";//列表数据所在字段Key

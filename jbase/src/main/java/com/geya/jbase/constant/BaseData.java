@@ -11,22 +11,28 @@ public class BaseData {
      * massage : 登录失败！
      */
 
-    private int retcode;
-    private String massage;
+    private int code;
+    private String message;
 
     public int getRetcode() {
-        return retcode;
+        return code;
     }
 
     public void setRetcode(int retcode) {
-        this.retcode = retcode;
+        this.code = retcode;
     }
 
     public String getMassage() {
-        return massage;
+        return message;
     }
 
     public void setMassage(String massage) {
-        this.massage = massage;
+        this.message = massage;
     }
+
+
+    public String getCodes(){
+        return code+"".trim();
+    }
+
 }
