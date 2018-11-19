@@ -48,6 +48,7 @@ public class ListActivity extends BaseRVActivity<ListData2.DataBean,MainPresente
 
     @Override
     public BaseQuickAdapter initAdapter(List<ListData2.DataBean> list) {
+
         return new BaseQuickAdapter<ListData2.DataBean,BaseViewHolder>(R.layout.item_text,list) {
 
             @Override

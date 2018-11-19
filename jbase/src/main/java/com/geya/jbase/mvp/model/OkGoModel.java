@@ -354,6 +354,8 @@ public class OkGoModel implements IBaseModel {
             if (basePresenter != null) {
                 basePresenter.okgoError(0, RequestType.INTERNET_ERROR, ""); //当前网络不可用
             }
+        }else {
+            basePresenter.okgoError(0, RequestType.SERVER_ERROR, ""); //当前网络不可用
         }
 
     }

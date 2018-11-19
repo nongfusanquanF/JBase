@@ -96,7 +96,7 @@ public abstract class BaseDetailsFragment<P extends BasePresenter> extends LazyT
 
     @Override
     public void showNetworkError(int errorCode, String errorDesc, String type) {
-        ToastUtil.showShort(errorCode);
+        ToastUtil.showShort(errorDesc);
 //        Toast.makeText(getActivity(),errorDesc,Toast.LENGTH_LONG).show();
     }
 
