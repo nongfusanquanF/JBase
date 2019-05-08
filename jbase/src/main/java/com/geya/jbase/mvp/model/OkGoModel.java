@@ -20,6 +20,7 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.net.ConnectException;
+import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 import java.util.HashMap;
 import java.util.List;
@@ -66,6 +67,9 @@ public class OkGoModel implements IBaseModel {
                 break;
             case RequestType.OKGO_GET_CACHE:
                 okRxCacheGET(url, obj, map);
+                break;
+                case RequestType.OKGO_POST_CACHE:
+                okRxCachePOSt(url, obj, map);
                 break;
             case RequestType.OKGO_POST:
                 okRxPOST(url, obj, map);
@@ -153,6 +157,57 @@ public class OkGoModel implements IBaseModel {
         OkGo.<String>get(url)
                 .params(map)
                 .cacheMode(CacheMode.FIRST_CACHE_THEN_REQUEST)
+                .cacheKey(url)
+                .converter(new StringConvert())
+                .adapt(new ObservableResponse<String>())
+                .subscribeOn(Schedulers.io())
+                .doOnSubscribe(new Consumer<Disposable>() {
+                    @Override
+                    public void accept(@NonNull Disposable disposable) throws Exception {
+                        mDisposable.add(disposable);
+                    }
+                })
+                .map(new Function<Response<String>, Object>() {
+
+                    @Override
+                    public Object apply(Response<String> stringResponse) throws Exception {
+                        BaseData data = new Gson().fromJson(stringResponse.body(), BaseData.class);
+                        if (RequestType.isCode(data.getCodes())) {
+                            return new Gson().fromJson(stringResponse.body(), obj);
+                        } else {
+                            return data;
+                        }
+                    }
+                }).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Object>() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(@NonNull Object serverModel) {
+                        onSuccess(serverModel);
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        onErrors(e);
+                    }
+
+                    @Override
+                    public void onComplete() {
+                    }
+                });
+
+    }
+
+    private void okRxCachePOSt(String url, final Class obj, Map<String, String> map) {
+
+        OkGo.<String>get(url)
+                .params(map)
+                .cacheMode(CacheMode.FIRST_CACHE_THEN_REQUEST)
+                .cacheKey(url)
                 .converter(new StringConvert())
                 .adapt(new ObservableResponse<String>())
                 .subscribeOn(Schedulers.io())
@@ -350,12 +405,26 @@ public class OkGoModel implements IBaseModel {
     }
 
     private void onErrors(Throwable e) {
-        if (e instanceof UnknownHostException || e instanceof ConnectException) {
+//        if (e instanceof UnknownHostException || e instanceof ConnectException) {
+//            if (basePresenter != null) {
+//                basePresenter.okgoError(0, RequestType.INTERNET_ERROR, ""); //当前网络不可用
+//            }
+//        }else {
+//            basePresenter.okgoError(0, RequestType.SERVER_ERROR, ""); //当前网络不可用
+//        }
+
+        if (e instanceof UnknownHostException){
             if (basePresenter != null) {
                 basePresenter.okgoError(0, RequestType.INTERNET_ERROR, ""); //当前网络不可用
             }
+        }else if (e instanceof SocketTimeoutException){
+            if (basePresenter != null) {
+                basePresenter.okgoError(0,"连接超时", ""); //当前网络不可用
+            }
         }else {
-            basePresenter.okgoError(0, RequestType.SERVER_ERROR, ""); //当前网络不可用
+            if (basePresenter != null) {
+                basePresenter.okgoError(0, RequestType.SERVER_ERROR, ""); //当前网络不可用
+            }
         }
 
     }

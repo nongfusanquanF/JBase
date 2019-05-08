@@ -19,6 +19,7 @@ public class MainPresenter extends BasePresenter<IMainView> {
 
     @Override
     public void serverResponseObj(Object object) {
+        System.out.println("------------ 接口数据 " + object.toString());
         if (object instanceof ListData){
             getView().getDatas("List     : " + object.toString(),"");
         }else if (object instanceof ObjData){

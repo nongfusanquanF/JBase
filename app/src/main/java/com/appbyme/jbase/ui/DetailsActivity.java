@@ -4,6 +4,7 @@ import android.databinding.DataBindingUtil;
 import android.view.View;
 
 import com.appbyme.jbase.R;
+import com.appbyme.jbase.data.CheckData;
 import com.appbyme.jbase.data.ListData;
 import com.appbyme.jbase.databinding.ActivityDetailBinding;
 import com.appbyme.jbase.mvp.presenter.MainPresenter;
@@ -53,7 +54,7 @@ public class DetailsActivity extends BaseDetailsActivity<MainPresenter> implemen
                  map.put("uid","7826");
                  map.put("_token","47e2b91bf3efa5adacfd2e1920e0c030");
 //                 map.put("id","5");
-                 mPresenter.accessServers(RequestType.OKGO_GET, RequestType.ADDRESS, RequestType.DATA, ListData.class,map);
+                 mPresenter.accessServers(RequestType.OKGO_GET, "http://www.syiptv.com/api/v1", "/version/check", CheckData.class,map);
              }
          });
     }

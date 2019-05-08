@@ -258,6 +258,7 @@ public class RequestType {
     //网路请求方式
     public static final String OKGO_GET = "GET";
     public static final String OKGO_GET_CACHE = "GET_CACHE";
+    public static final String OKGO_POST_CACHE = "POST_CACHE";
     public static final String OKGO_POST = "POST";
     public static final String OKGO_POST_FILE = "POST_FILE";
     public static final String OKGO_POST_JSON = "POST_JSON";

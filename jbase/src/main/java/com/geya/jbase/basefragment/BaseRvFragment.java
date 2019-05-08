@@ -352,10 +352,8 @@ public abstract class BaseRvFragment<T, P extends BasePresenter> extends LazyTab
             });
 
         }
-
         //如果Item高度固定  增加该属性能够提高效率
         mListView.setHasFixedSize(true);
-
     }
 
     /**
