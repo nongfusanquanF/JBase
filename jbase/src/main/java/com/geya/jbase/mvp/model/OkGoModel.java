@@ -5,6 +5,7 @@ package com.geya.jbase.mvp.model;
 import com.geya.jbase.constant.BaseData;
 import com.geya.jbase.constant.RequestType;
 import com.geya.jbase.mvp.presenter.IBasePresenter;
+import com.geya.jbase.utils.GsonUtil;
 import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.cache.CacheMode;
@@ -120,13 +121,18 @@ public class OkGoModel implements IBaseModel {
 
                     @Override
                     public Object apply(Response<String> stringResponse) {
-//                        return new Gson().fromJson(stringResponse.body(), obj);
-                        BaseData data = new Gson().fromJson(stringResponse.body(), BaseData.class);
-                        if (RequestType.isCode(data.getCodes())) {
-                            return new Gson().fromJson(stringResponse.body(), obj);
-                        } else {
-                            return data;
+                        BaseData data = GsonUtil.GsonToBean(stringResponse.body(), BaseData.class);
+                        if (data!=null){
+                            if (RequestType.isCode(data.getCodes())) {
+                                return GsonUtil.GsonToBean(stringResponse.body(), obj);
+                            } else {
+                                return data;
+                            }
+                        }else {
+                            return null;
                         }
+
+
                     }
                 }).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<Object>() {
@@ -171,12 +177,18 @@ public class OkGoModel implements IBaseModel {
 
                     @Override
                     public Object apply(Response<String> stringResponse) throws Exception {
-                        BaseData data = new Gson().fromJson(stringResponse.body(), BaseData.class);
-                        if (RequestType.isCode(data.getCodes())) {
-                            return new Gson().fromJson(stringResponse.body(), obj);
-                        } else {
-                            return data;
+                        BaseData data = GsonUtil.GsonToBean(stringResponse.body(), BaseData.class);
+                        if (data!=null){
+                            if (RequestType.isCode(data.getCodes())) {
+                                return GsonUtil.GsonToBean(stringResponse.body(), obj);
+                            } else {
+                                return data;
+                            }
+                        }else {
+                            return null;
                         }
+
+
                     }
                 }).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<Object>() {
@@ -221,12 +233,18 @@ public class OkGoModel implements IBaseModel {
 
                     @Override
                     public Object apply(Response<String> stringResponse) throws Exception {
-                        BaseData data = new Gson().fromJson(stringResponse.body(), BaseData.class);
-                        if (RequestType.isCode(data.getCodes())) {
-                            return new Gson().fromJson(stringResponse.body(), obj);
-                        } else {
-                            return data;
+                        BaseData data = GsonUtil.GsonToBean(stringResponse.body(), BaseData.class);
+                        if (data!=null){
+                            if (RequestType.isCode(data.getCodes())) {
+                                return GsonUtil.GsonToBean(stringResponse.body(), obj);
+                            } else {
+                                return data;
+                            }
+                        }else {
+                            return null;
                         }
+
+
                     }
                 }).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<Object>() {
@@ -270,13 +288,17 @@ public class OkGoModel implements IBaseModel {
                     @Override
                     public Object apply(Response<String> stringResponse) throws Exception {
 
-//                        return new Gson().fromJson(stringResponse.body(), obj);
-                        BaseData data = new Gson().fromJson(stringResponse.body(), BaseData.class);
-                        if (RequestType.isCode(data.getCodes())) {
-                            return new Gson().fromJson(stringResponse.body(), obj);
-                        } else {
-                            return data;
-                        }
+                        BaseData data = GsonUtil.GsonToBean(stringResponse.body(), BaseData.class);
+                       if (data!=null){
+                           if (RequestType.isCode(data.getCodes())) {
+                               return GsonUtil.GsonToBean(stringResponse.body(), obj);
+                           } else {
+                               return data;
+                           }
+                       }else {
+                            return null;
+                       }
+
 
                     }
                 }).observeOn(AndroidSchedulers.mainThread())
@@ -400,7 +422,12 @@ public class OkGoModel implements IBaseModel {
 
     private void onSuccess(Object obj) {
         if (basePresenter != null) {
-            basePresenter.accessSucceedObj(obj, new Gson().toJson(obj));
+            if (obj!=null){
+                basePresenter.accessSucceedObj(obj, new Gson().toJson(obj));
+            }else {
+                basePresenter.okgoError(0,"数据解析异常", "");
+            }
+
         }
     }
 
