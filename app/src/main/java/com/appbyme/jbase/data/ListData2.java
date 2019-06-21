@@ -15,7 +15,7 @@ public class ListData2 {
      * data : [{"id":30,"title":"测试5.14","descrip":"<p>简介简介简介<\/p>","schoolid":57,"gradeid":105,"classid":263,"url":"www.baidu.com","listorder":99,"price":"5.00","cover":"http://www.newzhihuishijiesy.com/uploads/image/20180514/live2.png","subjectsid":0,"starttime":"2018-05-14 15:03:09","play_num":"0","agree_num":"0","state":1},{"id":29,"title":"测试测试测试测试测试测试","descrip":"<p>hfisdhjiofisdifiogio<\/p>","schoolid":57,"gradeid":105,"classid":263,"url":"www.baidu.com","listorder":99,"price":"10.00","cover":"http://www.newzhihuishijiesy.com/uploads/image/20180514/live2.png","subjectsid":0,"starttime":"2018-05-11 17:53:02","play_num":"0","agree_num":"0","state":1},{"id":28,"title":"测试测试","descrip":"大叔大婶大所","schoolid":58,"gradeid":106,"classid":289,"url":"http://127.0.0.1/smartcampus_server","listorder":0,"price":"400.00","cover":"http://www.newzhihuishijiesy.com/uploads/image/20180514/live2.png","subjectsid":2,"starttime":"2018-05-10 15:21:27","play_num":"0","agree_num":"0","state":0},{"id":27,"title":"大大","descrip":"<p>sdasfdfds<\/p>","schoolid":57,"gradeid":105,"classid":261,"url":"http://127.0.0.1/smartcampus_server","listorder":0,"price":"7.00","cover":"http://www.newzhihuishijiesy.com/uploads/image/20180514/live2.png","subjectsid":5,"starttime":"2018-05-10 16:32:29","play_num":"0","agree_num":"0","state":0},{"id":26,"title":"大大大","descrip":"大萨达撒大刚发的","schoolid":58,"gradeid":106,"classid":288,"url":"http://127.0.0.1/member/account","listorder":0,"price":"1300.00","cover":"http://www.newzhihuishijiesy.com/uploads/image/20180514/live2.png","subjectsid":5,"starttime":"2018-05-10 15:18:16","play_num":"0","agree_num":"0","state":1}]
      */
 
-    private int retcode;
+    private String retcode;
     private String massage;
     private List<DataBean> data;
 
@@ -28,11 +28,11 @@ public class ListData2 {
                 '}';
     }
 
-    public int getRetcode() {
+    public String getRetcode() {
         return retcode;
     }
 
-    public void setRetcode(int retcode) {
+    public void setRetcode(String retcode) {
         this.retcode = retcode;
     }
 

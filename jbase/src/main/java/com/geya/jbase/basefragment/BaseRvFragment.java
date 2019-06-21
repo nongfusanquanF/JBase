@@ -39,7 +39,7 @@ import java.util.List;
  */
 
 public abstract class BaseRvFragment<T, P extends BasePresenter> extends LazyTabFragment implements
-        IMvpView,OnRefreshListener, OnLoadMoreListener{
+        IMvpView, OnRefreshListener, OnLoadMoreListener {
 
     //重写：设置视图
     public abstract void inflateCreateView();
@@ -48,6 +48,7 @@ public abstract class BaseRvFragment<T, P extends BasePresenter> extends LazyTab
     public abstract void doRequest();
 
     public abstract P newP();
+
     public abstract Class setClass();
 
     public abstract BaseQuickAdapter initAdapter(List<T> list);
@@ -77,9 +78,7 @@ public abstract class BaseRvFragment<T, P extends BasePresenter> extends LazyTab
     protected SwipeToLoadLayout mSwipeToLoadLayout;
 
 
-
     protected TopTitleButton mTitleButton;
-
 
 
     public void setLoadMoreEnabled(boolean loadMoreEnabled) {
@@ -129,12 +128,12 @@ public abstract class BaseRvFragment<T, P extends BasePresenter> extends LazyTab
 
     private LinearLayout mLayout;
 
-//    //列表接口相关
-    protected HashMap<String,Object> listMap = new HashMap<>();
-     private  String adderss;
-     private  String url;
-     private  String method;
-     private  Class classType;
+    //    //列表接口相关
+    protected HashMap<String, Object> listMap = new HashMap<>();
+    private String adderss;
+    private String url;
+    private String method;
+    private Class classType;
 
 
     @Override
@@ -152,11 +151,10 @@ public abstract class BaseRvFragment<T, P extends BasePresenter> extends LazyTab
         if (rootView != null) {
             initBaseView();
             initTitle(rootView);
-            initRV(0,0);
+            initRV(0, 0);
             doRequest();
         }
     }
-
 
 
     /**
@@ -201,7 +199,7 @@ public abstract class BaseRvFragment<T, P extends BasePresenter> extends LazyTab
         mQuickAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                OnListChildClickListener(mList.get(position),adapter,view,position);
+                OnListChildClickListener(mList.get(position), adapter, view, position);
             }
         });
 
@@ -234,7 +232,7 @@ public abstract class BaseRvFragment<T, P extends BasePresenter> extends LazyTab
 //                    mPresennter.accessServer();
         listMap.put(RequestType.PAGE_INDEX, String.valueOf(pageParams.getPageNo()));
 //                    mPresennter.accessServer(method, adderss, url,classType ,listMap);
-        mPresennter.accessServers(method,adderss,url,classType,listMap);
+        mPresennter.accessServers(method, adderss, url, classType, listMap);
     }
 
     @Override
@@ -249,69 +247,27 @@ public abstract class BaseRvFragment<T, P extends BasePresenter> extends LazyTab
 //                    mPresennter.accessServer();
         listMap.put(RequestType.PAGE_INDEX, String.valueOf(pageParams.getPageNo()));
 //                    mPresennter.accessServer(method, adderss, url,classType ,listMap);
-        mPresennter.accessServers(method,adderss,url,classType,listMap);
+        mPresennter.accessServers(method, adderss, url, classType, listMap);
     }
 
-    private void initRV() {
-        //友好界面
-        if (findViewById(R.id.progress_activity) != null) {
-            mProgress = (ProgressActivity) findViewById(R.id.progress_activity);
-        }
-
-
-        //获取ListView对象
-        mListView = (MyRecyclerView) findViewById(R.id.swipe_target);
-        //ListView数据
-        mList = new ArrayList<>();
-        //列表类Presennter 对象
-        mPresennter = newP();
-        //这里设置默认的页容量
-        pageParams = new PageParams(10);
-        mQuickAdapter = initAdapter(mList);
-        //设置加载动画
-        mQuickAdapter.openLoadAnimation(BaseQuickAdapter.SLIDEIN_BOTTOM);
-        //点击事件
-        mQuickAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                onListItemClick(mList.get(position), position);
-            }
-        });
-        //长安事件
-        mQuickAdapter.setOnItemLongClickListener(new BaseQuickAdapter.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(BaseQuickAdapter adapter, View view, int position) {
-                onListItemLongClick(mList.get(position), position);
-                return true;
-            }
-        });
-
-        //子项点击事件
-        mQuickAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
-            @Override
-            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                   OnListChildClickListener(mList.get(position),adapter,view,position);
-            }
-        });
-        if (findViewById(R.id.swipeToLoadLayout) != null) {
-            mSwipeToLoadLayout = (SwipeToLoadLayout) findViewById(R.id.swipeToLoadLayout);
-        }
-
-
-    }
+    protected LinearLayoutManager mLayoutManager;
+    protected GridLayoutManager mGridLayoutManager;
 
 
     /**
      * 初始化RecyclerView
      *
-     * @param row 列数 大于1为gridview
+     * @param row   列数 大于1为gridview
      * @param color 颜色 16进制色值  0xfff6f6f6
      */
     protected void initRV(final int row, final int color) {
-        final int sColor=color==0? RequestType.DIVISION_COLOR:color;
+        final int sColor = color == 0 ? RequestType.DIVISION_COLOR : color;
         if (row < 1) {
             //设置RecyclerView的显示模式  当前List模式
-            mListView.setLayoutManager(new LinearLayoutManager(mContext));
+            if (mLayoutManager == null) {
+                mLayoutManager = new LinearLayoutManager(mContext);
+            }
+            mListView.setLayoutManager(mLayoutManager);
             //设置分割线
 //            mListView.addItemDecoration(new RecycleViewDivider(
 //                    this, LinearLayoutManager.VERTICAL, 2, Color.RED));
@@ -321,21 +277,24 @@ public abstract class BaseRvFragment<T, P extends BasePresenter> extends LazyTab
 
                     ColorDecoration decoration = new ColorDecoration();
                     decoration.bottom = 2;
-                    decoration.decorationColor = position == mList.size() ? 0x00ffffff :sColor;
+                    decoration.decorationColor = position == mList.size() ? 0x00ffffff : sColor;
                     return decoration;
                 }
             });
 
         } else {
             //多列形设置 GridLayoutManager
-            GridLayoutManager manager = new GridLayoutManager(mContext, row);
-            manager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+            if (mGridLayoutManager == null) {
+                mGridLayoutManager = new GridLayoutManager(mContext, row);
+            }
+
+            mGridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
                 @Override
                 public int getSpanSize(int position) {
                     return position == mList.size() ? row : 1;
                 }
             });
-            mListView.setLayoutManager(manager);
+            mListView.setLayoutManager(mGridLayoutManager);
 
             mListView.addItemDecoration(new UniversalItemDecoration() {
                 @Override
@@ -378,19 +337,16 @@ public abstract class BaseRvFragment<T, P extends BasePresenter> extends LazyTab
         mPresennter.accessServer();//访问服务器
 
 
-
     }
 
 
-
     /**
-     *
-     * @param adderss 服务器地址
-     * @param url     接口地址
-     * @param method   接口类型
-     * @param classType  实体类
+     * @param adderss   服务器地址
+     * @param url       接口地址
+     * @param method    接口类型
+     * @param classType 实体类
      */
-    protected void requestData(String adderss,String url,String method, Class classType) {
+    protected void requestData(String adderss, String url, String method, Class classType) {
 
         if (mQuickAdapter != null && !isLoadMore) {
             mList.clear();
@@ -405,18 +361,17 @@ public abstract class BaseRvFragment<T, P extends BasePresenter> extends LazyTab
         this.classType = classType;
 
 //        mPresennter.accessServer(this.method, this.adderss, this.url,this.classType ,listMap);
-        mPresennter.accessServers(method,adderss,url,classType,listMap);
+        mPresennter.accessServers(method, adderss, url, classType, listMap);
     }
 
 
-
-    protected void requestData(String method,String adderss,String url, Class classType,HashMap<String,Object> map) {
+    protected void requestData(String method, String adderss, String url, Class classType, HashMap<String, Object> map) {
 
         if (mQuickAdapter != null && !isLoadMore) {
             mList.clear();
             mQuickAdapter.notifyDataSetChanged();
         }
-        if (map!=null){
+        if (map != null) {
             listMap.clear();
             listMap.putAll(map);
         }
@@ -436,8 +391,9 @@ public abstract class BaseRvFragment<T, P extends BasePresenter> extends LazyTab
         this.classType = classType;
 
 //        mPresennter.accessServer(this.method, this.adderss, this.url,this.classType ,listMap);
-        mPresennter.accessServers(method,adderss,url,classType,listMap);
+        mPresennter.accessServers(method, adderss, url, classType, listMap);
     }
+
     /**
      * 获取数据
      *
@@ -526,8 +482,9 @@ public abstract class BaseRvFragment<T, P extends BasePresenter> extends LazyTab
     // 重写 点击事件
     protected void onListItemClick(T object, int position) {
     }
+
     //子控件点击事件
-    protected void OnListChildClickListener(T object,BaseQuickAdapter adapter, View view, int position) {
+    protected void OnListChildClickListener(T object, BaseQuickAdapter adapter, View view, int position) {
     }
 
 
@@ -600,10 +557,10 @@ public abstract class BaseRvFragment<T, P extends BasePresenter> extends LazyTab
 
     }
 
-    public void initTitle(View view){
+    public void initTitle(View view) {
 
-        if (findViewById(R.id.top_title)!=null) {
-            mTitleButton =  view.findViewById(R.id.top_title);
+        if (findViewById(R.id.top_title) != null) {
+            mTitleButton = view.findViewById(R.id.top_title);
             mTitleButton.setBackClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

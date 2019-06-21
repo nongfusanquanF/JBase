@@ -1,7 +1,9 @@
 package com.appbyme.jbase.ui;
 
 import com.appbyme.jbase.R;
+import com.appbyme.jbase.data.CheckData;
 import com.appbyme.jbase.data.ListData2;
+import com.appbyme.jbase.data.RtDatas;
 import com.appbyme.jbase.mvp.presenter.MainPresenter;
 import com.appbyme.jbase.mvp.view.IMainView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -26,9 +28,13 @@ public class ListFragment extends BaseRvFragment<ListData2.DataBean,MainPresente
     public void doRequest() {
         initRV(0,0);
         HashMap<String,Object> map = new HashMap<>();
-        map.put("uid","7826");
-        map.put("_token","47e2b91bf3efa5adacfd2e1920e0c030");
-        requestData(RequestType.OKGO_GET, RequestType.ADDRESS, RequestType.LIST2, ListData2.class,map);
+//        map.put("uid","7826");
+//        map.put("_token","47e2b91bf3efa5adacfd2e1920e0c030");
+//        requestData(RequestType.OKGO_GET, RequestType.ADDRESS, RequestType.LIST2, ListData2.class,map);
+//        HashMap<String,Object> map = new HashMap<>();
+//        requestData(RequestType.OKGO_GET, "http://www.syiptv.com/api/v4/","news/index", RtDatas.class,map);
+
+        mPresennter.accessServers(RequestType.OKGO_GET, "http://www.syiptv.com/api/v4", "news/index", RtDatas.class,null);
 
     }
 
