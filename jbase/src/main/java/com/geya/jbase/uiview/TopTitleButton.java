@@ -63,6 +63,11 @@ public class TopTitleButton extends RelativeLayout {
     }
 
 
+    public void setrImgSrc(int back){
+        rImg.setImageResource(RequestType.IMG_BACK);
+    }
+
+
     public void setMainColor(int color){
         mRelativeLayout.setBackgroundColor(color);
     }
