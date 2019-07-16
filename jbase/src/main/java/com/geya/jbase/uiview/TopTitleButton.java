@@ -64,7 +64,7 @@ public class TopTitleButton extends RelativeLayout {
 
 
     public void setrImgSrc(int back){
-        rImg.setImageResource(RequestType.IMG_BACK);
+        rImg.setImageResource(back);
     }
 
 
