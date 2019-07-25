@@ -459,7 +459,7 @@ public abstract class BaseRVActivity<T, P extends BasePresenter> extends BaseFra
         } else {
             //是否有数据
             if (list.size() == 0) {
-                showServerError(RequestType.NO_DATA, "没有数据");
+                showServerError(RequestType.NO_DATA, "暂无内容");
 //                mProgress.showEmpty(getResources().getDrawable(R.drawable.nodata),//设置错误页面图片
 //                        "木有数据~",    //  错误信息1
 //                        "");           //  错误信息2
