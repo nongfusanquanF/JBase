@@ -35,7 +35,7 @@ import java.util.List;
  * 列表型Activity
  */
 
-public abstract class BaseRVActivity<T, P extends BasePresenter> extends BaseFragmentActivity implements IMvpView,OnRefreshListener, OnLoadMoreListener{
+public abstract class BaseRVActivity<T, P extends BasePresenter> extends BaseFragmentActivity implements IMvpView, OnRefreshListener, OnLoadMoreListener {
 
 
     public abstract P newP();
@@ -116,11 +116,12 @@ public abstract class BaseRVActivity<T, P extends BasePresenter> extends BaseFra
     private LinearLayout mLayout;
 
     //列表接口相关
-    protected HashMap<String,Object> listMap = new HashMap<>();
-    private  String adderss;
-    private  String url;
-    private  String method;
-    private  Class classType;
+    protected HashMap<String, Object> listMap = new HashMap<>();
+    protected HttpHeaders headers;
+    private String adderss;
+    private String url;
+    private String method;
+    private Class classType;
 
 
     /**
@@ -165,7 +166,7 @@ public abstract class BaseRVActivity<T, P extends BasePresenter> extends BaseFra
         mQuickAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                 OnListChildClickListener(mList.get(position),adapter,view,position);
+                OnListChildClickListener(mList.get(position), adapter, view, position);
             }
         });
 
@@ -179,42 +180,51 @@ public abstract class BaseRVActivity<T, P extends BasePresenter> extends BaseFra
 
     @Override
     public void onRefresh() {
-                            isRefresh = true;
-                    isLoadMore = false;
-                    isCanLoadMore = true;
-                    isLoadMoreEnabled(true);
-                    if (mLayout != null) {
+        isRefresh = true;
+        isLoadMore = false;
+        isCanLoadMore = true;
+        isLoadMoreEnabled(true);
+        if (mLayout != null) {
 //                        mLayout.setVisibility(View.GONE);
-                        mQuickAdapter.removeAllFooterView();
-                    }
+            mQuickAdapter.removeAllFooterView();
+        }
 
-                    //页码重置为1
-                    pageParams.reset();
+        //页码重置为1
+        pageParams.reset();
 //                    //重新传如页码
 //                    mPresennter.setParams(RequestType.PAGE_INDEX, String.valueOf(pageParams.getPageNo()));
 //                    //访问服务器
 //                    mPresennter.accessServer();
 
-                    listMap.put(RequestType.PAGE_INDEX, String.valueOf(pageParams.getPageNo()));
+        listMap.put(RequestType.PAGE_INDEX, String.valueOf(pageParams.getPageNo()));
 //                    mPresennter.accessServer(method, adderss, url,classType ,listMap);
-                    mPresennter.accessServers(method,adderss,url,classType,listMap);
+        if (headers != null) {
+            mPresennter.accessServers(method, adderss, url, classType, listMap, headers);
+        } else {
+            mPresennter.accessServers(method, adderss, url, classType, listMap);
+        }
+
 
     }
 
     @Override
     public void onLoadMore() {
-                            isRefresh = false;
-                    isLoadMore = true;
-                    //页码增加
-                    pageParams.addPage();
-                    //传入新页码
+        isRefresh = false;
+        isLoadMore = true;
+        //页码增加
+        pageParams.addPage();
+        //传入新页码
 //                    System.out.println("----------------------------------------------  页码 " + pageParams.getPageNo());
 //                    mPresennter.setParams(RequestType.PAGE_INDEX, String.valueOf(pageParams.getPageNo()));
 //                    //访问服务器
 //                    mPresennter.accessServer();
-                    listMap.put(RequestType.PAGE_INDEX, String.valueOf(pageParams.getPageNo()));
+        listMap.put(RequestType.PAGE_INDEX, String.valueOf(pageParams.getPageNo()));
 //                    mPresennter.accessServer(method, adderss, url,classType ,listMap);
-                    mPresennter.accessServers(method,adderss,url,classType,listMap);
+        if (headers != null) {
+            mPresennter.accessServers(method, adderss, url, classType, listMap, headers);
+        } else {
+            mPresennter.accessServers(method, adderss, url, classType, listMap);
+        }
     }
 
     /**
@@ -276,13 +286,12 @@ public abstract class BaseRVActivity<T, P extends BasePresenter> extends BaseFra
 
 
     /**
-     *
-     * @param adderss 服务器地址
-     * @param url     接口地址
-     * @param method   接口类型
-     * @param classType  实体类
+     * @param adderss   服务器地址
+     * @param url       接口地址
+     * @param method    接口类型
+     * @param classType 实体类
      */
-    protected void requestData(String adderss,String url,String method, Class classType) {
+    protected void requestData(String adderss, String url, String method, Class classType) {
 
         if (mQuickAdapter != null && !isLoadMore) {
             mList.clear();
@@ -299,19 +308,18 @@ public abstract class BaseRVActivity<T, P extends BasePresenter> extends BaseFra
     }
 
     /**
-     *
-     * @param adderss 服务器地址
-     * @param url     接口地址
-     * @param method   接口类型
-     * @param classType  实体类
+     * @param adderss   服务器地址
+     * @param url       接口地址
+     * @param method    接口类型
+     * @param classType 实体类
      */
-    protected void requestData(String method,String adderss,String url, Class classType, HashMap<String,Object> map) {
+    protected void requestData(String method, String adderss, String url, Class classType, HashMap<String, Object> map) {
 
         if (mQuickAdapter != null && !isLoadMore) {
             mList.clear();
             mQuickAdapter.notifyDataSetChanged();
         }
-        if (map!=null){
+        if (map != null) {
             listMap.putAll(map);
         }
         isRefresh = true;
@@ -332,23 +340,22 @@ public abstract class BaseRVActivity<T, P extends BasePresenter> extends BaseFra
         this.method = method;
         this.classType = classType;
         mProgress.showLoading();
-        mPresennter.accessServers(this.method,this.adderss,this.url,this.classType,listMap);
+        mPresennter.accessServers(this.method, this.adderss, this.url, this.classType, listMap);
     }
 
     /**
-     *
-     * @param adderss 服务器地址
-     * @param url     接口地址
-     * @param method   接口类型
-     * @param classType  实体类
+     * @param adderss   服务器地址
+     * @param url       接口地址
+     * @param method    接口类型
+     * @param classType 实体类
      */
-    protected void requestData(String method,String adderss,String url, Class classType, HashMap<String,Object> map, HttpHeaders headers) {
+    protected void requestData(String method, String adderss, String url, Class classType, HashMap<String, Object> map, HttpHeaders headers) {
 
         if (mQuickAdapter != null && !isLoadMore) {
             mList.clear();
             mQuickAdapter.notifyDataSetChanged();
         }
-        if (map!=null){
+        if (map != null) {
             listMap.putAll(map);
         }
         isRefresh = true;
@@ -368,11 +375,10 @@ public abstract class BaseRVActivity<T, P extends BasePresenter> extends BaseFra
         this.url = url;
         this.method = method;
         this.classType = classType;
+        this.headers = headers;
         mProgress.showLoading();
-        mPresennter.accessServers(this.method,this.adderss,this.url,this.classType,listMap,headers);
+        mPresennter.accessServers(this.method, this.adderss, this.url, this.classType, listMap, this.headers);
     }
-
-
 
 
     // 重写 点击事件
@@ -380,7 +386,7 @@ public abstract class BaseRVActivity<T, P extends BasePresenter> extends BaseFra
     }
 
     //子控件点击事件
-    protected void OnListChildClickListener(T object,BaseQuickAdapter adapter, View view, int position) {
+    protected void OnListChildClickListener(T object, BaseQuickAdapter adapter, View view, int position) {
     }
 
 
