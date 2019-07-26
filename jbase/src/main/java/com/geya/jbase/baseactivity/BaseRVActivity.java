@@ -21,6 +21,7 @@ import com.geya.jbase.mvp.view.IMvpView;
 
 import com.geya.jbase.rvadapter.UniversalItemDecoration;
 import com.geya.jbase.uiview.ProgressActivity;
+import com.lzy.okgo.model.HttpHeaders;
 
 
 import java.util.ArrayList;
@@ -331,9 +332,48 @@ public abstract class BaseRVActivity<T, P extends BasePresenter> extends BaseFra
         this.method = method;
         this.classType = classType;
         mProgress.showLoading();
-//        mPresennter.accessServer(this.method, this.adderss, this.url,this.classType ,listMap);
         mPresennter.accessServers(this.method,this.adderss,this.url,this.classType,listMap);
     }
+
+    /**
+     *
+     * @param adderss 服务器地址
+     * @param url     接口地址
+     * @param method   接口类型
+     * @param classType  实体类
+     */
+    protected void requestData(String method,String adderss,String url, Class classType, HashMap<String,Object> map, HttpHeaders headers) {
+
+        if (mQuickAdapter != null && !isLoadMore) {
+            mList.clear();
+            mQuickAdapter.notifyDataSetChanged();
+        }
+        if (map!=null){
+            listMap.putAll(map);
+        }
+        isRefresh = true;
+        isLoadMore = false;
+        isCanLoadMore = true;
+        isLoadMoreEnabled(true);
+        if (mLayout != null) {
+//                        mLayout.setVisibility(View.GONE);
+            mQuickAdapter.removeAllFooterView();
+        }
+
+        //页码重置为1
+        pageParams.reset();
+        listMap.put(RequestType.PAGE_INDEX, String.valueOf(pageParams.getPageNo()));
+        listMap.put(RequestType.PAGE_SIZE, String.valueOf(pageParams.getPageSize()));
+        this.adderss = adderss;
+        this.url = url;
+        this.method = method;
+        this.classType = classType;
+        mProgress.showLoading();
+        mPresennter.accessServers(this.method,this.adderss,this.url,this.classType,listMap,headers);
+    }
+
+
+
 
     // 重写 点击事件
     protected void onListItemClick(T object, int position) {

@@ -12,6 +12,8 @@ import com.lzy.okgo.cache.CacheMode;
 import com.lzy.okgo.callback.FileCallback;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.convert.StringConvert;
+import com.lzy.okgo.model.HttpHeaders;
+import com.lzy.okgo.model.HttpParams;
 import com.lzy.okgo.model.Progress;
 import com.lzy.okgo.model.Response;
 import com.lzy.okrx2.adapter.ObservableResponse;
@@ -78,6 +80,24 @@ public class OkGoModel implements IBaseModel {
         }
     }
 
+    @Override
+    public void sendRequestToServers(String method, String url, Class obj, HashMap<String, String> map, HttpHeaders headers) {
+        switch (method) {
+            case RequestType.OKGO_GET:
+                okRxGET(url, obj, map,headers);
+                break;
+            case RequestType.OKGO_GET_CACHE:
+                okRxCacheGET(url, obj, map);
+                break;
+            case RequestType.OKGO_POST_CACHE:
+                okRxCachePOSt(url, obj, map);
+                break;
+            case RequestType.OKGO_POST:
+                okRxPOST(url, obj, map);
+                break;
+        }
+    }
+
 
     @Override
     public void cancelRequest(String identify) {
@@ -108,6 +128,61 @@ public class OkGoModel implements IBaseModel {
 
         OkGo.<String>get(url)
                 .params(map)
+                .converter(new StringConvert())
+                .adapt(new ObservableResponse<String>())
+                .subscribeOn(Schedulers.io())
+                .doOnSubscribe(new Consumer<Disposable>() {
+                    @Override
+                    public void accept(@NonNull Disposable disposable) throws Exception {
+                        mDisposable.add(disposable);
+                    }
+                })
+                .map(new Function<Response<String>, Object>() {
+
+                    @Override
+                    public Object apply(Response<String> stringResponse) {
+                        BaseData data = GsonUtil.GsonToBean(stringResponse.body(), BaseData.class);
+                        if (data!=null){
+                            if (RequestType.isCode(data.getCodes())) {
+                                return GsonUtil.GsonToBean(stringResponse.body(), obj);
+                            } else {
+                                return data;
+                            }
+                        }else {
+                            return null;
+                        }
+
+
+                    }
+                }).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Object>() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(@NonNull Object serverModel) {
+                        onSuccess(serverModel);
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        onErrors(e);
+                    }
+
+                    @Override
+                    public void onComplete() {
+                    }
+                });
+
+    }
+
+    private void okRxGET(String url, final Class obj, Map<String, String> map,HttpHeaders headers) {
+
+        OkGo.<String>get(url)
+                .params(map)
+                .headers(headers)
                 .converter(new StringConvert())
                 .adapt(new ObservableResponse<String>())
                 .subscribeOn(Schedulers.io())

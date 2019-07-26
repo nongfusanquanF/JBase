@@ -1,6 +1,7 @@
 package com.geya.jbase.mvp.model;
 
 import com.lzy.okgo.cache.CacheMode;
+import com.lzy.okgo.model.HttpHeaders;
 
 import java.io.File;
 import java.util.HashMap;
@@ -18,6 +19,11 @@ public interface IBaseModel {
      * 向服务器发起请求
      */
     void sendRequestToServers(String method, String url, Class obj , HashMap<String,String> map);
+
+    /**
+     * 向服务器发起请求
+     */
+    void sendRequestToServers(String method, String url, Class obj , HashMap<String,String> map,  HttpHeaders headers);
 
     /**
      *  设置Url接口
