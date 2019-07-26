@@ -198,6 +198,11 @@ public abstract class BaseRVActivity<T, P extends BasePresenter> extends BaseFra
 
         listMap.put(RequestType.PAGE_INDEX, String.valueOf(pageParams.getPageNo()));
 //                    mPresennter.accessServer(method, adderss, url,classType ,listMap);
+//        if (headers != null) {
+//            mPresennter.accessServers(method, adderss, url, classType, listMap, headers);
+//        } else {
+//            mPresennter.accessServers(method, adderss, url, classType, listMap);
+//        }
         if (headers != null) {
             mPresennter.accessServers(method, adderss, url, classType, listMap, headers);
         } else {
@@ -220,6 +225,11 @@ public abstract class BaseRVActivity<T, P extends BasePresenter> extends BaseFra
 //                    mPresennter.accessServer();
         listMap.put(RequestType.PAGE_INDEX, String.valueOf(pageParams.getPageNo()));
 //                    mPresennter.accessServer(method, adderss, url,classType ,listMap);
+//        if (headers != null) {
+//            mPresennter.accessServers(method, adderss, url, classType, listMap, headers);
+//        } else {
+//            mPresennter.accessServers(method, adderss, url, classType, listMap);
+//        }
         if (headers != null) {
             mPresennter.accessServers(method, adderss, url, classType, listMap, headers);
         } else {
