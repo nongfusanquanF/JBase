@@ -25,7 +25,7 @@ public class PageParams implements Serializable {
 
     public PageParams() {
         super();
-        this.pageSize = 10;
+        this.pageSize = 25;
         this.pageNo = 1;
     }
 
