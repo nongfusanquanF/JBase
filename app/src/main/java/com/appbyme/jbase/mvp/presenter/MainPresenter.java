@@ -5,6 +5,7 @@ import com.appbyme.jbase.data.ListData;
 import com.appbyme.jbase.data.ListData2;
 import com.appbyme.jbase.data.ObjData;
 import com.appbyme.jbase.data.RtData;
+import com.appbyme.jbase.data.SpDatas;
 import com.appbyme.jbase.mvp.view.IMainView;
 import com.geya.jbase.mvp.presenter.BasePresenter;
 
@@ -21,17 +22,18 @@ public class MainPresenter extends BasePresenter<IMainView> {
     @Override
     public void serverResponseObj(Object object) {
         System.out.println("------------ 接口数据 " + object.toString());
-        if (object instanceof ListData){
-            getView().getDatas("List     : " + object.toString(),"");
-        }else if (object instanceof ObjData){
-            getView().getDatas("Obj      : " + object.toString(),"");
-        }else if (object instanceof ListData2){
-            getView().getDatas(GsonUtil.GsonString(((ListData2) object).getData()),"");
-        }else if (object instanceof RtData){
-            getView().getDatas(GsonUtil.GsonString(((RtData) object).getList()),"");
-        }
-        else {
-            getView().getDatas(object.toString(),"");
+        if (object instanceof ListData) {
+            getView().getDatas("List     : " + object.toString(), "");
+        } else if (object instanceof ObjData) {
+            getView().getDatas("Obj      : " + object.toString(), "");
+        } else if (object instanceof ListData2) {
+            getView().getDatas(GsonUtil.GsonString(((ListData2) object).getData()), "");
+        } else if (object instanceof RtData) {
+            getView().getDatas(GsonUtil.GsonString(((RtData) object).getList()), "");
+        } else if (object instanceof SpDatas) {
+            getView().getDatas(GsonUtil.GsonString(((SpDatas) object).getData()), "");
+        } else {
+            getView().getDatas(object.toString(), "");
         }
 
 

@@ -580,6 +580,8 @@ public abstract class BaseRecycleViewActivity<T, P extends BasePresenter> extend
                     mLayout = view.findViewById(R.id.loading_view);
                 }
 //                mAdapter.addFooterView(view);
+//                mQuickAdapter.removeAllFooterView();
+                mQuickAdapter.loadMoreEnd(true);
                 mQuickAdapter.addFooterView(view);
 //                mLayout.setVisibility(View.VISIBLE);
 
