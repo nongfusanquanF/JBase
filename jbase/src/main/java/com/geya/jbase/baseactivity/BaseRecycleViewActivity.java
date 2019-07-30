@@ -18,11 +18,9 @@ import com.geya.jbase.constant.PageParams;
 import com.geya.jbase.constant.RequestType;
 import com.geya.jbase.mvp.presenter.BasePresenter;
 import com.geya.jbase.mvp.view.IMvpView;
-
 import com.geya.jbase.rvadapter.UniversalItemDecoration;
 import com.geya.jbase.uiview.ProgressActivity;
 import com.lzy.okgo.model.HttpHeaders;
-
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -35,7 +33,7 @@ import java.util.List;
  * 列表型Activity
  */
 
-public abstract class BaseRVActivity<T, P extends BasePresenter> extends BaseFragmentActivity implements IMvpView, OnRefreshListener, OnLoadMoreListener {
+public abstract class BaseRecycleViewActivity<T, P extends BasePresenter> extends BaseFragmentActivity implements IMvpView, OnRefreshListener, OnLoadMoreListener {
 
 
     public abstract P newP();
@@ -463,6 +461,84 @@ public abstract class BaseRVActivity<T, P extends BasePresenter> extends BaseFra
 
     }
 
+//    @Override
+//    public void getDatas(String json, String type) {
+//
+//        List<T> list = null;
+//        try {
+//            list = JSON.parseArray(json.toString(), mClass);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            Toast.makeText(this, "数据解析异常", Toast.LENGTH_SHORT).show();
+//        }
+//        if (list == null) return;
+//
+//        if (isRefresh) {
+//            mList.clear();
+//        }
+//
+//        if (list.size() != 0) {
+//            mList.addAll(list);
+//
+//        }
+//
+//
+//        //是否在加载跟多
+//        if (isLoadMore) {
+//            //是否有数据
+//            if (list.size() == 0) {
+//                //显示页脚
+////                mAdapter.notifyDataChangedAfterLoadMore(false);
+//
+//                if (view == null) {
+//                    view = getLayoutInflater().inflate(R.layout.not_loading, (ViewGroup) mListView.getParent(), false);
+//                    mLayout = view.findViewById(R.id.loading_view);
+//                }
+////                mAdapter.addFooterView(view);
+//                mQuickAdapter.addFooterView(view);
+////                mLayout.setVisibility(View.VISIBLE);
+//
+//                isCanLoadMore = false;
+//
+//                mSwipeToLoadLayout.setLoadingMore(false);
+//                isLoadMoreEnabled(false);
+//
+//            } else {
+//                //添加数据
+////                mList.addAll(list);
+////                mQuickAdapter.setNewData(mList);
+//                mQuickAdapter.notifyLoadMoreToLoading();
+//            }
+//
+//        } else {
+//            //是否有数据
+//            if (list.size() == 0) {
+//                showServerError(RequestType.NO_DATA, "暂无内容");
+////                mProgress.showEmpty(getResources().getDrawable(R.drawable.nodata),//设置错误页面图片
+////                        "木有数据~",    //  错误信息1
+////                        "");           //  错误信息2
+//
+//            } else {
+//
+//                if (mQuickAdapter == null) {
+//                    mQuickAdapter = initAdapter(mList);
+//                }
+////                mQuickAdapter.setNewData(mList);
+//                mListView.setAdapter(mQuickAdapter);
+//                mQuickAdapter.notifyLoadMoreToLoading();
+//                mProgress.showContent();
+//            }
+//
+//        }
+//
+//        //关闭刷新
+//        mSwipeToLoadLayout.setRefreshing(false);
+//        //关闭 加载更多
+//        mSwipeToLoadLayout.setLoadingMore(false);
+//
+//    }
+
+
     @Override
     public void getDatas(String json, String type) {
 
@@ -481,7 +557,14 @@ public abstract class BaseRVActivity<T, P extends BasePresenter> extends BaseFra
 
         if (list.size() != 0) {
             mList.addAll(list);
+        }
 
+        if (isRefresh) {
+            mQuickAdapter.setNewData(list);
+        } else {
+            if (list.size() > 0) {
+                mQuickAdapter.addData(list);
+            }
         }
 
 

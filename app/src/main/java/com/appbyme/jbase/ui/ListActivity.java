@@ -5,11 +5,13 @@ import android.support.annotation.Nullable;
 
 import com.appbyme.jbase.R;
 import com.appbyme.jbase.data.ListData2;
+import com.appbyme.jbase.data.RtData;
 import com.appbyme.jbase.mvp.presenter.MainPresenter;
 import com.appbyme.jbase.mvp.view.IMainView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.geya.jbase.baseactivity.BaseRVActivity;
+import com.geya.jbase.baseactivity.BaseRecycleViewActivity;
 import com.geya.jbase.constant.RequestType;
 import com.geya.jbase.uiview.TopTitleButton;
 
@@ -20,7 +22,7 @@ import java.util.List;
  * Created by Administrator on 2018/6/8 0008.
  */
 
-public class ListActivity extends BaseRVActivity<ListData2.DataBean,MainPresenter> implements IMainView {
+public class ListActivity extends BaseRecycleViewActivity<RtData.ListBean,MainPresenter> implements IMainView {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -31,9 +33,24 @@ public class ListActivity extends BaseRVActivity<ListData2.DataBean,MainPresente
         initRV(0,0);
          //124456
         HashMap<String,Object> map = new HashMap<>();
-        map.put("uid","7826");
-        map.put("_token","47e2b91bf3efa5adacfd2e1920e0c030");
-        requestData(RequestType.OKGO_GET, RequestType.ADDRESS, RequestType.LIST2, ListData2.class,map);
+//        map.put("uid","7826");
+//        map.put("_token","47e2b91bf3efa5adacfd2e1920e0c030");
+        requestData(RequestType.OKGO_GET,"http://www.syiptv.com/api/v4/", "news/index", RtData.class,map);
+
+        mQuickAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
+            @Override
+            public void onLoadMoreRequested() {
+                onLoadMore();
+            }
+        });
+        mQuickAdapter.setPreLoadNumber(5);
+
+    }
+
+    @Override
+    public void getDatas(String json, String type) {
+        super.getDatas(json, type);
+        mQuickAdapter.loadMoreComplete();
     }
 
     @Override
@@ -43,16 +60,16 @@ public class ListActivity extends BaseRVActivity<ListData2.DataBean,MainPresente
 
     @Override
     public Class setClass() {
-        return ListData2.DataBean.class;
+        return RtData.ListBean.class;
     }
 
     @Override
-    public BaseQuickAdapter initAdapter(List<ListData2.DataBean> list) {
+    public BaseQuickAdapter initAdapter(List<RtData.ListBean> list) {
 
-        return new BaseQuickAdapter<ListData2.DataBean,BaseViewHolder>(R.layout.item_text,list) {
+        return new BaseQuickAdapter<RtData.ListBean,BaseViewHolder>(R.layout.item_text) {
 
             @Override
-            protected void convert(BaseViewHolder helper, ListData2.DataBean item) {
+            protected void convert(BaseViewHolder helper, RtData.ListBean item) {
                 helper.setText(R.id.name,item.getTitle());
             }
         };

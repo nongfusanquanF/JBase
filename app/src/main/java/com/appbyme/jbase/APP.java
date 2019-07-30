@@ -26,8 +26,8 @@ public class APP extends Application {
 
         RequestType.getInstance()
                 .init(this)
-                .setPageIndex("pageIndex")//页码
-                .setPageSize("pageSize")//条目数
+                .setPageIndex("page")//页码
+                .setPageSize("page_size")//条目数
                 .setIsString(true)//后台返回码 是否是字符串
                 .setIntCodes(200)
                 .setIsSuccess("retcode")//后台返回状态码key

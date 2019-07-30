@@ -175,7 +175,7 @@ public abstract class BaseRvFragment<T, P extends BasePresenter> extends LazyTab
         mPresennter = newP();
         mClass = setClass();
         //这里设置默认的页容量
-        pageParams = new PageParams(10);
+        pageParams = new PageParams(20);
         mQuickAdapter = initAdapter(mList);
         //设置加载动画
 //        mQuickAdapter.openLoadAnimation(BaseQuickAdapter.SLIDEIN_BOTTOM);
