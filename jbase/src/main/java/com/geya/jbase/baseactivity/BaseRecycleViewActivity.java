@@ -579,14 +579,9 @@ public abstract class BaseRecycleViewActivity<T, P extends BasePresenter> extend
                     view = getLayoutInflater().inflate(R.layout.not_loading, (ViewGroup) mListView.getParent(), false);
                     mLayout = view.findViewById(R.id.loading_view);
                 }
-//                mAdapter.addFooterView(view);
-//                mQuickAdapter.removeAllFooterView();
                 mQuickAdapter.loadMoreEnd(true);
                 mQuickAdapter.addFooterView(view);
-//                mLayout.setVisibility(View.VISIBLE);
-
                 isCanLoadMore = false;
-
                 mSwipeToLoadLayout.setLoadingMore(false);
                 isLoadMoreEnabled(false);
 
