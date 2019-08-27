@@ -21,8 +21,6 @@ public class TwitterRefreshHeaderView extends SwipeRefreshHeaderLayout {
 
 //    private ImageView ivArrow;
 
-
-
     private TextView tvRefresh;
 
     private MKLoader progressBar;

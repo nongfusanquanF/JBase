@@ -64,7 +64,6 @@ public class ListActivity extends BaseRecycleViewActivity<SpDatas.DataBean,MainP
     public BaseQuickAdapter initAdapter(List<SpDatas.DataBean> list) {
 
         return new BaseQuickAdapter<SpDatas.DataBean,BaseViewHolder>(R.layout.item_text) {
-
             @Override
             protected void convert(BaseViewHolder helper, SpDatas.DataBean item) {
                 helper.setText(R.id.name,item.getTitle());
