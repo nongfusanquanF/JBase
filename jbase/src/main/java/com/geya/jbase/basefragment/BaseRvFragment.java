@@ -58,6 +58,13 @@ public abstract class BaseRvFragment<T, P extends BasePresenter> extends LazyTab
      */
     protected ProgressActivity mProgress;
 
+    protected boolean newsSwitch = true;
+
+    public void setNewsSwitch(boolean newsSwitch) {
+        this.newsSwitch = newsSwitch;
+    }
+
+
     /**
      * 是否可以加载更多
      */
@@ -359,7 +366,9 @@ public abstract class BaseRvFragment<T, P extends BasePresenter> extends LazyTab
         this.url = url;
         this.method = method;
         this.classType = classType;
-
+        if (newsSwitch){
+            mProgress.showLoading();
+        }
 //        mPresennter.accessServer(this.method, this.adderss, this.url,this.classType ,listMap);
         mPresennter.accessServers(method, adderss, url, classType, listMap);
     }
@@ -389,7 +398,9 @@ public abstract class BaseRvFragment<T, P extends BasePresenter> extends LazyTab
         this.url = url;
         this.method = method;
         this.classType = classType;
-
+        if (newsSwitch){
+            mProgress.showLoading();
+        }
 //        mPresennter.accessServer(this.method, this.adderss, this.url,this.classType ,listMap);
         mPresennter.accessServers(method, adderss, url, classType, listMap);
     }

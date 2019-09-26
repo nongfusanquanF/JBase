@@ -180,6 +180,7 @@ public class ProgressActivity extends RelativeLayout {
 
         typedArray.recycle();
 
+
         currentBackground = this.getBackground();
     }
 

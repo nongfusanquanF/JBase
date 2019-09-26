@@ -60,6 +60,12 @@ public abstract class BaseRVActivity<T, P extends BasePresenter> extends BaseFra
      */
     private boolean isRefresh = false;
 
+    protected boolean newsSwitch = true;
+
+    public void setNewsSwitch(boolean newsSwitch) {
+        this.newsSwitch = newsSwitch;
+    }
+
     public void setLoadMoreEnabled(boolean loadMoreEnabled) {
         mSwipeToLoadLayout.setLoadMoreEnabled(loadMoreEnabled);
         isLoadMoreEnabled = loadMoreEnabled;
@@ -349,7 +355,9 @@ public abstract class BaseRVActivity<T, P extends BasePresenter> extends BaseFra
         this.url = url;
         this.method = method;
         this.classType = classType;
-        mProgress.showLoading();
+        if (newsSwitch){
+            mProgress.showLoading();
+        }
         mPresennter.accessServers(this.method, this.adderss, this.url, this.classType, listMap);
     }
 
@@ -386,7 +394,9 @@ public abstract class BaseRVActivity<T, P extends BasePresenter> extends BaseFra
         this.method = method;
         this.classType = classType;
         this.headers = headers;
-        mProgress.showLoading();
+        if (newsSwitch){
+            mProgress.showLoading();
+        }
         mPresennter.accessServers(this.method, this.adderss, this.url, this.classType, listMap, this.headers);
     }
 

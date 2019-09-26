@@ -7,9 +7,6 @@ import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.ImageView;
-import android.widget.TextView;
-
 import com.geya.jbase.R;
 import com.geya.jbase.constant.RequestType;
 import com.geya.jbase.uiview.TopTitleButton;

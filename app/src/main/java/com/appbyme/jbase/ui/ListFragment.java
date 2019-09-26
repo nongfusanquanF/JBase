@@ -34,7 +34,7 @@ public class ListFragment extends BaseRvFragment<ListData2.DataBean,MainPresente
 //        HashMap<String,Object> map = new HashMap<>();
 //        requestData(RequestType.OKGO_GET, "http://www.syiptv.com/api/v4/","news/index", RtDatas.class,map);
 
-        mPresennter.accessServers(RequestType.OKGO_GET, "http://www.syiptv.com/api/v4", "news/index", RtDatas.class,null);
+        requestData(RequestType.OKGO_GET, "http://www.syiptv.com/api/v4", "news/index", RtDatas.class,null);
 
     }
 
