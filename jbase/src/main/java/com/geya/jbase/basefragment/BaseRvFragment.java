@@ -58,7 +58,7 @@ public abstract class BaseRvFragment<T, P extends BasePresenter> extends LazyTab
      */
     protected ProgressActivity mProgress;
 
-    protected boolean newsSwitch = true;
+    protected boolean newsSwitch = false;
 
     public void setNewsSwitch(boolean newsSwitch) {
         this.newsSwitch = newsSwitch;
@@ -366,9 +366,9 @@ public abstract class BaseRvFragment<T, P extends BasePresenter> extends LazyTab
         this.url = url;
         this.method = method;
         this.classType = classType;
-        if (newsSwitch){
-            mProgress.showLoading();
-        }
+
+            mProgress.showLoading(newsSwitch);
+
 //        mPresennter.accessServer(this.method, this.adderss, this.url,this.classType ,listMap);
         mPresennter.accessServers(method, adderss, url, classType, listMap);
     }
@@ -398,9 +398,9 @@ public abstract class BaseRvFragment<T, P extends BasePresenter> extends LazyTab
         this.url = url;
         this.method = method;
         this.classType = classType;
-        if (newsSwitch){
-            mProgress.showLoading();
-        }
+
+        mProgress.showLoading(newsSwitch);
+
 //        mPresennter.accessServer(this.method, this.adderss, this.url,this.classType ,listMap);
         mPresennter.accessServers(method, adderss, url, classType, listMap);
     }

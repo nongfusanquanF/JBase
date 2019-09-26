@@ -10,6 +10,7 @@
     >
 
     <RelativeLayout
+        android:id="@+id/rl_login"
         android:layout_width="match_parent"
         android:layout_height="300dp"
         android:layout_centerVertical="true"
@@ -27,11 +28,11 @@
             app:cpBorderWidth="4dp"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
-            android:visibility="invisible"
             />
     </RelativeLayout>
 
     <ImageView
+        android:id="@+id/img"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@mipmap/news_list"

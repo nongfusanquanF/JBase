@@ -217,6 +217,9 @@ public class ProgressActivity extends RelativeLayout {
     public void showLoading() {
         switchState(LOADING, null, null, null, null, null, Collections.<Integer>emptyList());
     }
+     public void showLoading(boolean news) {
+        switchState(LOADING, null, null, null, null, null, Collections.<Integer>emptyList(),news);
+    }
 
     /**
      * Hide content and show the progress bar
@@ -342,7 +345,7 @@ public class ProgressActivity extends RelativeLayout {
             case LOADING:
                 hideEmptyView();
                 hideErrorView();
-                setLoadingView();
+                setLoadingView(false);
                 setContentVisibility(false, skipIds);
                 break;
             case EMPTY:
@@ -369,11 +372,69 @@ public class ProgressActivity extends RelativeLayout {
         }
     }
 
-    private void setLoadingView() {
+    private void switchState(String state, Drawable drawable, String errorText, String errorTextContent,
+                             String errorButtonText, OnClickListener onClickListener, List<Integer> skipIds,boolean news) {
+        this.state = state;
+
+        switch (state) {
+            case CONTENT:
+                //Hide all state views to display content
+                hideLoadingView();
+                hideEmptyView();
+                hideErrorView();
+
+                setContentVisibility(true, skipIds);
+                break;
+            case LOADING:
+                hideEmptyView();
+                hideErrorView();
+                setLoadingView(news);
+                setContentVisibility(false, skipIds);
+                break;
+            case EMPTY:
+                hideLoadingView();
+                hideErrorView();
+                setEmptyView();
+                emptyStateImageView.setImageDrawable(drawable);
+                emptyStateTitleTextView.setText(errorText);
+                emptyStateContentTextView.setText(errorTextContent);
+                emptyStateRelativeLayout.setOnClickListener(onClickListener);
+                setContentVisibility(false, skipIds);
+                break;
+            case ERROR:
+                hideLoadingView();
+                hideEmptyView();
+                setErrorView();
+                errorStateImageView.setImageDrawable(drawable);
+                errorStateTitleTextView.setText(errorText);
+                errorStateContentTextView.setText(errorTextContent);
+                errorStateButton.setText(errorButtonText);
+                errorStateButton.setOnClickListener(onClickListener);
+                setContentVisibility(false, skipIds);
+                break;
+        }
+    }
+
+    /**
+     *
+     * @param new_switch true 新闻布局否则等待框
+     */
+    private void setLoadingView(boolean new_switch) {
         if (loadingStateRelativeLayout == null) {
             view = inflater.inflate(R.layout.progress_loading_view, null);
             loadingStateRelativeLayout = (RelativeLayout) view.findViewById(R.id.loadingStateRelativeLayout);
             loadingStateRelativeLayout.setTag(TAG_LOADING);
+            RelativeLayout login = view.findViewById(R.id.rl_login);
+            ImageView img = view.findViewById(R.id.img);
+
+            if (new_switch){
+
+                login.setVisibility(View.INVISIBLE);
+                img.setVisibility(View.VISIBLE);
+            }else {
+                login.setVisibility(View.VISIBLE);
+                img.setVisibility(View.INVISIBLE);
+            }
 
 //            loadingStateProgressBar = (ProgressBar) view.findViewById(R.id.loadingStateProgressBar);
 //

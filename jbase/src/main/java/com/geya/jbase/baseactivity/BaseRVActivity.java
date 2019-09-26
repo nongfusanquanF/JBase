@@ -60,7 +60,7 @@ public abstract class BaseRVActivity<T, P extends BasePresenter> extends BaseFra
      */
     private boolean isRefresh = false;
 
-    protected boolean newsSwitch = true;
+    protected boolean newsSwitch = false;
 
     public void setNewsSwitch(boolean newsSwitch) {
         this.newsSwitch = newsSwitch;
@@ -355,9 +355,9 @@ public abstract class BaseRVActivity<T, P extends BasePresenter> extends BaseFra
         this.url = url;
         this.method = method;
         this.classType = classType;
-        if (newsSwitch){
-            mProgress.showLoading();
-        }
+
+            mProgress.showLoading(newsSwitch);
+
         mPresennter.accessServers(this.method, this.adderss, this.url, this.classType, listMap);
     }
 
@@ -394,9 +394,9 @@ public abstract class BaseRVActivity<T, P extends BasePresenter> extends BaseFra
         this.method = method;
         this.classType = classType;
         this.headers = headers;
-        if (newsSwitch){
-            mProgress.showLoading();
-        }
+
+            mProgress.showLoading(newsSwitch);
+
         mPresennter.accessServers(this.method, this.adderss, this.url, this.classType, listMap, this.headers);
     }
 

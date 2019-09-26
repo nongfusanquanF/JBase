@@ -29,7 +29,7 @@ public class ListActivity extends BaseRVActivity<SpDatas.DataBean,MainPresenter>
         initBaseView();
 //        mTitleButton.setMainColor(0xffFF4081);
         initRV(0,0);
-        setNewsSwitch(false);
+//        setNewsSwitch(false);
          //124456
         HashMap<String,Object> map = new HashMap<>();
 //        map.put("uid","7826");
