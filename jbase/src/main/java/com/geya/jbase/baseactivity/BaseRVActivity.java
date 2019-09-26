@@ -279,19 +279,19 @@ public abstract class BaseRVActivity<T, P extends BasePresenter> extends BaseFra
             });
             mListView.setLayoutManager(manager);
 
-            mListView.addItemDecoration(new UniversalItemDecoration() {
-                @Override
-                public Decoration getItemOffsets(int position) {
-
-                    ColorDecoration decoration = new ColorDecoration();
-                    decoration.right = 2;
-                    decoration.left = 2;
-                    decoration.top = 2;
-                    decoration.bottom = 2;
-                    decoration.decorationColor = position == mList.size() ? 0x00ffffff : sColor;
-                    return decoration;
-                }
-            });
+//            mListView.addItemDecoration(new UniversalItemDecoration() {
+//                @Override
+//                public Decoration getItemOffsets(int position) {
+//
+//                    ColorDecoration decoration = new ColorDecoration();
+//                    decoration.right = 2;
+//                    decoration.left = 2;
+//                    decoration.top = 2;
+//                    decoration.bottom = 2;
+//                    decoration.decorationColor = position == mList.size() ? 0x00ffffff : sColor;
+//                    return decoration;
+//                }
+//            });
 
         }
 
