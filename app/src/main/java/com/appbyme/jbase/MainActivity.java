@@ -14,6 +14,7 @@ import android.text.style.ClickableSpan;
 import android.view.View;
 import android.widget.TextView;
 
+import com.appbyme.jbase.Event.EventMsg;
 import com.appbyme.jbase.data.BaseClick;
 import com.appbyme.jbase.databinding.ActivityListFragmentBinding;
 import com.appbyme.jbase.databinding.ActivityMainBinding;
@@ -21,6 +22,10 @@ import com.appbyme.jbase.ui.DetailsActivity;
 import com.appbyme.jbase.ui.FragmentListActivity;
 import com.appbyme.jbase.ui.FragmentObjActivity;
 import com.appbyme.jbase.ui.ListActivity;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.sql.SQLOutput;
 import java.util.ArrayList;
@@ -84,6 +89,8 @@ public class MainActivity extends AppCompatActivity {
 //        mBinding.title.setMovementMethod(LinkMovementMethod.getInstance());
          String[] arr = {"key1","key2","key3"};
         initKeys(arr, mBinding.title);
+        //注册事件
+        EventBus.getDefault().register(this);
     }
 
     List<BaseClick> mSpanList = new ArrayList<>();
@@ -146,4 +153,24 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void  eventMsg(EventMsg msg){
+        mBinding.title.setText(msg.getMsg());
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        //解除注册
+        if(EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().unregister(this);
+        }
+
+    }
 }

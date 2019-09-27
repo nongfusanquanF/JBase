@@ -271,9 +271,9 @@ public abstract class BaseRvFragment<T, P extends BasePresenter> extends LazyTab
         final int sColor = color == 0 ? RequestType.DIVISION_COLOR : color;
         if (row < 1) {
             //设置RecyclerView的显示模式  当前List模式
-            if (mLayoutManager == null) {
+
                 mLayoutManager = new LinearLayoutManager(mContext);
-            }
+
             mListView.setLayoutManager(mLayoutManager);
             //设置分割线
 //            mListView.addItemDecoration(new RecycleViewDivider(

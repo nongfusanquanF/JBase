@@ -3,6 +3,7 @@ package com.appbyme.jbase.ui;
 import android.databinding.DataBindingUtil;
 import android.view.View;
 
+import com.appbyme.jbase.Event.EventMsg;
 import com.appbyme.jbase.R;
 import com.appbyme.jbase.data.CheckData;
 import com.appbyme.jbase.data.ListData;
@@ -11,6 +12,8 @@ import com.appbyme.jbase.mvp.presenter.MainPresenter;
 import com.appbyme.jbase.mvp.view.IMainView;
 import com.geya.jbase.baseactivity.BaseDetailsActivity;
 import com.geya.jbase.constant.RequestType;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.HashMap;
 
@@ -43,7 +46,7 @@ public class DetailsActivity extends BaseDetailsActivity<MainPresenter> implemen
                  map.put("uid","7826");
                  map.put("_token","47e2b91bf3efa5adacfd2e1920e0c030");
                  mPresenter.accessServers(RequestType.OKGO_GET, RequestType.ADDRESS, RequestType.LIST, ListData.class,map);
-
+                 EventBus.getDefault().post(new EventMsg("EventBus消息回传"));
              }
          });
 
