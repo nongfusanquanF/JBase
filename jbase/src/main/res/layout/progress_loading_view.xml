@@ -35,8 +35,8 @@
         android:id="@+id/img"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@mipmap/news_list"
-        android:scaleType="center"
+        android:src="@mipmap/news_list"
+        android:scaleType="fitXY"
         />
 
 </RelativeLayout>
