@@ -31,17 +31,18 @@
             />
     </RelativeLayout>
 
-
-
-
-
-
     <ImageView
+
         android:id="@+id/img"
+
         android:layout_width="match_parent"
+
         android:layout_height="match_parent"
+
         android:src="@mipmap/news_list"
+
         android:scaleType="fitXY"
+
         />
 
 </RelativeLayout>
