@@ -24,28 +24,26 @@ import java.util.List;
 
 /**
  * @author Vlonjat Gashi (vlonjatg)
- *   用于状态页的控制 比如加载中  网络异常  无数据  适合任何页面
- *   用法：
- *       1.//设置页面为加载中..
- *         progress.showLoading();
- *       2.//显示内容页
- *         progress.showContent();
- *       3.//设置加载错误页显示
- *         progress.showError(getResources().getDrawable(R.mipmap.monkey_cry), //设置错误页面图片
- *         "网络连接异常",    //  错误信息1
- *         "请检查网络后重试", //  错误信息2
- *         "重试",           //  按钮文字
- *         new View.OnClickListener() { //按钮点击事件
- *         @Override
- *         public void onClick(View v) {
- *             //重新加载逻辑
- *         }
- *         });
- *       4.//设置无数据显示页面
- *         progress.showEmpty(getResources().getDrawable(R.mipmap.monkey_nodata),//设置错误页面图片
- *                           "没找到数据",    //  错误信息1
- *                           "");           //  错误信息2
- *
+ * 用于状态页的控制 比如加载中  网络异常  无数据  适合任何页面
+ * 用法：
+ * 1.//设置页面为加载中..
+ * progress.showLoading();
+ * 2.//显示内容页
+ * progress.showContent();
+ * 3.//设置加载错误页显示
+ * progress.showError(getResources().getDrawable(R.mipmap.monkey_cry), //设置错误页面图片
+ * "网络连接异常",    //  错误信息1
+ * "请检查网络后重试", //  错误信息2
+ * "重试",           //  按钮文字
+ * new View.OnClickListener() { //按钮点击事件
+ * @Override public void onClick(View v) {
+ * //重新加载逻辑
+ * }
+ * });
+ * 4.//设置无数据显示页面
+ * progress.showEmpty(getResources().getDrawable(R.mipmap.monkey_nodata),//设置错误页面图片
+ * "没找到数据",    //  错误信息1
+ * "");           //  错误信息2
  */
 public class ProgressActivity extends RelativeLayout {
 
@@ -217,8 +215,13 @@ public class ProgressActivity extends RelativeLayout {
     public void showLoading() {
         switchState(LOADING, null, null, null, null, null, Collections.<Integer>emptyList());
     }
-     public void showLoading(boolean news) {
-        switchState(LOADING, null, null, null, null, null, Collections.<Integer>emptyList(),news);
+
+    public void showLoading(boolean news) {
+        switchState(LOADING, null, null, null, null, null, Collections.<Integer>emptyList(), news);
+    }
+
+    public void showLoading(int src) {
+        switchState(LOADING, null, null, null, null, null, Collections.<Integer>emptyList(), src);
     }
 
     /**
@@ -241,7 +244,7 @@ public class ProgressActivity extends RelativeLayout {
         switchState(EMPTY, emptyImageDrawable, emptyTextTitle, emptyTextContent, null, null, Collections.<Integer>emptyList());
     }
 
-    public void showEmpty(Drawable emptyImageDrawable, String emptyTextTitle, String emptyTextContent,OnClickListener onClickListener) {
+    public void showEmpty(Drawable emptyImageDrawable, String emptyTextTitle, String emptyTextContent, OnClickListener onClickListener) {
         switchState(EMPTY, emptyImageDrawable, emptyTextTitle, emptyTextContent, null, onClickListener, Collections.<Integer>emptyList());
     }
 
@@ -373,7 +376,7 @@ public class ProgressActivity extends RelativeLayout {
     }
 
     private void switchState(String state, Drawable drawable, String errorText, String errorTextContent,
-                             String errorButtonText, OnClickListener onClickListener, List<Integer> skipIds,boolean news) {
+                             String errorButtonText, OnClickListener onClickListener, List<Integer> skipIds, boolean news) {
         this.state = state;
 
         switch (state) {
@@ -415,8 +418,50 @@ public class ProgressActivity extends RelativeLayout {
         }
     }
 
+  private void switchState(String state, Drawable drawable, String errorText, String errorTextContent,
+                             String errorButtonText, OnClickListener onClickListener, List<Integer> skipIds, int src) {
+        this.state = state;
+
+        switch (state) {
+            case CONTENT:
+                //Hide all state views to display content
+                hideLoadingView();
+                hideEmptyView();
+                hideErrorView();
+
+                setContentVisibility(true, skipIds);
+                break;
+            case LOADING:
+                hideEmptyView();
+                hideErrorView();
+                setLoadingView(src);
+                setContentVisibility(false, skipIds);
+                break;
+            case EMPTY:
+                hideLoadingView();
+                hideErrorView();
+                setEmptyView();
+                emptyStateImageView.setImageDrawable(drawable);
+                emptyStateTitleTextView.setText(errorText);
+                emptyStateContentTextView.setText(errorTextContent);
+                emptyStateRelativeLayout.setOnClickListener(onClickListener);
+                setContentVisibility(false, skipIds);
+                break;
+            case ERROR:
+                hideLoadingView();
+                hideEmptyView();
+                setErrorView();
+                errorStateImageView.setImageDrawable(drawable);
+                errorStateTitleTextView.setText(errorText);
+                errorStateContentTextView.setText(errorTextContent);
+                errorStateButton.setText(errorButtonText);
+                errorStateButton.setOnClickListener(onClickListener);
+                setContentVisibility(false, skipIds);
+                break;
+        }
+    }
+
     /**
-     *
      * @param new_switch true 新闻布局否则等待框
      */
     private void setLoadingView(boolean new_switch) {
@@ -427,14 +472,50 @@ public class ProgressActivity extends RelativeLayout {
             RelativeLayout login = view.findViewById(R.id.rl_login);
             ImageView img = view.findViewById(R.id.img);
 
-            if (new_switch){
+            if (new_switch) {
 
                 login.setVisibility(View.INVISIBLE);
                 img.setVisibility(View.VISIBLE);
-            }else {
+            } else {
                 login.setVisibility(View.VISIBLE);
                 img.setVisibility(View.INVISIBLE);
             }
+
+//            loadingStateProgressBar = (ProgressBar) view.findViewById(R.id.loadingStateProgressBar);
+//
+//            loadingStateProgressBar.getLayoutParams().width = loadingStateProgressBarWidth;
+//            loadingStateProgressBar.getLayoutParams().height = loadingStateProgressBarHeight;
+//            loadingStateProgressBar.requestLayout();
+
+            //Set background color if not TRANSPARENT
+            if (loadingStateBackgroundColor != Color.TRANSPARENT) {
+                this.setBackgroundColor(loadingStateBackgroundColor);
+            }
+
+            layoutParams = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.MATCH_PARENT);
+            layoutParams.addRule(CENTER_IN_PARENT);
+
+            addView(loadingStateRelativeLayout, layoutParams);
+        } else {
+            loadingStateRelativeLayout.setVisibility(VISIBLE);
+        }
+    }
+
+    /**
+     * @param src 自定义等待资源图
+     */
+    private void setLoadingView(int src) {
+        if (loadingStateRelativeLayout == null) {
+            view = inflater.inflate(R.layout.progress_loading_view, null);
+            loadingStateRelativeLayout = (RelativeLayout) view.findViewById(R.id.loadingStateRelativeLayout);
+            loadingStateRelativeLayout.setTag(TAG_LOADING);
+            RelativeLayout login = view.findViewById(R.id.rl_login);
+            ImageView img = view.findViewById(R.id.img);
+            img.setImageResource(src);
+            login.setVisibility(View.INVISIBLE);
+            img.setVisibility(View.VISIBLE);
+
 
 //            loadingStateProgressBar = (ProgressBar) view.findViewById(R.id.loadingStateProgressBar);
 //
@@ -555,7 +636,8 @@ public class ProgressActivity extends RelativeLayout {
 
             //Restore the background color if not TRANSPARENT
             if (emptyStateBackgroundColor != Color.TRANSPARENT) {
-                this.setBackgroundDrawable(currentBackground);;
+                this.setBackgroundDrawable(currentBackground);
+                ;
             }
         }
     }
@@ -566,7 +648,8 @@ public class ProgressActivity extends RelativeLayout {
 
             //Restore the background color if not TRANSPARENT
             if (errorStateBackgroundColor != Color.TRANSPARENT) {
-                this.setBackgroundDrawable(currentBackground);;
+                this.setBackgroundDrawable(currentBackground);
+                ;
             }
 
         }
