@@ -278,16 +278,16 @@ public abstract class BaseRvFragment<T, P extends BasePresenter> extends LazyTab
             //设置分割线
 //            mListView.addItemDecoration(new RecycleViewDivider(
 //                    this, LinearLayoutManager.VERTICAL, 2, Color.RED));
-            mListView.addItemDecoration(new UniversalItemDecoration() {
-                @Override
-                public Decoration getItemOffsets(int position) {
-
-                    ColorDecoration decoration = new ColorDecoration();
-                    decoration.bottom = 2;
-                    decoration.decorationColor = position == mList.size() ? 0x00ffffff : sColor;
-                    return decoration;
-                }
-            });
+//            mListView.addItemDecoration(new UniversalItemDecoration() {
+//                @Override
+//                public Decoration getItemOffsets(int position) {
+//
+//                    ColorDecoration decoration = new ColorDecoration();
+//                    decoration.bottom = 2;
+//                    decoration.decorationColor = position == mList.size() ? 0x00ffffff : sColor;
+//                    return decoration;
+//                }
+//            });
 
         } else {
             //多列形设置 GridLayoutManager

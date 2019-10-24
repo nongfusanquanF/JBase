@@ -18,6 +18,7 @@ import com.appbyme.jbase.Event.EventMsg;
 import com.appbyme.jbase.data.BaseClick;
 import com.appbyme.jbase.databinding.ActivityListFragmentBinding;
 import com.appbyme.jbase.databinding.ActivityMainBinding;
+import com.appbyme.jbase.ui.CoordinatorLayoutActivity;
 import com.appbyme.jbase.ui.DetailsActivity;
 import com.appbyme.jbase.ui.FragmentListActivity;
 import com.appbyme.jbase.ui.FragmentObjActivity;
@@ -38,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mBinding = DataBindingUtil.setContentView(this,R.layout.activity_main);
+        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         mBinding.setOnclick(new UiClick());
 
         SpannableStringBuilder spannableString = new SpannableStringBuilder();
@@ -65,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 System.out.println("------------------- 2");
             }
+
             @Override
             public void updateDrawState(@NonNull TextPaint ds) {
 //                ds.setColor(Color.RED);//文本颜色
@@ -80,14 +82,14 @@ public class MainActivity extends AppCompatActivity {
 
         };
 
-        spannableString.setSpan(clickableSpan1, 0, 4,  Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
+        spannableString.setSpan(clickableSpan1, 0, 4, Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
         spannableString.setSpan(clickableSpan2, 4, 7, Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
         spannableString.setSpan(clickableSpan3, 8, 11, Spannable.SPAN_INTERMEDIATE);
 
 //        mBinding.title.setText(spannableString);
 ////        mBinding.title.setTextColor(0xff000000);
 //        mBinding.title.setMovementMethod(LinkMovementMethod.getInstance());
-         String[] arr = {"key1","key2","key3"};
+        String[] arr = {"key1", "key2", "key3"};
         initKeys(arr, mBinding.title);
         //注册事件
         EventBus.getDefault().register(this);
@@ -95,13 +97,13 @@ public class MainActivity extends AppCompatActivity {
 
     List<BaseClick> mSpanList = new ArrayList<>();
 
-    private void initKeys(String[] arr,TextView title){
+    private void initKeys(String[] arr, TextView title) {
 
         int start = 0;
         SpannableStringBuilder spannableString = new SpannableStringBuilder();
 
         for (int i = 0; i < arr.length; i++) {
-            spannableString.append("#"+arr[i]);
+            spannableString.append("#" + arr[i]);
             final String str = arr[i];
             ClickableSpan clickableSpan = new ClickableSpan() {
                 @Override
@@ -116,11 +118,11 @@ public class MainActivity extends AppCompatActivity {
                     ds.bgColor = Color.WHITE;//背景颜色
                 }
             };
-            mSpanList.add(new BaseClick(start,spannableString.length(),clickableSpan));
+            mSpanList.add(new BaseClick(start, spannableString.length(), clickableSpan));
             start = spannableString.length();
         }
         for (BaseClick click : mSpanList) {
-            spannableString.setSpan(click.getClickableSpan(), click.getStart(),click.getEnt(),  Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
+            spannableString.setSpan(click.getClickableSpan(), click.getStart(), click.getEnt(), Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
         }
 
         title.setText(spannableString);
@@ -147,6 +149,9 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.details_fragment:
                     startActivity(new Intent(MainActivity.this, FragmentObjActivity.class));
                     break;
+                case R.id.details_c:
+                    startActivity(new Intent(MainActivity.this, CoordinatorLayoutActivity.class));
+                    break;
 
             }
         }
@@ -160,7 +165,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void  eventMsg(EventMsg msg){
+    public void eventMsg(EventMsg msg) {
         mBinding.title.setText(msg.getMsg());
     }
 
@@ -168,7 +173,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         //解除注册
-        if(EventBus.getDefault().isRegistered(this)) {
+        if (EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().unregister(this);
         }
 

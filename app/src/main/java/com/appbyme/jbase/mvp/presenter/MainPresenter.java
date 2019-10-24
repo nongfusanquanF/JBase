@@ -21,6 +21,7 @@ public class MainPresenter extends BasePresenter<IMainView> {
 
     @Override
     public void serverResponseObj(Object object) {
+
         System.out.println("------------ 接口数据 " + object.toString());
         if (object instanceof ListData) {
             getView().getDatas("List     : " + object.toString(), "");
@@ -29,11 +30,10 @@ public class MainPresenter extends BasePresenter<IMainView> {
         } else if (object instanceof ListData2) {
             getView().getDatas(GsonUtil.GsonString(((ListData2) object).getData()), "");
         } else if (object instanceof RtData) {
+            System.out.println("------------ 接口数据 list " + ((RtData) object).getList().toString());
             getView().getDatas(GsonUtil.GsonString(((RtData) object).getList()), "");
         } else if (object instanceof SpDatas) {
             getView().getDatas(GsonUtil.GsonString(((SpDatas) object).getData()), "");
-        } else {
-            getView().getDatas(object.toString(), "");
         }
 
 

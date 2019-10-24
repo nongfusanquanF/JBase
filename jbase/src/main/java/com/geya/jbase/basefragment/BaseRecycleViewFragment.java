@@ -267,16 +267,16 @@ public abstract class BaseRecycleViewFragment<T, P extends BasePresenter> extend
             //设置分割线
 //            mListView.addItemDecoration(new RecycleViewDivider(
 //                    this, LinearLayoutManager.VERTICAL, 2, Color.RED));
-            mListView.addItemDecoration(new UniversalItemDecoration() {
-                @Override
-                public Decoration getItemOffsets(int position) {
-
-                    ColorDecoration decoration = new ColorDecoration();
-                    decoration.bottom = 2;
-                    decoration.decorationColor = position == mList.size() ? 0x00ffffff : sColor;
-                    return decoration;
-                }
-            });
+//            mListView.addItemDecoration(new UniversalItemDecoration() {
+//                @Override
+//                public Decoration getItemOffsets(int position) {
+//
+//                    ColorDecoration decoration = new ColorDecoration();
+//                    decoration.bottom = 2;
+//                    decoration.decorationColor = position == mList.size() ? 0x00ffffff : sColor;
+//                    return decoration;
+//                }
+//            });
 
         } else {
             //多列形设置 GridLayoutManager
@@ -292,19 +292,19 @@ public abstract class BaseRecycleViewFragment<T, P extends BasePresenter> extend
             });
             mListView.setLayoutManager(mGridLayoutManager);
 
-            mListView.addItemDecoration(new UniversalItemDecoration() {
-                @Override
-                public Decoration getItemOffsets(int position) {
-
-                    ColorDecoration decoration = new ColorDecoration();
-                    decoration.right = 2;
-                    decoration.left = 2;
-                    decoration.top = 2;
-                    decoration.bottom = 2;
-                    decoration.decorationColor = position == mList.size() ? 0x00ffffff : sColor;
-                    return decoration;
-                }
-            });
+//            mListView.addItemDecoration(new UniversalItemDecoration() {
+//                @Override
+//                public Decoration getItemOffsets(int position) {
+//
+//                    ColorDecoration decoration = new ColorDecoration();
+//                    decoration.right = 2;
+//                    decoration.left = 2;
+//                    decoration.top = 2;
+//                    decoration.bottom = 2;
+//                    decoration.decorationColor = position == mList.size() ? 0x00ffffff : sColor;
+//                    return decoration;
+//                }
+//            });
 
         }
         //如果Item高度固定  增加该属性能够提高效率

@@ -34,9 +34,11 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation project(':jbase')
     implementation 'org.greenrobot:eventbus:3.0.0'
+    implementation 'com.android.support:design:23.4.0'
+    implementation 'com.shizhefei:ViewPagerIndicator:1.1.6'
 //    implementation 'com.github.dueeeke.dkplayer:dkplayer-java:3.0.2'
 //    implementation 'com.github.dueeeke.dkplayer:player-exo:3.0.2'
-
+    implementation 'com.ms-square:etsyblur:0.2.1'
 
 }
   

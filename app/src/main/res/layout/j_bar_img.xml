@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="40dp"
+    android:gravity="center_horizontal|bottom"
+    android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="16dp"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/trailer_hovering"
+        android:scaleType="fitXY"
+        />
+
+
+</LinearLayout>

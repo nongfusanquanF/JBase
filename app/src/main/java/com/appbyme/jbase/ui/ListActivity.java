@@ -10,7 +10,6 @@ import com.appbyme.jbase.mvp.view.IMainView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.geya.jbase.baseactivity.BaseRVActivity;
-import com.geya.jbase.baseactivity.BaseRecycleViewActivity;
 import com.geya.jbase.constant.RequestType;
 
 import java.util.HashMap;

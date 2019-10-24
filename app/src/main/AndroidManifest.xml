@@ -33,6 +33,7 @@
         <activity android:name=".ui.FragmentObjActivity"/>
         <activity android:name=".ui.ListActivity"/>
         <activity android:name=".ui.FragmentListActivity"/>
+        <activity android:name=".ui.CoordinatorLayoutActivity"/>
 
     </application>
 
