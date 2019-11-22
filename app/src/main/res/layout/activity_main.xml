@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -56,6 +57,23 @@
             android:text="ddddddd"
             android:textColor="#f00"
             />
+
+        <com.zhouyou.view.seekbar.SignSeekBar
+            android:id="@+id/seek_bar"
+            android:layout_width="match_parent"
+            android:layout_height="16dp"
+            app:ssb_section_text_position="bottom_sides"
+            app:ssb_show_progress_in_float="false"
+            app:ssb_show_section_mark="false"
+            app:ssb_show_section_text="true"
+            app:ssb_show_sign="true"
+            app:ssb_show_thumb_text="false"
+            app:ssb_sign_arrow_height="5dp"
+            app:ssb_sign_arrow_width="10dp"
+            app:ssb_sign_border_color="#f00"
+            app:ssb_sign_border_size="1dp"
+            app:ssb_sign_color="#f0f"
+            app:ssb_sign_show_border="true"/>
     </LinearLayout>
 
 

@@ -34,6 +34,7 @@
         <activity android:name=".ui.ListActivity"/>
         <activity android:name=".ui.FragmentListActivity"/>
         <activity android:name=".ui.CoordinatorLayoutActivity"/>
+        <activity android:name=".ui.CoordinatorLayoutActivity2"/>
 
     </application>
 

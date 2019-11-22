@@ -15,10 +15,12 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.appbyme.jbase.Event.EventMsg;
+import com.appbyme.jbase.Event.ExeCommand;
 import com.appbyme.jbase.data.BaseClick;
 import com.appbyme.jbase.databinding.ActivityListFragmentBinding;
 import com.appbyme.jbase.databinding.ActivityMainBinding;
 import com.appbyme.jbase.ui.CoordinatorLayoutActivity;
+import com.appbyme.jbase.ui.CoordinatorLayoutActivity2;
 import com.appbyme.jbase.ui.DetailsActivity;
 import com.appbyme.jbase.ui.FragmentListActivity;
 import com.appbyme.jbase.ui.FragmentObjActivity;
@@ -150,7 +152,9 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(new Intent(MainActivity.this, FragmentObjActivity.class));
                     break;
                 case R.id.details_c:
-                    startActivity(new Intent(MainActivity.this, CoordinatorLayoutActivity.class));
+//                    String str3 = new ExeCommand().run("file:///android_asset/deamon_log.sh", 10000).getResult();
+                    startActivity(new Intent(MainActivity.this, CoordinatorLayoutActivity2.class));
+
                     break;
 
             }

@@ -130,7 +130,15 @@ public abstract class BaseRecycleViewFragment<T, P extends BasePresenter> extend
     private String url;
     private String method;
     private Class classType;
+    protected boolean newsSwitch = false;
 
+    public boolean isNewsSwitch() {
+        return newsSwitch;
+    }
+
+    public void setNewsSwitch(boolean newsSwitch) {
+        this.newsSwitch = newsSwitch;
+    }
 
     @Override
     public void onAttach(Context context) {
@@ -330,6 +338,8 @@ public abstract class BaseRecycleViewFragment<T, P extends BasePresenter> extend
         mPresennter.setParams(RequestType.PAGE_INDEX, String.valueOf(pageParams.getPageNo()));
         mPresennter.setParams(RequestType.PAGE_SIZE, String.valueOf(pageParams.getPageSize()));
 //        mPresennter.initDatas(url, type, queryParams);
+
+        mProgress.showLoading(newsSwitch);
         mPresennter.accessServer();//访问服务器
 
 
@@ -355,6 +365,8 @@ public abstract class BaseRecycleViewFragment<T, P extends BasePresenter> extend
         this.url = url;
         this.method = method;
         this.classType = classType;
+
+        mProgress.showLoading(newsSwitch);
 
 //        mPresennter.accessServer(this.method, this.adderss, this.url,this.classType ,listMap);
         mPresennter.accessServers(method, adderss, url, classType, listMap);
@@ -385,6 +397,8 @@ public abstract class BaseRecycleViewFragment<T, P extends BasePresenter> extend
         this.url = url;
         this.method = method;
         this.classType = classType;
+
+        mProgress.showLoading(newsSwitch);
 
 //        mPresennter.accessServer(this.method, this.adderss, this.url,this.classType ,listMap);
         mPresennter.accessServers(method, adderss, url, classType, listMap);
