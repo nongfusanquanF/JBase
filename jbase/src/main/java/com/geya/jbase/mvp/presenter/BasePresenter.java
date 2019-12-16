@@ -215,33 +215,12 @@ public abstract class BasePresenter<T extends IMvpView> implements IBasePresente
     }
 
 
-    /**
-     *
-     * @param Method   请求类型
-     * @param address  服务器地址
-     * @param url      接口地址
-     * @param type     要转换的实体类类型
-     * @param map      参数
-     */
+
 
     public void accessServers(String Method, String address, String url, Class type, HashMap<String, String> map) {
         getModel().sendRequestToServers(Method, address + url, type, map);
     }
 
-    /**
-     *
-     *
-     *
-     *
-     *
-     *
-     * @param Method
-     * @param address
-     * @param url
-     * @param type
-     * @param map
-     * @param iokgoCallback
-     */
     public void accessServers(String Method, String address, String url, Class type, HashMap<String, String> map, IokgoCallback iokgoCallback) {
         getModel().sendRequestToServers(Method, address + url, type, map,iokgoCallback);
     }
@@ -252,13 +231,7 @@ public abstract class BasePresenter<T extends IMvpView> implements IBasePresente
     }
 
 
-    /**
-     *
-     * @param Method   请求类型
-     * @param url      接口地址
-     * @param type     要转换的实体类类型
-     * @param map      参数
-     */
+
 
     public void accessServers(String Method, String url, Class type, HashMap<String, String> map) {
 
