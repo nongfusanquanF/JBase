@@ -230,6 +230,11 @@ public abstract class BasePresenter<T extends IMvpView> implements IBasePresente
 
     /**
      *
+     *
+     *
+     *
+     *
+     *
      * @param Method
      * @param address
      * @param url
