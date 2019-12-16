@@ -10,7 +10,7 @@ import android.view.WindowManager;
 import com.geya.jbase.R;
 import com.geya.jbase.constant.RequestType;
 import com.geya.jbase.uiview.TopTitleButton;
-import com.gyf.barlibrary.ImmersionBar;
+import com.gyf.immersionbar.ImmersionBar;
 
 
 /**
