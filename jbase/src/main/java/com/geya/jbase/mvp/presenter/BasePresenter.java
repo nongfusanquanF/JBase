@@ -7,6 +7,7 @@ import com.geya.jbase.constant.RequestType;
 import com.geya.jbase.mvp.model.IBaseModel;
 import com.geya.jbase.mvp.model.OkGoModel;
 import com.geya.jbase.mvp.view.IMvpView;
+import com.geya.jbase.mvp.view.IokgoCallback;
 import com.lzy.okgo.model.HttpHeaders;
 
 import org.json.JSONException;
@@ -224,8 +225,11 @@ public abstract class BasePresenter<T extends IMvpView> implements IBasePresente
      */
 
     public void accessServers(String Method, String address, String url, Class type, HashMap<String, String> map) {
-
         getModel().sendRequestToServers(Method, address + url, type, map);
+    }
+
+    public void accessServers(String Method, String address, String url, Class type, HashMap<String, String> map, IokgoCallback iokgoCallback) {
+        getModel().sendRequestToServers(Method, address + url, type, map,iokgoCallback);
     }
 
     public void accessServers(String Method, String address, String url, Class type, HashMap<String, String> map, HttpHeaders headers) {

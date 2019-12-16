@@ -1,5 +1,6 @@
 package com.geya.jbase.mvp.model;
 
+import com.geya.jbase.mvp.view.IokgoCallback;
 import com.lzy.okgo.cache.CacheMode;
 import com.lzy.okgo.model.HttpHeaders;
 
@@ -19,6 +20,8 @@ public interface IBaseModel {
      * 向服务器发起请求
      */
     void sendRequestToServers(String method, String url, Class obj , HashMap<String,String> map);
+
+    void sendRequestToServers(String method, String url, Class obj , HashMap<String,String> map, IokgoCallback iokgoCallback);
 
     /**
      * 向服务器发起请求

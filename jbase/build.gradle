@@ -43,7 +43,8 @@ dependencies {
     api 'com.tuyenmonkey:mkloader:1.2.0'
     //适配器
     api 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.38'
-    api 'com.gyf.barlibrary:barlibrary:2.3.0'
+//    api 'com.gyf.barlibrary:barlibrary:2.3.0'
+    api 'com.gyf.immersionbar:immersionbar:3.0.0'
 
 //    apply plugin: 'com.github.dcendents.android-maven' // ADD THIS
 //    group='com.github.jitpack'
