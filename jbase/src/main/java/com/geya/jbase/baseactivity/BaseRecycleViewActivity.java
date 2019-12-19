@@ -196,6 +196,7 @@ public abstract class BaseRecycleViewActivity<T, P extends BasePresenter> extend
 //                    mPresennter.accessServer();
 
         listMap.put(RequestType.PAGE_INDEX, String.valueOf(pageParams.getPageNo()));
+        listMap.put("time", new Date().getTime()+"");
 //                    mPresennter.accessServer(method, adderss, url,classType ,listMap);
 //        if (headers != null) {
 //            mPresennter.accessServers(method, adderss, url, classType, listMap, headers);
