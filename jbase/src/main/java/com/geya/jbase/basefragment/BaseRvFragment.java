@@ -30,6 +30,7 @@ import com.geya.jbase.uiview.TopTitleButton;
 
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -394,6 +395,7 @@ public abstract class BaseRvFragment<T, P extends BasePresenter> extends LazyTab
         pageParams.reset();
         listMap.put(RequestType.PAGE_INDEX, String.valueOf(pageParams.getPageNo()));
         listMap.put(RequestType.PAGE_SIZE, String.valueOf(pageParams.getPageSize()));
+        listMap.put("time", new Date().getTime());
         this.adderss = adderss;
         this.url = url;
         this.method = method;

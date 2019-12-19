@@ -23,6 +23,7 @@ import com.geya.jbase.uiview.ProgressActivity;
 import com.lzy.okgo.model.HttpHeaders;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -343,6 +344,7 @@ public abstract class BaseRecycleViewActivity<T, P extends BasePresenter> extend
         pageParams.reset();
         listMap.put(RequestType.PAGE_INDEX, String.valueOf(pageParams.getPageNo()));
         listMap.put(RequestType.PAGE_SIZE, String.valueOf(pageParams.getPageSize()));
+        listMap.put("time", new Date().getTime());
         this.adderss = adderss;
         this.url = url;
         this.method = method;
