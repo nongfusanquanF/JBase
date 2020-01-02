@@ -236,7 +236,7 @@ public abstract class BaseRecycleViewFragment<T, P extends BasePresenter> extend
 //                    //访问服务器
 //                    mPresennter.accessServer();
         listMap.put(RequestType.PAGE_INDEX, String.valueOf(pageParams.getPageNo()));
-        listMap.put("time", new Date().getTime()+"");
+        listMap.put("timestamp", new Date().getTime()+"");
 //                    mPresennter.accessServer(method, adderss, url,classType ,listMap);
         mPresennter.accessServers(method, adderss, url, classType, listMap);
     }
@@ -395,7 +395,7 @@ public abstract class BaseRecycleViewFragment<T, P extends BasePresenter> extend
         pageParams.reset();
         listMap.put(RequestType.PAGE_INDEX, String.valueOf(pageParams.getPageNo()));
         listMap.put(RequestType.PAGE_SIZE, String.valueOf(pageParams.getPageSize()));
-        listMap.put("time", new Date().getTime()+"");
+        listMap.put("timestamp", new Date().getTime()+"");
         this.adderss = adderss;
         this.url = url;
         this.method = method;
