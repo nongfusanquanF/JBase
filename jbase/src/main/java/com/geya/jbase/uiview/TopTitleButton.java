@@ -5,6 +5,7 @@ import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -17,7 +18,7 @@ public class TopTitleButton extends RelativeLayout {
     private TextView mTitle;
     private TextView mRButton;
     private ImageView rImg;
-    private RelativeLayout mRelativeLayout;
+    private LinearLayout mRelativeLayout;
 
     public TextView getTitles() {
         return mTitle;
@@ -31,7 +32,7 @@ public class TopTitleButton extends RelativeLayout {
         return rImg;
     }
 
-    public RelativeLayout getRelativeLayout() {
+    public LinearLayout getRelativeLayout() {
         return mRelativeLayout;
     }
 
@@ -42,7 +43,6 @@ public class TopTitleButton extends RelativeLayout {
         mRButton = findViewById(R.id.tv_title2);
         rImg = findViewById(R.id.img_btn);
         mRelativeLayout = findViewById(R.id.ll);
-
 
         mTitle.setTextColor(RequestType.TITLE_COLOR);
         mRButton.setTextColor(RequestType.SUBHEADING_COLOR);
