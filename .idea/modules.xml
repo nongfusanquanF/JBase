@@ -3,7 +3,10 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/JBase.iml" filepath="$PROJECT_DIR$/JBase.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/JBase-app.iml" filepath="$PROJECT_DIR$/app/JBase-app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jbase/JBase-jbase.iml" filepath="$PROJECT_DIR$/jbase/JBase-jbase.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/gitee-JBase.iml" filepath="$PROJECT_DIR$/gitee-JBase.iml" />
       <module fileurl="file://$PROJECT_DIR$/jbase/jbase.iml" filepath="$PROJECT_DIR$/jbase/jbase.iml" />
     </modules>
   </component>
