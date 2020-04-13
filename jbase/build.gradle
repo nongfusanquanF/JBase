@@ -46,10 +46,7 @@ dependencies {
 //    api 'com.gyf.barlibrary:barlibrary:2.3.0'
     api 'com.gyf.immersionbar:immersionbar:3.0.0'
 
+    api 'com.android.support.constraint:constraint-layout:1.0.2'//正式版本
 //    apply plugin: 'com.github.dcendents.android-maven' // ADD THIS
 //    group='com.github.jitpack'
-
-
-    
-
 }

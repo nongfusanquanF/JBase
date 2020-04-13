@@ -2,6 +2,7 @@ package com.geya.jbase.uiview;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.support.constraint.ConstraintLayout;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.widget.ImageView;
@@ -18,7 +19,7 @@ public class TopTitleButton extends RelativeLayout {
     private TextView mTitle;
     private TextView mRButton;
     private ImageView rImg;
-    private LinearLayout mRelativeLayout;
+    private ConstraintLayout mRelativeLayout;
 
     public TextView getTitles() {
         return mTitle;
@@ -32,7 +33,7 @@ public class TopTitleButton extends RelativeLayout {
         return rImg;
     }
 
-    public LinearLayout getRelativeLayout() {
+    public ConstraintLayout getRelativeLayout() {
         return mRelativeLayout;
     }
 
