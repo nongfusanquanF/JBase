@@ -377,10 +377,10 @@ public abstract class BaseRecycleViewFragment<T, P extends BasePresenter> extend
 
     protected void requestData(String method, String adderss, String url, Class classType, HashMap<String, Object> map) {
 
-        if (mQuickAdapter != null && !isLoadMore) {
-            mList.clear();
-            mQuickAdapter.notifyDataSetChanged();
-        }
+//        if (mQuickAdapter != null && !isLoadMore) {
+//            mList.clear();
+//            mQuickAdapter.notifyDataSetChanged();
+//        }
         if (map != null) {
             listMap.clear();
             listMap.putAll(map);
@@ -569,6 +569,7 @@ public abstract class BaseRecycleViewFragment<T, P extends BasePresenter> extend
         mSwipeToLoadLayout.setRefreshing(false);
         //关闭 加载更多
         mSwipeToLoadLayout.setLoadingMore(false);
+
 
     }
 
