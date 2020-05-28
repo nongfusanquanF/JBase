@@ -5,6 +5,7 @@
     android:id="@+id/ll"
     android:layout_width="match_parent"
     android:layout_height="45dp"
+    android:background="#ee4433"
     >
 
     <ImageView
@@ -19,6 +20,19 @@
         android:padding="10dp"
         />
 
+    <ImageView
+        android:id="@+id/img_return"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleType="center"
+        android:src="@mipmap/icon_bac"
+        android:padding="10dp"
+        app:layout_constraintLeft_toRightOf="@id/img_btn"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:visibility="gone"
+        />
+
     <TextView
         android:id="@+id/tv_title"
         android:layout_weight="1"
@@ -29,7 +43,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         android:gravity="center"
-        android:text=""
+        android:text="55555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555"
         android:textColor="#fff"
         android:textSize="17sp"
         android:textStyle="bold"

@@ -18,6 +18,7 @@ public class TopTitleButton extends RelativeLayout {
     private TextView mTitle;
     private TextView mRButton;
     private ImageView rImg;
+    private ImageView imgReturn;
     private ConstraintLayout mRelativeLayout;
 
     public TextView getTitles() {
@@ -42,6 +43,7 @@ public class TopTitleButton extends RelativeLayout {
         mTitle = findViewById(R.id.tv_title);
         mRButton = findViewById(R.id.tv_title2);
         rImg = findViewById(R.id.img_btn);
+        imgReturn = findViewById(R.id.img_return);
         mRelativeLayout = findViewById(R.id.ll);
 
         mTitle.setTextColor(RequestType.TITLE_COLOR);
@@ -66,6 +68,21 @@ public class TopTitleButton extends RelativeLayout {
     public void setrImgSrc(int back){
         rImg.setImageResource(back);
     }
+
+    public void setImgReturn(int back){
+        imgReturn.setImageResource(back);
+    }
+
+    public void setImgReturn(int back,OnClickListener onClickListener){
+        imgReturn.setImageResource(back);
+        imgReturn.setOnClickListener(onClickListener);
+    }
+    public void setImgReturnVisibility(int visibility){
+        imgReturn.setVisibility(visibility);
+    }
+
+
+
 
 
     public void setMainColor(int color){
@@ -100,6 +117,7 @@ public class TopTitleButton extends RelativeLayout {
 
     public void setRButtonClickListener(OnClickListener onClickListener){
         mRButton.setOnClickListener(onClickListener);
+
     }
 
 }

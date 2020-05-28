@@ -12,6 +12,7 @@ import com.appbyme.jbase.mvp.presenter.MainPresenter;
 import com.appbyme.jbase.mvp.view.IMainView;
 import com.geya.jbase.baseactivity.BaseDetailsActivity;
 import com.geya.jbase.constant.RequestType;
+import com.geya.jbase.uiview.ToastUtil;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -32,9 +33,18 @@ public class DetailsActivity extends BaseDetailsActivity<MainPresenter> implemen
 
     @Override
     public void init() {
+        mTitleButton.setrImgSrc(R.mipmap.icon_bac);
+        mTitleButton.setImgReturn(R.mipmap.icon_bac, new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ToastUtil.showShort("关闭");
+                mTitleButton.setImgReturnVisibility(View.GONE);
+            }
+        });
+        mTitleButton.setImgReturnVisibility(View.VISIBLE);
 
         mTitleButton.setMainColor(0xffff0000);
-        mTitleButton.setTitles("首页");
+        mTitleButton.setTitles("首页首页首页首页首页首页首页首页首页首页首页首页首页首页");
         mTitleButton.setRButtonText("保存");
 
 
