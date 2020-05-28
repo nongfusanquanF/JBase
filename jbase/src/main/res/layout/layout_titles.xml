@@ -26,11 +26,13 @@
         android:layout_height="wrap_content"
         android:scaleType="center"
         android:src="@mipmap/icon_bac"
-        android:padding="10dp"
+       android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:paddingRight="10dp"
         app:layout_constraintLeft_toRightOf="@id/img_btn"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:visibility="gone"
+
         />
 
     <TextView
