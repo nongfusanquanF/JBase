@@ -43,7 +43,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         android:gravity="center"
-        android:text="55555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555"
+        android:text=""
         android:textColor="#fff"
         android:textSize="17sp"
         android:textStyle="bold"
