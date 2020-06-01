@@ -191,9 +191,9 @@ public abstract class BaseRVActivity<T, P extends BasePresenter> extends BaseFra
         isLoadMore = false;
         isCanLoadMore = true;
         isLoadMoreEnabled(true);
-        if (mLayout != null) {
+        if (view != null) {
 //                        mLayout.setVisibility(View.GONE);
-            mQuickAdapter.removeAllFooterView();
+            mQuickAdapter.removeFooterView(view);
         }
 
         //页码重置为1
