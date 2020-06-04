@@ -12,6 +12,7 @@ import com.appbyme.jbase.mvp.presenter.MainPresenter;
 import com.appbyme.jbase.mvp.view.IMainView;
 import com.geya.jbase.baseactivity.BaseDetailsActivity;
 import com.geya.jbase.constant.RequestType;
+import com.geya.jbase.mvp.view.IokgoCallback;
 import com.geya.jbase.uiview.ToastUtil;
 
 import org.greenrobot.eventbus.EventBus;
@@ -67,7 +68,16 @@ public class DetailsActivity extends BaseDetailsActivity<MainPresenter> implemen
                  map.put("uid","7826");
                  map.put("_token","47e2b91bf3efa5adacfd2e1920e0c030");
 //                 map.put("id","5");
-                 mPresenter.accessServers(RequestType.OKGO_GET, "http://www.syiptv.com/api/v1", "/version/check", CheckData.class,map);
+                 mPresenter.accessServers(RequestType.OKGO_GET, "http://www.syiptv.com/api/v1", "/version/check", CheckData.class, map, new IokgoCallback() {
+                     @Override
+                     public void onSucceed(Object object) {
+                         mBinding.tvText.setText(object.toString());
+                         if (object instanceof  CheckData){
+                             System.out.println("----------- " + (((CheckData) object).getRetcode()+100));
+                         }
+
+                     }
+                 });
              }
          });
     }

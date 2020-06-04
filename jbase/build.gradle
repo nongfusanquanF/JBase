@@ -3,8 +3,6 @@ apply plugin: 'com.android.library'
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
 
-
-
     defaultConfig {
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
@@ -47,6 +45,7 @@ dependencies {
     api 'com.gyf.immersionbar:immersionbar:3.0.0'
 
     api 'com.android.support.constraint:constraint-layout:1.0.2'//正式版本
+//    api 'com.qmuiteam:qmui:2.0.0-alpha08'
 //    apply plugin: 'com.github.dcendents.android-maven' // ADD THIS
 //    group='com.github.jitpack'
 }

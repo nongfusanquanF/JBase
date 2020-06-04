@@ -15,11 +15,8 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.appbyme.jbase.Event.EventMsg;
-import com.appbyme.jbase.Event.ExeCommand;
 import com.appbyme.jbase.data.BaseClick;
-import com.appbyme.jbase.databinding.ActivityListFragmentBinding;
 import com.appbyme.jbase.databinding.ActivityMainBinding;
-import com.appbyme.jbase.ui.CoordinatorLayoutActivity;
 import com.appbyme.jbase.ui.CoordinatorLayoutActivity2;
 import com.appbyme.jbase.ui.DetailsActivity;
 import com.appbyme.jbase.ui.FragmentListActivity;
@@ -34,7 +31,7 @@ import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity  {
 
     private ActivityMainBinding mBinding;
 
@@ -43,7 +40,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         mBinding.setOnclick(new UiClick());
-
+//        mBinding.btLike.init(this);
+//        mBinding.btLike.setEnabled(false);
+//        mBinding.btLike.setOnClickListener();
         SpannableStringBuilder spannableString = new SpannableStringBuilder();
         spannableString.append("#AAA");
         spannableString.append("#BBB");
@@ -131,6 +130,7 @@ public class MainActivity extends AppCompatActivity {
         title.setMovementMethod(LinkMovementMethod.getInstance());
     }
 
+    private int zan = 0;
     public class UiClick {
 
         public void uiClick(View v) {
@@ -150,12 +150,17 @@ public class MainActivity extends AppCompatActivity {
 
                 case R.id.details_fragment:
                     startActivity(new Intent(MainActivity.this, FragmentObjActivity.class));
+//                    mBinding.btLike.setCancel();
+//                    mBinding.btLike.setChecked(false);
                     break;
                 case R.id.details_c:
 //                    String str3 = new ExeCommand().run("file:///android_asset/deamon_log.sh", 10000).getResult();
                     startActivity(new Intent(MainActivity.this, CoordinatorLayoutActivity2.class));
-
+//                    mBinding.btLike.showAnim();
+//                    mBinding.btLike.setChecked(true);
                     break;
+
+
 
             }
         }

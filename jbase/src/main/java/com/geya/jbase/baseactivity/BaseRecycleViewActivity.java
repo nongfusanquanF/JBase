@@ -1,5 +1,7 @@
 package com.geya.jbase.baseactivity;
 
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -58,6 +60,8 @@ public abstract class BaseRecycleViewActivity<T, P extends BasePresenter> extend
      * 是否在下拉刷新
      */
     private boolean isRefresh = false;
+
+    private boolean isAutoRefresh = false;
 
     public void setLoadMoreEnabled(boolean loadMoreEnabled) {
         mSwipeToLoadLayout.setLoadMoreEnabled(loadMoreEnabled);
@@ -123,6 +127,16 @@ public abstract class BaseRecycleViewActivity<T, P extends BasePresenter> extend
     private Class classType;
 
 
+    public void setAutoRefresh(boolean autoRefresh) {
+        isAutoRefresh = autoRefresh;
+    }
+
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
     /**
      * 初始化数据
      */
@@ -174,6 +188,16 @@ public abstract class BaseRecycleViewActivity<T, P extends BasePresenter> extend
             mSwipeToLoadLayout = findViewById(R.id.swipeToLoadLayout);
             mSwipeToLoadLayout.setOnRefreshListener(this);
             mSwipeToLoadLayout.setOnLoadMoreListener(this);
+        }
+
+        if(isAutoRefresh){
+            mQuickAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
+                @Override
+                public void onLoadMoreRequested() {
+                    onLoadMore();
+                }
+            });
+            mQuickAdapter.setPreLoadNumber(5);
         }
     }
 
@@ -464,84 +488,6 @@ public abstract class BaseRecycleViewActivity<T, P extends BasePresenter> extend
 
     }
 
-//    @Override
-//    public void getDatas(String json, String type) {
-//
-//        List<T> list = null;
-//        try {
-//            list = JSON.parseArray(json.toString(), mClass);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            Toast.makeText(this, "数据解析异常", Toast.LENGTH_SHORT).show();
-//        }
-//        if (list == null) return;
-//
-//        if (isRefresh) {
-//            mList.clear();
-//        }
-//
-//        if (list.size() != 0) {
-//            mList.addAll(list);
-//
-//        }
-//
-//
-//        //是否在加载跟多
-//        if (isLoadMore) {
-//            //是否有数据
-//            if (list.size() == 0) {
-//                //显示页脚
-////                mAdapter.notifyDataChangedAfterLoadMore(false);
-//
-//                if (view == null) {
-//                    view = getLayoutInflater().inflate(R.layout.not_loading, (ViewGroup) mListView.getParent(), false);
-//                    mLayout = view.findViewById(R.id.loading_view);
-//                }
-////                mAdapter.addFooterView(view);
-//                mQuickAdapter.addFooterView(view);
-////                mLayout.setVisibility(View.VISIBLE);
-//
-//                isCanLoadMore = false;
-//
-//                mSwipeToLoadLayout.setLoadingMore(false);
-//                isLoadMoreEnabled(false);
-//
-//            } else {
-//                //添加数据
-////                mList.addAll(list);
-////                mQuickAdapter.setNewData(mList);
-//                mQuickAdapter.notifyLoadMoreToLoading();
-//            }
-//
-//        } else {
-//            //是否有数据
-//            if (list.size() == 0) {
-//                showServerError(RequestType.NO_DATA, "暂无内容");
-////                mProgress.showEmpty(getResources().getDrawable(R.drawable.nodata),//设置错误页面图片
-////                        "木有数据~",    //  错误信息1
-////                        "");           //  错误信息2
-//
-//            } else {
-//
-//                if (mQuickAdapter == null) {
-//                    mQuickAdapter = initAdapter(mList);
-//                }
-////                mQuickAdapter.setNewData(mList);
-//                mListView.setAdapter(mQuickAdapter);
-//                mQuickAdapter.notifyLoadMoreToLoading();
-//                mProgress.showContent();
-//            }
-//
-//        }
-//
-//        //关闭刷新
-//        mSwipeToLoadLayout.setRefreshing(false);
-//        //关闭 加载更多
-//        mSwipeToLoadLayout.setLoadingMore(false);
-//
-//    }
-
-
     @Override
     public void getDatas(String json, String type) {
 
@@ -620,6 +566,11 @@ public abstract class BaseRecycleViewActivity<T, P extends BasePresenter> extend
         mSwipeToLoadLayout.setRefreshing(false);
         //关闭 加载更多
         mSwipeToLoadLayout.setLoadingMore(false);
+
+        if (isAutoRefresh) {
+            mQuickAdapter.loadMoreComplete();
+        }
+
 
     }
 

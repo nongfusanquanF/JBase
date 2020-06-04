@@ -49,6 +49,29 @@
             android:text="details_fragment" />
 
 
+<!--        <com.sackcentury.shinebuttonlib.ShineButton-->
+<!--            android:layout_width="18dp"-->
+<!--            android:layout_height="18dp"-->
+<!--            android:layout_centerInParent="true"-->
+
+<!--            android:src="@android:color/darker_gray"-->
+<!--            android:id="@+id/bt_like"-->
+<!--            app:btn_color="@android:color/darker_gray"-->
+<!--            app:btn_fill_color="#ee4433"-->
+<!--            app:allow_random_color="false"-->
+<!--            app:enable_flashing="false"-->
+<!--            app:big_shine_color="#ee4433"-->
+<!--            app:click_animation_duration="200"-->
+<!--            app:shine_animation_duration="1500"-->
+<!--            app:shine_turn_angle="10"-->
+<!--            app:small_shine_offset_angle="20"-->
+<!--            app:shine_distance_multiple="1.5"-->
+<!--            app:small_shine_color="#CC9999"-->
+<!--            app:shine_count="8"-->
+<!--            app:siShape="@mipmap/icon_news_zang3"/>-->
+
+
+
         <TextView
             android:id="@+id/title"
             android:layout_width="match_parent"
@@ -74,6 +97,10 @@
             app:ssb_sign_border_size="1dp"
             app:ssb_sign_color="#f0f"
             app:ssb_sign_show_border="true"/>
+
+
+
+
     </LinearLayout>
 
 

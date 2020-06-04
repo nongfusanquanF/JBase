@@ -67,7 +67,6 @@ public  class BaseFragmentActivity extends FragmentActivity {
      */
     public void initTitle(){
 
-
         if (findViewById(R.id.top_title)!=null) {
             mTitleButton = findViewById(R.id.top_title);
             mTitleButton.setBackClickListener(new View.OnClickListener() {

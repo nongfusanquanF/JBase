@@ -1,5 +1,6 @@
 package com.appbyme.jbase.mvp.presenter;
 
+import com.appbyme.jbase.data.BaseNewsData;
 import com.appbyme.jbase.data.GsonUtil;
 import com.appbyme.jbase.data.ListData;
 import com.appbyme.jbase.data.ListData2;
@@ -32,8 +33,8 @@ public class MainPresenter extends BasePresenter<IMainView> {
         } else if (object instanceof RtData) {
             System.out.println("------------ 接口数据 list " + ((RtData) object).getList().toString());
             getView().getDatas(GsonUtil.GsonString(((RtData) object).getList()), "");
-        } else if (object instanceof SpDatas) {
-            getView().getDatas(GsonUtil.GsonString(((SpDatas) object).getData()), "");
+        } else if (object instanceof BaseNewsData) {
+            getView().getDatas(GsonUtil.GsonString(((BaseNewsData) object).getList()), "");
         }
 
 
