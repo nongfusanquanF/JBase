@@ -98,6 +98,16 @@
             app:ssb_sign_color="#f0f"
             app:ssb_sign_show_border="true"/>
 
+        <com.appbyme.jbase.view.gesture.VideoGestureRelativeLayout
+            android:id="@+id/vgr"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:background="#cc000000"
+            >
+
+
+        </com.appbyme.jbase.view.gesture.VideoGestureRelativeLayout>
+
 
 
 

@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">JBase</string>
+    <string name="json">{
+	"PageIndex": "page",
+	"PageSize": "page_size",
+	"IsString": true,
+	"IntCodes": "200",
+	"IsSuccess": "retcode",
+	"Message": "message",
+	"ListDatas": "data",
+	"AgainLogin": "-888",
+	"Address": "http://www.syiptv.com/api/v1"
+}</string>
 </resources>

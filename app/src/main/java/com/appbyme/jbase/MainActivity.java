@@ -11,6 +11,7 @@ import android.text.SpannableStringBuilder;
 import android.text.TextPaint;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
 
@@ -22,6 +23,7 @@ import com.appbyme.jbase.ui.DetailsActivity;
 import com.appbyme.jbase.ui.FragmentListActivity;
 import com.appbyme.jbase.ui.FragmentObjActivity;
 import com.appbyme.jbase.ui.ListActivity;
+import com.appbyme.jbase.view.gesture.VideoGestureRelativeLayout;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -31,7 +33,7 @@ import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity  {
+public class MainActivity extends AppCompatActivity implements VideoGestureRelativeLayout.VideoGestureListener {
 
     private ActivityMainBinding mBinding;
 
@@ -94,6 +96,12 @@ public class MainActivity extends AppCompatActivity  {
         initKeys(arr, mBinding.title);
         //注册事件
         EventBus.getDefault().register(this);
+        initVgr();
+    }
+
+
+    private  void initVgr(){
+        mBinding.vgr.setVideoGestureListener(this);
     }
 
     List<BaseClick> mSpanList = new ArrayList<>();
@@ -131,6 +139,70 @@ public class MainActivity extends AppCompatActivity  {
     }
 
     private int zan = 0;
+    private int newProgress = 0, oldProgress = 0;
+
+    @Override
+    public void onBrightnessGesture(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
+
+    }
+
+    @Override
+    public void onVolumeGesture(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
+
+    }
+
+    //快进快退手势，手指在Layout左右滑动的时候调用
+    @Override
+    public void onFF_REWGesture(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
+
+
+        float offset = e2.getX() - e1.getX();
+
+        mBinding.seekBar.setProgress(newProgress);
+        System.out.println("----------------------- " + (offset > 0? "快进" :"快退"));
+        //根据移动的正负决定快进还是快退
+        if (offset > 0) {
+//            scl.setImageResource(R.drawable.ff);
+            newProgress = (int) (oldProgress + offset/mBinding.vgr.getWidth() * 100);
+            if (newProgress > 100){
+                newProgress = 100;
+            }
+        }else {
+//            scl.setImageResource(R.drawable.fr);
+            newProgress = (int) (oldProgress + offset/mBinding.vgr.getWidth() * 100);
+            System.out.println("--------------------- 快退  " + newProgress);
+            if (newProgress < 0){
+                newProgress = 0;
+            }
+        }
+        System.out.println("--------------------- onFF_REWGesture   newProgress  " + newProgress+"/100");
+
+                 mBinding.seekBar.setProgress(newProgress);
+//        scl.setProgress(newProgress);
+//        scl.show();
+    }
+
+    @Override
+    public void onSingleTapGesture(MotionEvent e) {
+
+    }
+
+    @Override
+    public void onDoubleTapGesture(MotionEvent e) {
+
+    }
+
+    @Override
+    public void onDown(MotionEvent e) {
+
+    }
+    //快进快退执行后的松开时候调用
+    @Override
+    public void onEndFF_REW(MotionEvent e) {
+        System.out.println("--------------------- onEndFF_REW: " + newProgress);
+        oldProgress = newProgress;
+    }
+
     public class UiClick {
 
         public void uiClick(View v) {

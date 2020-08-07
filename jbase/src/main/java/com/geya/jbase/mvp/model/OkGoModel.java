@@ -165,7 +165,7 @@ public class OkGoModel implements IBaseModel {
                     public Object apply(Response<String> stringResponse) {
                         BaseData data = GsonUtil.GsonToBean(stringResponse.body(), BaseData.class);
                         if (data!=null){
-                            if (RequestType.isCode(data.getCodes())) {
+                            if (data.isSuccess()) {
                                 return GsonUtil.GsonToBean(stringResponse.body(), obj);
                             } else {
                                 return data;
@@ -219,7 +219,7 @@ public class OkGoModel implements IBaseModel {
                     public Object apply(Response<String> stringResponse) {
                         BaseData data = GsonUtil.GsonToBean(stringResponse.body(), BaseData.class);
                         if (data!=null){
-                            if (RequestType.isCode(data.getCodes())) {
+                            if (data.isSuccess()) {
                                 return GsonUtil.GsonToBean(stringResponse.body(), obj);
                             } else {
                                 return data;
@@ -277,7 +277,7 @@ public class OkGoModel implements IBaseModel {
                     public Object apply(Response<String> stringResponse) {
                         BaseData data = GsonUtil.GsonToBean(stringResponse.body(), BaseData.class);
                         if (data!=null){
-                            if (RequestType.isCode(data.getCodes())) {
+                            if (data.isSuccess()) {
                                 return GsonUtil.GsonToBean(stringResponse.body(), obj);
                             } else {
                                 return data;
@@ -333,7 +333,7 @@ public class OkGoModel implements IBaseModel {
                     public Object apply(Response<String> stringResponse) throws Exception {
                         BaseData data = GsonUtil.GsonToBean(stringResponse.body(), BaseData.class);
                         if (data!=null){
-                            if (RequestType.isCode(data.getCodes())) {
+                            if (data.isSuccess()) {
                                 return GsonUtil.GsonToBean(stringResponse.body(), obj);
                             } else {
                                 return data;
@@ -389,7 +389,7 @@ public class OkGoModel implements IBaseModel {
                     public Object apply(Response<String> stringResponse) throws Exception {
                         BaseData data = GsonUtil.GsonToBean(stringResponse.body(), BaseData.class);
                         if (data!=null){
-                            if (RequestType.isCode(data.getCodes())) {
+                            if (data.isSuccess()) {
                                 return GsonUtil.GsonToBean(stringResponse.body(), obj);
                             } else {
                                 return data;
@@ -444,7 +444,7 @@ public class OkGoModel implements IBaseModel {
 
                         BaseData data = GsonUtil.GsonToBean(stringResponse.body(), BaseData.class);
                        if (data!=null){
-                           if (RequestType.isCode(data.getCodes())) {
+                           if (data.isSuccess()) {
                                return GsonUtil.GsonToBean(stringResponse.body(), obj);
                            } else {
                                return data;
@@ -499,7 +499,7 @@ public class OkGoModel implements IBaseModel {
 
                         BaseData data = GsonUtil.GsonToBean(stringResponse.body(), BaseData.class);
                        if (data!=null){
-                           if (RequestType.isCode(data.getCodes())) {
+                           if (data.isSuccess()) {
                                return GsonUtil.GsonToBean(stringResponse.body(), obj);
                            } else {
                                return data;

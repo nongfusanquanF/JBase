@@ -20,6 +20,13 @@
         android:theme="@style/AppTheme"
         android:name=".APP"
         >
+        <meta-data
+            android:name="j.base.data"
+            android:value="@string/json" />
+
+
+
+
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

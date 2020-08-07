@@ -24,5 +24,6 @@ public class TestPresenter extends BasePresenter<ITestV> {
     public void serverResponseObj(Object o) {
 
 
+
     }
 }

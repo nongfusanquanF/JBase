@@ -4,6 +4,8 @@ import android.app.Application;
 
 import com.geya.jbase.R;
 import com.geya.jbase.uiview.ToastUtil;
+import com.geya.jbase.utils.GsonUtil;
+import com.geya.jbase.utils.ManifestUtil;
 
 
 /**
@@ -76,6 +78,10 @@ public class RequestType {
     public RequestType init(Application app) {
         mContext = app;
         ToastUtil.sContext = app;
+//        String json=  ManifestUtil.readManifestString(mContext,"j.base.data");
+//        System.out.println("-------------- json = " + json);
+//        BaseBean bean = GsonUtil.GsonToBean(json,BaseBean.class);
+//        System.out.println("----------------------- " + bean.toString());
         return this;
     }
 
@@ -249,11 +255,12 @@ public class RequestType {
         if (IS_STRING) {
             return code.equals(STRING_CODE)?true:false;
         }else {
-
             return Integer.parseInt(code) == INT_CODE?true:false;
         }
 
     }
+
+
 
     //网路请求方式
     public static final String OKGO_GET = "GET";
