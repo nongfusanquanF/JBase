@@ -116,6 +116,7 @@ public abstract class BasePresenter<T extends IMvpView> implements IBasePresente
         mvpView.get().showProgress(false);
         try {
             JSONObject jsonObject = new JSONObject(json);
+
             if (RequestType.IS_STRING) {
                 //此处判断默认和服务器端约定的是Boolean类型，可根据需求做相应修改
                 if (jsonObject.optString(RequestType.IS_SUCCESS).equals(RequestType.STRING_CODE) || jsonObject.optInt("code") == 0) {
@@ -129,7 +130,7 @@ public abstract class BasePresenter<T extends IMvpView> implements IBasePresente
                         RequestType.mContext.sendBroadcast(intent);
                     }
 
-                    mvpView.get().showServerError( Integer.parseInt(jsonObject.optString(RequestType.IS_SUCCESS)), jsonObject.optString(RequestType.MESSAGE));
+                    mvpView.get().showServerError( jsonObject.optInt("code"), jsonObject.optString(RequestType.MESSAGE));
                 }
             } else {
                 //此处判断默认和服务器端约定的是Boolean类型，可根据需求做相应修改
@@ -146,7 +147,7 @@ public abstract class BasePresenter<T extends IMvpView> implements IBasePresente
                         RequestType.mContext.sendBroadcast(intent);
                     }
 
-                    mvpView.get().showServerError(jsonObject.optInt(RequestType.IS_SUCCESS), jsonObject.optString(RequestType.MESSAGE));
+                    mvpView.get().showServerError(jsonObject.optInt("code"), jsonObject.optString(RequestType.MESSAGE));
                 }
             }
 

@@ -1,7 +1,6 @@
 package com.geya.jbase.mvp.model;
 
 
-
 import com.geya.jbase.constant.BaseData;
 import com.geya.jbase.constant.RequestType;
 import com.geya.jbase.mvp.presenter.IBasePresenter;
@@ -72,11 +71,15 @@ public class OkGoModel implements IBaseModel {
             case RequestType.OKGO_GET_CACHE:
                 okRxCacheGET(url, obj, map);
                 break;
-                case RequestType.OKGO_POST_CACHE:
+            case RequestType.OKGO_POST_CACHE:
                 okRxCachePOSt(url, obj, map);
                 break;
             case RequestType.OKGO_POST:
                 okRxPOST(url, obj, map);
+                break;
+
+            case RequestType.OKGO_POST_JSON:
+                okRxPostJson(url, obj, map);
                 break;
         }
     }
@@ -85,16 +88,19 @@ public class OkGoModel implements IBaseModel {
     public void sendRequestToServers(String method, String url, Class obj, HashMap<String, String> map, IokgoCallback iokgoCallback) {
         switch (method) {
             case RequestType.OKGO_GET:
-                okRxGET(url, obj, map,iokgoCallback);
+                okRxGET(url, obj, map, iokgoCallback);
                 break;
             case RequestType.OKGO_GET_CACHE:
                 okRxCacheGET(url, obj, map);
                 break;
-                case RequestType.OKGO_POST_CACHE:
+            case RequestType.OKGO_POST_CACHE:
                 okRxCachePOSt(url, obj, map);
                 break;
             case RequestType.OKGO_POST:
-                okRxPOST(url, obj, map,iokgoCallback);
+                okRxPOST(url, obj, map, iokgoCallback);
+                break;
+            case RequestType.OKGO_POST_JSON:
+                okRxPostJson(url, obj, map);
                 break;
         }
     }
@@ -103,7 +109,7 @@ public class OkGoModel implements IBaseModel {
     public void sendRequestToServers(String method, String url, Class obj, HashMap<String, String> map, HttpHeaders headers) {
         switch (method) {
             case RequestType.OKGO_GET:
-                okRxGET(url, obj, map,headers);
+                okRxGET(url, obj, map, headers);
                 break;
             case RequestType.OKGO_GET_CACHE:
                 okRxCacheGET(url, obj, map);
@@ -114,11 +120,11 @@ public class OkGoModel implements IBaseModel {
             case RequestType.OKGO_POST:
                 okRxPOST(url, obj, map);
                 break;
+            case RequestType.OKGO_POST_JSON:
+                okRxPostJson(url, obj, map);
+                break;
         }
     }
-
-
-
 
 
     @Override
@@ -164,13 +170,67 @@ public class OkGoModel implements IBaseModel {
                     @Override
                     public Object apply(Response<String> stringResponse) {
                         BaseData data = GsonUtil.GsonToBean(stringResponse.body(), BaseData.class);
-                        if (data!=null){
+                        if (data != null) {
                             if (data.isSuccess()) {
                                 return GsonUtil.GsonToBean(stringResponse.body(), obj);
                             } else {
                                 return data;
                             }
-                        }else {
+                        } else {
+                            return null;
+                        }
+
+
+                    }
+                }).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Object>() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(@NonNull Object serverModel) {
+                        onSuccess(serverModel);
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        onErrors(e);
+                    }
+
+                    @Override
+                    public void onComplete() {
+                    }
+                });
+
+    }
+
+    private void okRxPostJson(String url, final Class obj, Map<String, String> map) {
+
+        OkGo.<String>post(url)
+                .upJson(convertJson("",map))
+                .converter(new StringConvert())
+                .adapt(new ObservableResponse<String>())
+                .subscribeOn(Schedulers.io())
+                .doOnSubscribe(new Consumer<Disposable>() {
+                    @Override
+                    public void accept(@NonNull Disposable disposable) throws Exception {
+                        mDisposable.add(disposable);
+                    }
+                })
+                .map(new Function<Response<String>, Object>() {
+
+                    @Override
+                    public Object apply(Response<String> stringResponse) {
+                        BaseData data = GsonUtil.GsonToBean(stringResponse.body(), BaseData.class);
+                        if (data != null) {
+                            if (data.isSuccess()) {
+                                return GsonUtil.GsonToBean(stringResponse.body(), obj);
+                            } else {
+                                return data;
+                            }
+                        } else {
                             return null;
                         }
 
@@ -218,13 +278,13 @@ public class OkGoModel implements IBaseModel {
                     @Override
                     public Object apply(Response<String> stringResponse) {
                         BaseData data = GsonUtil.GsonToBean(stringResponse.body(), BaseData.class);
-                        if (data!=null){
+                        if (data != null) {
                             if (data.isSuccess()) {
                                 return GsonUtil.GsonToBean(stringResponse.body(), obj);
                             } else {
                                 return data;
                             }
-                        }else {
+                        } else {
                             return null;
                         }
 
@@ -239,7 +299,7 @@ public class OkGoModel implements IBaseModel {
 
                     @Override
                     public void onNext(@NonNull Object serverModel) {
-                        if (iokgoCallback!=null){
+                        if (iokgoCallback != null) {
                             iokgoCallback.onSucceed(serverModel);
                         }
                         onSuccess(serverModel);
@@ -257,7 +317,7 @@ public class OkGoModel implements IBaseModel {
 
     }
 
-    private void okRxGET(String url, final Class obj, Map<String, String> map,HttpHeaders headers) {
+    private void okRxGET(String url, final Class obj, Map<String, String> map, HttpHeaders headers) {
 
         OkGo.<String>get(url)
                 .params(map)
@@ -276,13 +336,13 @@ public class OkGoModel implements IBaseModel {
                     @Override
                     public Object apply(Response<String> stringResponse) {
                         BaseData data = GsonUtil.GsonToBean(stringResponse.body(), BaseData.class);
-                        if (data!=null){
+                        if (data != null) {
                             if (data.isSuccess()) {
                                 return GsonUtil.GsonToBean(stringResponse.body(), obj);
                             } else {
                                 return data;
                             }
-                        }else {
+                        } else {
                             return null;
                         }
 
@@ -332,13 +392,13 @@ public class OkGoModel implements IBaseModel {
                     @Override
                     public Object apply(Response<String> stringResponse) throws Exception {
                         BaseData data = GsonUtil.GsonToBean(stringResponse.body(), BaseData.class);
-                        if (data!=null){
+                        if (data != null) {
                             if (data.isSuccess()) {
                                 return GsonUtil.GsonToBean(stringResponse.body(), obj);
                             } else {
                                 return data;
                             }
-                        }else {
+                        } else {
                             return null;
                         }
 
@@ -388,13 +448,13 @@ public class OkGoModel implements IBaseModel {
                     @Override
                     public Object apply(Response<String> stringResponse) throws Exception {
                         BaseData data = GsonUtil.GsonToBean(stringResponse.body(), BaseData.class);
-                        if (data!=null){
+                        if (data != null) {
                             if (data.isSuccess()) {
                                 return GsonUtil.GsonToBean(stringResponse.body(), obj);
                             } else {
                                 return data;
                             }
-                        }else {
+                        } else {
                             return null;
                         }
 
@@ -443,15 +503,15 @@ public class OkGoModel implements IBaseModel {
                     public Object apply(Response<String> stringResponse) throws Exception {
 
                         BaseData data = GsonUtil.GsonToBean(stringResponse.body(), BaseData.class);
-                       if (data!=null){
-                           if (data.isSuccess()) {
-                               return GsonUtil.GsonToBean(stringResponse.body(), obj);
-                           } else {
-                               return data;
-                           }
-                       }else {
+                        if (data != null) {
+                            if (data.isSuccess()) {
+                                return GsonUtil.GsonToBean(stringResponse.body(), obj);
+                            } else {
+                                return data;
+                            }
+                        } else {
                             return null;
-                       }
+                        }
 
 
                     }
@@ -498,15 +558,15 @@ public class OkGoModel implements IBaseModel {
                     public Object apply(Response<String> stringResponse) throws Exception {
 
                         BaseData data = GsonUtil.GsonToBean(stringResponse.body(), BaseData.class);
-                       if (data!=null){
-                           if (data.isSuccess()) {
-                               return GsonUtil.GsonToBean(stringResponse.body(), obj);
-                           } else {
-                               return data;
-                           }
-                       }else {
+                        if (data != null) {
+                            if (data.isSuccess()) {
+                                return GsonUtil.GsonToBean(stringResponse.body(), obj);
+                            } else {
+                                return data;
+                            }
+                        } else {
                             return null;
-                       }
+                        }
 
 
                     }
@@ -519,7 +579,7 @@ public class OkGoModel implements IBaseModel {
 
                     @Override
                     public void onNext(@NonNull Object serverModel) {
-                        if (iokgoCallback!=null){
+                        if (iokgoCallback != null) {
                             iokgoCallback.onSucceed(serverModel);
                         }
                         onSuccess(serverModel);
@@ -634,10 +694,10 @@ public class OkGoModel implements IBaseModel {
 
     private void onSuccess(Object obj) {
         if (basePresenter != null) {
-            if (obj!=null){
+            if (obj != null) {
                 basePresenter.accessSucceedObj(obj, new Gson().toJson(obj));
-            }else {
-                basePresenter.okgoError(0,"数据解析异常", "");
+            } else {
+                basePresenter.okgoError(0, "数据解析异常", "");
             }
 
         }
@@ -652,15 +712,15 @@ public class OkGoModel implements IBaseModel {
 //            basePresenter.okgoError(0, RequestType.SERVER_ERROR, ""); //当前网络不可用
 //        }
 
-        if (e instanceof UnknownHostException){
+        if (e instanceof UnknownHostException) {
             if (basePresenter != null) {
                 basePresenter.okgoError(0, RequestType.INTERNET_ERROR, ""); //当前网络不可用
             }
-        }else if (e instanceof SocketTimeoutException){
+        } else if (e instanceof SocketTimeoutException) {
             if (basePresenter != null) {
-                basePresenter.okgoError(0,"连接超时", ""); //当前网络不可用
+                basePresenter.okgoError(0, "连接超时", ""); //当前网络不可用
             }
-        }else {
+        } else {
             if (basePresenter != null) {
                 basePresenter.okgoError(0, RequestType.SERVER_ERROR, ""); //当前网络不可用
             }

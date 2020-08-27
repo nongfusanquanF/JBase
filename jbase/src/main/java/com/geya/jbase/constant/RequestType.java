@@ -268,6 +268,7 @@ public class RequestType {
     public static final String OKGO_POST_CACHE = "POST_CACHE";
     public static final String OKGO_POST = "POST";
     public static final String OKGO_POST_FILE = "POST_FILE";
+    public static final String OKGO_GET_JSON = "GET_JSON";
     public static final String OKGO_POST_JSON = "POST_JSON";
     public static final String OKGO_POST_JSON_OBJ = "POST_JSON_OBJ";
     public static final String OKGO_DOWNLOAD = "DOWNLOAD";
