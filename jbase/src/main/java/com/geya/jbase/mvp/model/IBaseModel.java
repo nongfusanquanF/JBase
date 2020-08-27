@@ -21,6 +21,8 @@ public interface IBaseModel {
      */
     void sendRequestToServers(String method, String url, Class obj , HashMap<String,String> map);
 
+    void sendRequestToServersObj(String method, String url, Class obj , HashMap<String,Object> map);
+
     void sendRequestToServers(String method, String url, Class obj , HashMap<String,String> map, IokgoCallback iokgoCallback);
 
     /**
