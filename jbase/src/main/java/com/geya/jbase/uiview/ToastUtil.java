@@ -1,6 +1,7 @@
 package com.geya.jbase.uiview;
 
 import android.content.Context;
+import android.text.BoringLayout;
 import android.widget.Toast;
 
 /**
@@ -15,6 +16,7 @@ public class ToastUtil {
 
     public static Context sContext = null;
     private static Toast sToast = null;
+    public static boolean openToast = true;
 
     /**
      * 短时间显示Toast
@@ -22,6 +24,9 @@ public class ToastUtil {
      * @param message 信息
      */
     public static void showShort(CharSequence message) {
+        if (!openToast){
+            return;
+        }
         if (sToast == null) {
             sToast = Toast.makeText(sContext, message, Toast.LENGTH_SHORT);
         } else {
