@@ -226,6 +226,9 @@ public abstract class BasePresenter<T extends IMvpView> implements IBasePresente
     public void accessServersObj(String Method, String address, String url, Class type, HashMap<String, Object> map) {
         getModel().sendRequestToServersObj(Method, address + url, type, map);
     }
+    public void accessServersObj(String Method, String address, String url, Class type, HashMap<String, Object> map,IokgoCallback iokgoCallback) {
+        getModel().sendRequestToServersObj(Method, address + url, type, map,iokgoCallback);
+    }
 
     public void accessServers(String Method, String address, String url, Class type, HashMap<String, String> map, IokgoCallback iokgoCallback) {
         getModel().sendRequestToServers(Method, address + url, type, map,iokgoCallback);

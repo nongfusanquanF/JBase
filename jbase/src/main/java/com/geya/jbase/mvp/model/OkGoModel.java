@@ -85,7 +85,16 @@ public class OkGoModel implements IBaseModel {
     public void sendRequestToServersObj(String method, String url, Class obj, HashMap<String, Object> map) {
         switch (method) {
             case RequestType.OKGO_POST_JSON:
-                okRxPostJson(url, obj, map);
+                okRxPostJson(url, obj, map,null);
+                break;
+        }
+    }
+
+    @Override
+    public void sendRequestToServersObj(String method, String url, Class obj, HashMap<String, Object> map, IokgoCallback iokgoCallback) {
+        switch (method) {
+            case RequestType.OKGO_POST_JSON:
+                okRxPostJson(url, obj, map,iokgoCallback);
                 break;
         }
     }
@@ -208,7 +217,7 @@ public class OkGoModel implements IBaseModel {
 
     }
 
-    private void okRxPostJson(String url, final Class obj, Map<String, Object> map) {
+    private void okRxPostJson(String url, final Class obj, Map<String, Object> map, final IokgoCallback iokgoCallback) {
 
         OkGo.<String>post(url)
                 .upJson(convertJson("",map))
@@ -247,6 +256,9 @@ public class OkGoModel implements IBaseModel {
 
                     @Override
                     public void onNext(@NonNull Object serverModel) {
+                        if (iokgoCallback != null) {
+                            iokgoCallback.onSucceed(serverModel);
+                        }
                         onSuccess(serverModel);
                     }
 
