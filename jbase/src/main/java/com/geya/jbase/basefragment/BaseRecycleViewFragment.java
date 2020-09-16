@@ -67,7 +67,7 @@ public abstract class BaseRecycleViewFragment<T, P extends BasePresenter> extend
     /**
      * 是否是在加载更多
      */
-    private boolean isLoadMore = false;
+    protected boolean isLoadMore = false;
     /**
      * 刷新控件
      */
