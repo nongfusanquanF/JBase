@@ -515,7 +515,7 @@ public abstract class BaseRecycleViewActivity<T, P extends BasePresenter> extend
                 mQuickAdapter.addData(list);
             }
         }
-
+        mList = mQuickAdapter.getData();
 
         //是否在加载跟多
         if (isLoadMore) {

@@ -518,6 +518,7 @@ public abstract class BaseRecycleViewFragment<T, P extends BasePresenter> extend
                 mQuickAdapter.addData(list);
             }
         }
+        mList = mQuickAdapter.getData();
 
 
         //是否在加载跟多
