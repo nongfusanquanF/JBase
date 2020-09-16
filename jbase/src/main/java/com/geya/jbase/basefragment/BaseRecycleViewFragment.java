@@ -507,15 +507,15 @@ public abstract class BaseRecycleViewFragment<T, P extends BasePresenter> extend
             mList.clear();
         }
 
-        if (list.size() != 0) {
-            mList.addAll(list);
-        }
+//        if (list.size() != 0) {
+//            mList.addAll(list);
+//        }
 
         if (isRefresh) {
-            mQuickAdapter.setNewData(mList);
+            mQuickAdapter.setNewData(list);
         } else {
             if (list.size() > 0) {
-                mQuickAdapter.addData(mList);
+                mQuickAdapter.addData(list);
             }
         }
 
