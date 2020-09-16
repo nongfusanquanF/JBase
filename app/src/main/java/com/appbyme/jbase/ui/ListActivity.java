@@ -5,12 +5,10 @@ import android.support.annotation.Nullable;
 
 import com.appbyme.jbase.R;
 import com.appbyme.jbase.data.BaseNewsData;
-import com.appbyme.jbase.data.SpDatas;
 import com.appbyme.jbase.mvp.presenter.MainPresenter;
 import com.appbyme.jbase.mvp.view.IMainView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.geya.jbase.baseactivity.BaseRVActivity;
 import com.geya.jbase.baseactivity.BaseRecycleViewActivity;
 import com.geya.jbase.constant.RequestType;
 

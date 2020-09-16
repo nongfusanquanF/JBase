@@ -509,10 +509,10 @@ public abstract class BaseRecycleViewActivity<T, P extends BasePresenter> extend
         }
 
         if (isRefresh) {
-            mQuickAdapter.setNewData(list);
+            mQuickAdapter.setNewData(mList);
         } else {
             if (list.size() > 0) {
-                mQuickAdapter.addData(list);
+                mQuickAdapter.addData(mList);
             }
         }
 
