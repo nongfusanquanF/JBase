@@ -86,6 +86,7 @@ public class OkGoModel implements IBaseModel {
         switch (method) {
             case RequestType.OKGO_POST_JSON:
                 okRxPostJson(url, obj, map,null);
+                break;
             case RequestType.OKGO_PUT:
                 okRxPutJson(url, obj, map,null);
                 break;
