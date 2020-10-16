@@ -86,6 +86,11 @@ public class OkGoModel implements IBaseModel {
         switch (method) {
             case RequestType.OKGO_POST_JSON:
                 okRxPostJson(url, obj, map,null);
+            case RequestType.OKGO_PUT:
+                okRxPutJson(url, obj, map,null);
+                break;
+            case RequestType.OKGO_DELETE:
+                okRxDeleteJson(url, obj, map,null);
                 break;
         }
     }
@@ -95,6 +100,12 @@ public class OkGoModel implements IBaseModel {
         switch (method) {
             case RequestType.OKGO_POST_JSON:
                 okRxPostJson(url, obj, map,iokgoCallback);
+                break;
+            case RequestType.OKGO_PUT:
+                okRxPutJson(url, obj, map,iokgoCallback);
+                break;
+            case RequestType.OKGO_DELETE:
+                okRxDeleteJson(url, obj, map,iokgoCallback);
                 break;
         }
     }
@@ -273,6 +284,123 @@ public class OkGoModel implements IBaseModel {
                 });
 
     }
+
+    private void okRxPutJson(String url, final Class obj, Map<String, Object> map, final IokgoCallback iokgoCallback) {
+
+        OkGo.<String>put(url)
+                .upJson(convertJson("",map))
+                .converter(new StringConvert())
+                .adapt(new ObservableResponse<String>())
+                .subscribeOn(Schedulers.io())
+                .doOnSubscribe(new Consumer<Disposable>() {
+                    @Override
+                    public void accept(@NonNull Disposable disposable) throws Exception {
+                        mDisposable.add(disposable);
+                    }
+                })
+                .map(new Function<Response<String>, Object>() {
+
+                    @Override
+                    public Object apply(Response<String> stringResponse) {
+                        BaseData data = GsonUtil.GsonToBean(stringResponse.body(), BaseData.class);
+                        if (data != null) {
+                            if (data.isSuccess()) {
+                                return GsonUtil.GsonToBean(stringResponse.body(), obj);
+                            } else {
+                                return data;
+                            }
+                        } else {
+                            return null;
+                        }
+
+
+                    }
+                }).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Object>() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(@NonNull Object serverModel) {
+                        if (iokgoCallback != null) {
+                            iokgoCallback.onSucceed(serverModel);
+                        }
+                        onSuccess(serverModel);
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        onErrors(e);
+                    }
+
+                    @Override
+                    public void onComplete() {
+                    }
+                });
+
+    }
+
+    private void okRxDeleteJson(String url, final Class obj, Map<String, Object> map, final IokgoCallback iokgoCallback) {
+
+        OkGo.<String>delete(url)
+                .upJson(convertJson("",map))
+                .converter(new StringConvert())
+                .adapt(new ObservableResponse<String>())
+                .subscribeOn(Schedulers.io())
+                .doOnSubscribe(new Consumer<Disposable>() {
+                    @Override
+                    public void accept(@NonNull Disposable disposable) throws Exception {
+                        mDisposable.add(disposable);
+                    }
+                })
+                .map(new Function<Response<String>, Object>() {
+
+                    @Override
+                    public Object apply(Response<String> stringResponse) {
+                        BaseData data = GsonUtil.GsonToBean(stringResponse.body(), BaseData.class);
+                        if (data != null) {
+                            if (data.isSuccess()) {
+                                return GsonUtil.GsonToBean(stringResponse.body(), obj);
+                            } else {
+                                return data;
+                            }
+                        } else {
+                            return null;
+                        }
+
+
+                    }
+                }).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Object>() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(@NonNull Object serverModel) {
+                        if (iokgoCallback != null) {
+                            iokgoCallback.onSucceed(serverModel);
+                        }
+                        onSuccess(serverModel);
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        onErrors(e);
+                    }
+
+                    @Override
+                    public void onComplete() {
+                    }
+                });
+
+    }
+
+
+
 
     private void okRxGET(String url, final Class obj, Map<String, String> map, final IokgoCallback iokgoCallback) {
 
