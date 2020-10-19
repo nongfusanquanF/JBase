@@ -510,6 +510,7 @@ public abstract class BaseRVActivity<T, P extends BasePresenter> extends BaseFra
                     mLayout = view.findViewById(R.id.loading_view);
                 }
 //                mAdapter.addFooterView(view);
+                mQuickAdapter.removeAllFooterView();
                 mQuickAdapter.addFooterView(view);
 //                mLayout.setVisibility(View.VISIBLE);
 
