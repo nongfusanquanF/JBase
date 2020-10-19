@@ -533,7 +533,7 @@ public abstract class BaseRecycleViewFragment<T, P extends BasePresenter> extend
                     mLayout = view.findViewById(R.id.loading_view);
                 }
                 mQuickAdapter.loadMoreEnd(true);
-                mQuickAdapter.removeAllFooterView();
+
                 mQuickAdapter.addFooterView(view);
                 isCanLoadMore = false;
                 mSwipeToLoadLayout.setLoadingMore(false);
