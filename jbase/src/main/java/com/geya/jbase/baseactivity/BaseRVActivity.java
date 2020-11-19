@@ -427,7 +427,7 @@ public abstract class BaseRVActivity<T, P extends BasePresenter> extends BaseFra
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-//v
+//
 //                        mPresennter.accessServer();
 //                        mProgress.showLoading();
                     }
