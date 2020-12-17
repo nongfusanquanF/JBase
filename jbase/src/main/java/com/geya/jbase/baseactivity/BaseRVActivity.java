@@ -204,7 +204,7 @@ public abstract class BaseRVActivity<T, P extends BasePresenter> extends BaseFra
 //                    mPresennter.accessServer();
 
         listMap.put(RequestType.PAGE_INDEX, String.valueOf(pageParams.getPageNo()));
-        listMap.put("timestamp", new Date().getTime()+"");
+//        listMap.put("timestamp", new Date().getTime()+"");
 //                    mPresennter.accessServer(method, adderss, url,classType ,listMap);
 //        if (headers != null) {
 //            mPresennter.accessServers(method, adderss, url, classType, listMap, headers);
@@ -353,7 +353,7 @@ public abstract class BaseRVActivity<T, P extends BasePresenter> extends BaseFra
         pageParams.reset();
         listMap.put(RequestType.PAGE_INDEX, String.valueOf(pageParams.getPageNo()));
         listMap.put(RequestType.PAGE_SIZE, String.valueOf(pageParams.getPageSize()));
-        listMap.put("timestamp", new Date().getTime()+"");
+//        listMap.put("timestamp", new Date().getTime()+"");
         this.adderss = adderss;
         this.url = url;
         this.method = method;
