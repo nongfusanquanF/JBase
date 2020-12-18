@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -332,7 +333,10 @@ public abstract class BaseRecycleViewActivity<T, P extends BasePresenter> extend
             mQuickAdapter.notifyDataSetChanged();
         }
         listMap.put(RequestType.PAGE_INDEX, String.valueOf(pageParams.getPageNo()));
-        listMap.put(RequestType.PAGE_SIZE, String.valueOf(pageParams.getPageSize()));
+        if (!TextUtils.isEmpty(RequestType.PAGE_SIZE)){
+            listMap.put(RequestType.PAGE_SIZE, String.valueOf(pageParams.getPageSize()));
+        }
+
         this.adderss = adderss;
         this.url = url;
         this.method = method;
@@ -368,7 +372,10 @@ public abstract class BaseRecycleViewActivity<T, P extends BasePresenter> extend
         //页码重置为1
         pageParams.reset();
         listMap.put(RequestType.PAGE_INDEX, String.valueOf(pageParams.getPageNo()));
-        listMap.put(RequestType.PAGE_SIZE, String.valueOf(pageParams.getPageSize()));
+        if (!TextUtils.isEmpty(RequestType.PAGE_SIZE)){
+            listMap.put(RequestType.PAGE_SIZE, String.valueOf(pageParams.getPageSize()));
+        }
+
 //        listMap.put("timestamp", new Date().getTime()+"");
         this.adderss = adderss;
         this.url = url;
@@ -405,7 +412,9 @@ public abstract class BaseRecycleViewActivity<T, P extends BasePresenter> extend
         //页码重置为1
         pageParams.reset();
         listMap.put(RequestType.PAGE_INDEX, String.valueOf(pageParams.getPageNo()));
-        listMap.put(RequestType.PAGE_SIZE, String.valueOf(pageParams.getPageSize()));
+        if (!TextUtils.isEmpty(RequestType.PAGE_SIZE)){
+            listMap.put(RequestType.PAGE_SIZE, String.valueOf(pageParams.getPageSize()));
+        }
         this.adderss = adderss;
         this.url = url;
         this.method = method;

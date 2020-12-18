@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -341,7 +342,9 @@ public abstract class BaseRvFragment<T, P extends BasePresenter> extends LazyTab
 //        mPresennter.getModel().setMethod(method);
         mPresennter.getModel().setClassTyer(classType);
         mPresennter.setParams(RequestType.PAGE_INDEX, String.valueOf(pageParams.getPageNo()));
-        mPresennter.setParams(RequestType.PAGE_SIZE, String.valueOf(pageParams.getPageSize()));
+        if (!TextUtils.isEmpty(RequestType.PAGE_SIZE)){
+            mPresennter.setParams(RequestType.PAGE_SIZE, String.valueOf(pageParams.getPageSize()));
+        }
 //        mPresennter.initDatas(url, type, queryParams);
         mPresennter.accessServer();//访问服务器
 
@@ -363,7 +366,10 @@ public abstract class BaseRvFragment<T, P extends BasePresenter> extends LazyTab
         }
         pageParams.reset();
         listMap.put(RequestType.PAGE_INDEX, String.valueOf(pageParams.getPageNo()));
-        listMap.put(RequestType.PAGE_SIZE, String.valueOf(pageParams.getPageSize()));
+        if (!TextUtils.isEmpty(RequestType.PAGE_SIZE)){
+            listMap.put(RequestType.PAGE_SIZE, String.valueOf(pageParams.getPageSize()));
+        }
+
         this.adderss = adderss;
         this.url = url;
         this.method = method;
@@ -395,7 +401,10 @@ public abstract class BaseRvFragment<T, P extends BasePresenter> extends LazyTab
         }
         pageParams.reset();
         listMap.put(RequestType.PAGE_INDEX, String.valueOf(pageParams.getPageNo()));
-        listMap.put(RequestType.PAGE_SIZE, String.valueOf(pageParams.getPageSize()));
+
+        if (!TextUtils.isEmpty(RequestType.PAGE_SIZE)){
+            listMap.put(RequestType.PAGE_SIZE, String.valueOf(pageParams.getPageSize()));
+        }
 //        listMap.put("timestamp", new Date().getTime()+"");
         this.adderss = adderss;
         this.url = url;
