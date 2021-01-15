@@ -1,9 +1,12 @@
 package com.appbyme.jbase;
 
+import android.app.Notification;
+import android.app.NotificationManager;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Spannable;
@@ -13,6 +16,7 @@ import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.RemoteViews;
 import android.widget.TextView;
 
 import com.appbyme.jbase.Event.EventMsg;
@@ -227,9 +231,23 @@ public class MainActivity extends AppCompatActivity implements VideoGestureRelat
                     break;
                 case R.id.details_c:
 //                    String str3 = new ExeCommand().run("file:///android_asset/deamon_log.sh", 10000).getResult();
-                    startActivity(new Intent(MainActivity.this, CoordinatorLayoutActivity2.class));
+//                    startActivity(new Intent(MainActivity.this, CoordinatorLayoutActivity2.class));
 //                    mBinding.btLike.showAnim();
 //                    mBinding.btLike.setChecked(true);
+                    //普通notification用到的视图
+                    RemoteViews normalView = new RemoteViews(getPackageName(), R.layout.normal_notification);
+                    Notification notification = new NotificationCompat.Builder(MainActivity.this)
+                            .setSmallIcon(R.mipmap.ic_launcher)
+                            .setTicker("开始播放啦~~")
+                            .setOngoing(true)
+                            .setContent(normalView)//设置普通notification视图
+//                            .setCustomBigContentView(bigView)//设置显示bigView的notification视图
+                            .setPriority(NotificationCompat.PRIORITY_MAX)//设置最大优先级
+                            .build();
+
+                    NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+                    manager.notify(22, notification);
+
                     break;
 
 

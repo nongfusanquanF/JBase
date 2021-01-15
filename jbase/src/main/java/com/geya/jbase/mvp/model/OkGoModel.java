@@ -270,8 +270,10 @@ public class OkGoModel implements IBaseModel {
                     public void onNext(@NonNull Object serverModel) {
                         if (iokgoCallback != null) {
                             iokgoCallback.onSucceed(serverModel);
+                        }else {
+                            onSuccess(serverModel);
                         }
-                        onSuccess(serverModel);
+
                     }
 
                     @Override
@@ -327,8 +329,10 @@ public class OkGoModel implements IBaseModel {
                     public void onNext(@NonNull Object serverModel) {
                         if (iokgoCallback != null) {
                             iokgoCallback.onSucceed(serverModel);
+                        }else {
+                            onSuccess(serverModel);
                         }
-                        onSuccess(serverModel);
+
                     }
 
                     @Override
@@ -384,8 +388,10 @@ public class OkGoModel implements IBaseModel {
                     public void onNext(@NonNull Object serverModel) {
                         if (iokgoCallback != null) {
                             iokgoCallback.onSucceed(serverModel);
+                        }else {
+                            onSuccess(serverModel);
                         }
-                        onSuccess(serverModel);
+
                     }
 
                     @Override
@@ -444,8 +450,10 @@ public class OkGoModel implements IBaseModel {
                     public void onNext(@NonNull Object serverModel) {
                         if (iokgoCallback != null) {
                             iokgoCallback.onSucceed(serverModel);
+                        }else {
+                            onSuccess(serverModel);
                         }
-                        onSuccess(serverModel);
+
                     }
 
                     @Override
@@ -724,8 +732,10 @@ public class OkGoModel implements IBaseModel {
                     public void onNext(@NonNull Object serverModel) {
                         if (iokgoCallback != null) {
                             iokgoCallback.onSucceed(serverModel);
+                        }else {
+                            onSuccess(serverModel);
                         }
-                        onSuccess(serverModel);
+
                     }
 
                     @Override
