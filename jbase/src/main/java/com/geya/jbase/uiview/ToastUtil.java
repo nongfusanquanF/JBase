@@ -4,6 +4,8 @@ import android.content.Context;
 import android.text.BoringLayout;
 import android.widget.Toast;
 
+import com.hjq.toast.ToastUtils;
+
 /**
  * Created by licrynoob on 2016/7/12 <br>
  * Copyright (C) 2016 <br>
@@ -24,15 +26,7 @@ public class ToastUtil {
      * @param message 信息
      */
     public static void showShort(CharSequence message) {
-        if (!openToast){
-            return;
-        }
-        if (sToast == null) {
-            sToast = Toast.makeText(sContext, message, Toast.LENGTH_SHORT);
-        } else {
-            sToast.setText(message);
-        }
-        sToast.show();
+        ToastUtils.show(message);
     }
 
     /**
@@ -41,12 +35,7 @@ public class ToastUtil {
      * @param message 信息
      */
     public static void showShort(int message) {
-        if (sToast == null) {
-            sToast = Toast.makeText(sContext, message, Toast.LENGTH_SHORT);
-        } else {
-            sToast.setText(message);
-        }
-        sToast.show();
+        ToastUtils.show(message);
     }
 
     /**

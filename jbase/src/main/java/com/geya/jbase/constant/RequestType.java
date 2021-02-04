@@ -6,6 +6,7 @@ import com.geya.jbase.R;
 import com.geya.jbase.uiview.ToastUtil;
 import com.geya.jbase.utils.GsonUtil;
 import com.geya.jbase.utils.ManifestUtil;
+import com.hjq.toast.ToastUtils;
 
 
 /**
@@ -54,6 +55,7 @@ public class RequestType {
     ) {
         mContext = app;
         ToastUtil.sContext = app;
+        ToastUtils.init(app);
         PAGE_INDEX = page;
         PAGE_SIZE = size;
         IS_SUCCESS = isSuccess;
