@@ -1,6 +1,8 @@
 package com.geya.jbase.mvp.model;
 
 
+import android.text.TextUtils;
+
 import com.geya.jbase.constant.BaseData;
 import com.geya.jbase.constant.RequestType;
 import com.geya.jbase.mvp.presenter.IBasePresenter;
@@ -40,7 +42,9 @@ import io.reactivex.schedulers.Schedulers;
 
 
 /**
- * Created by Administrator on 2016/12/10.
+ *
+ * @author Administrator
+ * @date 2016/12/10
  * <p>
  * 通过okgo框架从服务器获取数据
  */
@@ -77,6 +81,8 @@ public class OkGoModel implements IBaseModel {
             case RequestType.OKGO_POST:
                 okRxPOST(url, obj, map);
                 break;
+            default:
+                break;
 
         }
     }
@@ -93,6 +99,8 @@ public class OkGoModel implements IBaseModel {
             case RequestType.OKGO_DELETE:
                 okRxDeleteJson(url, obj, map,null);
                 break;
+            default:
+                break;
         }
     }
 
@@ -107,6 +115,8 @@ public class OkGoModel implements IBaseModel {
                 break;
             case RequestType.OKGO_DELETE:
                 okRxDeleteJson(url, obj, map,iokgoCallback);
+                break;
+            default:
                 break;
         }
     }
@@ -125,6 +135,8 @@ public class OkGoModel implements IBaseModel {
                 break;
             case RequestType.OKGO_POST:
                 okRxPOST(url, obj, map, iokgoCallback);
+                break;
+            default:
                 break;
 
         }
@@ -145,6 +157,8 @@ public class OkGoModel implements IBaseModel {
             case RequestType.OKGO_POST:
                 okRxPOST(url, obj, map);
                 break;
+            default:
+                break;
 
         }
     }
@@ -152,7 +166,10 @@ public class OkGoModel implements IBaseModel {
 
     @Override
     public void cancelRequest(String identify) {
-        if (identify.equals("")) {
+//        if (TextUtils.isEmpty(identify)){
+//            return;
+//        }
+        if (TextUtils.isEmpty(identify)) {
             //取消所有请求
             OkGo.getInstance().cancelAll();
         } else {
@@ -164,7 +181,6 @@ public class OkGoModel implements IBaseModel {
     @Override
     public void dealloc() {
         if (basePresenter != null) {
-//            mDisposable.dispose();
             basePresenter = null;
         }
     }
@@ -175,7 +191,7 @@ public class OkGoModel implements IBaseModel {
         this.object = obj;
     }
 
-    private void okRxGET(String url, final Class obj, Map<String, String> map) {
+    private void okRxGET(final String url, final Class obj, Map<String, String> map) {
 
         OkGo.<String>get(url)
                 .params(map)
@@ -214,12 +230,12 @@ public class OkGoModel implements IBaseModel {
 
                     @Override
                     public void onNext(@NonNull Object serverModel) {
-                        onSuccess(serverModel);
+                        onSuccess(serverModel,url);
                     }
 
                     @Override
                     public void onError(@NonNull Throwable e) {
-                        onErrors(e);
+                        onErrors(e,url);
                     }
 
                     @Override
@@ -229,7 +245,7 @@ public class OkGoModel implements IBaseModel {
 
     }
 
-    private void okRxPostJson(String url, final Class obj, Map<String, Object> map, final IokgoCallback iokgoCallback) {
+    private void okRxPostJson(final String url, final Class obj, Map<String, Object> map, final IokgoCallback iokgoCallback) {
 
         OkGo.<String>post(url)
                 .upJson(convertJson("",map))
@@ -271,14 +287,14 @@ public class OkGoModel implements IBaseModel {
                         if (iokgoCallback != null) {
                             iokgoCallback.onSucceed(serverModel);
                         }else {
-                            onSuccess(serverModel);
+                            onSuccess(serverModel,url);
                         }
 
                     }
 
                     @Override
                     public void onError(@NonNull Throwable e) {
-                        onErrors(e);
+                        onErrors(e,url);
                     }
 
                     @Override
@@ -288,7 +304,7 @@ public class OkGoModel implements IBaseModel {
 
     }
 
-    private void okRxPutJson(String url, final Class obj, Map<String, Object> map, final IokgoCallback iokgoCallback) {
+    private void okRxPutJson(final String url, final Class obj, Map<String, Object> map, final IokgoCallback iokgoCallback) {
 
         OkGo.<String>put(url)
                 .upJson(convertJson("",map))
@@ -330,14 +346,14 @@ public class OkGoModel implements IBaseModel {
                         if (iokgoCallback != null) {
                             iokgoCallback.onSucceed(serverModel);
                         }else {
-                            onSuccess(serverModel);
+                            onSuccess(serverModel,url);
                         }
 
                     }
 
                     @Override
                     public void onError(@NonNull Throwable e) {
-                        onErrors(e);
+                        onErrors(e,url);
                     }
 
                     @Override
@@ -347,7 +363,7 @@ public class OkGoModel implements IBaseModel {
 
     }
 
-    private void okRxDeleteJson(String url, final Class obj, Map<String, Object> map, final IokgoCallback iokgoCallback) {
+    private void okRxDeleteJson(final String url, final Class obj, Map<String, Object> map, final IokgoCallback iokgoCallback) {
 
         OkGo.<String>delete(url)
                 .upJson(convertJson("",map))
@@ -389,14 +405,14 @@ public class OkGoModel implements IBaseModel {
                         if (iokgoCallback != null) {
                             iokgoCallback.onSucceed(serverModel);
                         }else {
-                            onSuccess(serverModel);
+                            onSuccess(serverModel,url);
                         }
 
                     }
 
                     @Override
                     public void onError(@NonNull Throwable e) {
-                        onErrors(e);
+                        onErrors(e,url);
                     }
 
                     @Override
@@ -409,7 +425,7 @@ public class OkGoModel implements IBaseModel {
 
 
 
-    private void okRxGET(String url, final Class obj, Map<String, String> map, final IokgoCallback iokgoCallback) {
+    private void okRxGET(final String url, final Class obj, Map<String, String> map, final IokgoCallback iokgoCallback) {
 
         OkGo.<String>get(url)
                 .params(map)
@@ -451,14 +467,14 @@ public class OkGoModel implements IBaseModel {
                         if (iokgoCallback != null) {
                             iokgoCallback.onSucceed(serverModel);
                         }else {
-                            onSuccess(serverModel);
+                            onSuccess(serverModel,url);
                         }
 
                     }
 
                     @Override
                     public void onError(@NonNull Throwable e) {
-                        onErrors(e);
+                        onErrors(e,url);
                     }
 
                     @Override
@@ -468,7 +484,7 @@ public class OkGoModel implements IBaseModel {
 
     }
 
-    private void okRxGET(String url, final Class obj, Map<String, String> map, HttpHeaders headers) {
+    private void okRxGET(final String url, final Class obj, Map<String, String> map, HttpHeaders headers) {
 
         OkGo.<String>get(url)
                 .params(map)
@@ -508,12 +524,12 @@ public class OkGoModel implements IBaseModel {
 
                     @Override
                     public void onNext(@NonNull Object serverModel) {
-                        onSuccess(serverModel);
+                        onSuccess(serverModel,url);
                     }
 
                     @Override
                     public void onError(@NonNull Throwable e) {
-                        onErrors(e);
+                        onErrors(e,url);
                     }
 
                     @Override
@@ -523,7 +539,7 @@ public class OkGoModel implements IBaseModel {
 
     }
 
-    private void okRxCacheGET(String url, final Class obj, Map<String, String> map) {
+    private void okRxCacheGET(final String url, final Class obj, Map<String, String> map) {
 
         OkGo.<String>get(url)
                 .params(map)
@@ -564,12 +580,12 @@ public class OkGoModel implements IBaseModel {
 
                     @Override
                     public void onNext(@NonNull Object serverModel) {
-                        onSuccess(serverModel);
+                        onSuccess(serverModel,url);
                     }
 
                     @Override
                     public void onError(@NonNull Throwable e) {
-                        onErrors(e);
+                        onErrors(e,url);
                     }
 
                     @Override
@@ -579,7 +595,7 @@ public class OkGoModel implements IBaseModel {
 
     }
 
-    private void okRxCachePOSt(String url, final Class obj, Map<String, String> map) {
+    private void okRxCachePOSt(final String url, final Class obj, Map<String, String> map) {
 
         OkGo.<String>get(url)
                 .params(map)
@@ -620,12 +636,12 @@ public class OkGoModel implements IBaseModel {
 
                     @Override
                     public void onNext(@NonNull Object serverModel) {
-                        onSuccess(serverModel);
+                        onSuccess(serverModel,url);
                     }
 
                     @Override
                     public void onError(@NonNull Throwable e) {
-                        onErrors(e);
+                        onErrors(e,url);
                     }
 
                     @Override
@@ -635,7 +651,7 @@ public class OkGoModel implements IBaseModel {
 
     }
 
-    private void okRxPOST(String url, final Class obj, Map<String, String> map) {
+    private void okRxPOST(final String url, final Class obj, Map<String, String> map) {
 
         OkGo.<String>post(url)
                 .params(map)
@@ -675,12 +691,12 @@ public class OkGoModel implements IBaseModel {
 
                     @Override
                     public void onNext(@NonNull Object serverModel) {
-                        onSuccess(serverModel);
+                        onSuccess(serverModel,url);
                     }
 
                     @Override
                     public void onError(@NonNull Throwable e) {
-                        onErrors(e);
+                        onErrors(e,url);
                     }
 
                     @Override
@@ -690,7 +706,7 @@ public class OkGoModel implements IBaseModel {
 
     }
 
-    private void okRxPOST(String url, final Class obj, Map<String, String> map, final IokgoCallback iokgoCallback) {
+    private void okRxPOST(final String url, final Class obj, Map<String, String> map, final IokgoCallback iokgoCallback) {
 
         OkGo.<String>post(url)
                 .params(map)
@@ -733,14 +749,14 @@ public class OkGoModel implements IBaseModel {
                         if (iokgoCallback != null) {
                             iokgoCallback.onSucceed(serverModel);
                         }else {
-                            onSuccess(serverModel);
+                            onSuccess(serverModel,url);
                         }
 
                     }
 
                     @Override
                     public void onError(@NonNull Throwable e) {
-                        onErrors(e);
+                        onErrors(e,url);
                     }
 
                     @Override
@@ -788,10 +804,9 @@ public class OkGoModel implements IBaseModel {
      * @param url
      */
     private void okgoPOSTFile(final String url, List<File> list) {
-
-        OkGo.<String>post(url)                               // 请求方式和请求url
+        // 请求方式和请求url
+        OkGo.<String>post(url)
                 .tag(this)
-//                .isMultipart(true)
                 .params(basePresenter.getParams())
                 .addFileParams("avatar", list)
                 .execute(new StringCallback() {
@@ -830,7 +845,8 @@ public class OkGoModel implements IBaseModel {
      */
     private <K, V> String convertJson(String jsonName, Map<K, V> map) {
         JSONObject obj = new JSONObject(map);
-        if (jsonName.equals("")) {
+
+        if (TextUtils.isEmpty(jsonName)) {
             return obj.toString();
         } else {
             JSONObject object = new JSONObject();
@@ -845,7 +861,7 @@ public class OkGoModel implements IBaseModel {
     }
 
 
-    private void onSuccess(Object obj) {
+    private void onSuccess(Object obj,String type) {
         if (basePresenter != null) {
             if (obj != null) {
                 basePresenter.accessSucceedObj(obj, new Gson().toJson(obj));
@@ -856,7 +872,7 @@ public class OkGoModel implements IBaseModel {
         }
     }
 
-    private void onErrors(Throwable e) {
+    private void onErrors(Throwable e,String type) {
 //        if (e instanceof UnknownHostException || e instanceof ConnectException) {
 //            if (basePresenter != null) {
 //                basePresenter.okgoError(0, RequestType.INTERNET_ERROR, ""); //当前网络不可用
@@ -867,15 +883,18 @@ public class OkGoModel implements IBaseModel {
 
         if (e instanceof UnknownHostException) {
             if (basePresenter != null) {
-                basePresenter.okgoError(0, RequestType.INTERNET_ERROR, ""); //当前网络不可用
+                //当前网络不可用
+                basePresenter.okgoError(0, RequestType.INTERNET_ERROR, type);
             }
         } else if (e instanceof SocketTimeoutException) {
             if (basePresenter != null) {
-                basePresenter.okgoError(0, "连接超时", ""); //当前网络不可用
+                //当前网络不可用
+                basePresenter.okgoError(0, "连接超时", type);
             }
         } else {
             if (basePresenter != null) {
-                basePresenter.okgoError(0, RequestType.SERVER_ERROR, ""); //当前网络不可用
+                //当前网络不可用
+                basePresenter.okgoError(0, RequestType.SERVER_ERROR, type);
             }
         }
 

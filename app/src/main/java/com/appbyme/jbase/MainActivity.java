@@ -18,11 +18,9 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.RemoteViews;
 import android.widget.TextView;
-
 import com.appbyme.jbase.Event.EventMsg;
 import com.appbyme.jbase.data.BaseClick;
 import com.appbyme.jbase.databinding.ActivityMainBinding;
-import com.appbyme.jbase.ui.CoordinatorLayoutActivity2;
 import com.appbyme.jbase.ui.DetailsActivity;
 import com.appbyme.jbase.ui.FragmentListActivity;
 import com.appbyme.jbase.ui.FragmentObjActivity;
@@ -33,10 +31,12 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *
+ */
 public class MainActivity extends AppCompatActivity implements VideoGestureRelativeLayout.VideoGestureListener {
 
     private ActivityMainBinding mBinding;
@@ -110,6 +110,7 @@ public class MainActivity extends AppCompatActivity implements VideoGestureRelat
 
     List<BaseClick> mSpanList = new ArrayList<>();
 
+
     private void initKeys(String[] arr, TextView title) {
 
         int start = 0;
@@ -155,7 +156,17 @@ public class MainActivity extends AppCompatActivity implements VideoGestureRelat
 
     }
 
-    //快进快退手势，手指在Layout左右滑动的时候调用
+
+     int max = 100;
+
+    /**
+     *
+     * 快进快退手势，手指在Layout左右滑动的时候调用
+     * @param e1
+     * @param e2
+     * @param distanceX
+     * @param distanceY
+     */
     @Override
     public void onFF_REWGesture(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
 
@@ -168,7 +179,7 @@ public class MainActivity extends AppCompatActivity implements VideoGestureRelat
         if (offset > 0) {
 //            scl.setImageResource(R.drawable.ff);
             newProgress = (int) (oldProgress + offset/mBinding.vgr.getWidth() * 100);
-            if (newProgress > 100){
+            if (newProgress > max){
                 newProgress = 100;
             }
         }else {
@@ -200,7 +211,12 @@ public class MainActivity extends AppCompatActivity implements VideoGestureRelat
     public void onDown(MotionEvent e) {
 
     }
-    //快进快退执行后的松开时候调用
+
+
+    /**
+     *  快进快退执行后的松开时候调用
+     * @param e
+     */
     @Override
     public void onEndFF_REW(MotionEvent e) {
         System.out.println("--------------------- onEndFF_REW: " + newProgress);
@@ -215,26 +231,16 @@ public class MainActivity extends AppCompatActivity implements VideoGestureRelat
                 case R.id.list_activity:
                     startActivity(new Intent(MainActivity.this, ListActivity.class));
                     break;
-
                 case R.id.list_fragment:
                     startActivity(new Intent(MainActivity.this, FragmentListActivity.class));
                     break;
-
                 case R.id.details_activity:
                     startActivity(new Intent(MainActivity.this, DetailsActivity.class));
                     break;
-
                 case R.id.details_fragment:
                     startActivity(new Intent(MainActivity.this, FragmentObjActivity.class));
-//                    mBinding.btLike.setCancel();
-//                    mBinding.btLike.setChecked(false);
                     break;
                 case R.id.details_c:
-//                    String str3 = new ExeCommand().run("file:///android_asset/deamon_log.sh", 10000).getResult();
-//                    startActivity(new Intent(MainActivity.this, CoordinatorLayoutActivity2.class));
-//                    mBinding.btLike.showAnim();
-//                    mBinding.btLike.setChecked(true);
-                    //普通notification用到的视图
                     RemoteViews normalView = new RemoteViews(getPackageName(), R.layout.normal_notification);
                     Notification notification = new NotificationCompat.Builder(MainActivity.this)
                             .setSmallIcon(R.mipmap.ic_launcher)
@@ -247,11 +253,9 @@ public class MainActivity extends AppCompatActivity implements VideoGestureRelat
 
                     NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
                     manager.notify(22, notification);
-
                     break;
-
-
-
+                default:
+                    break;
             }
         }
 

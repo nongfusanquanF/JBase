@@ -457,13 +457,27 @@ public abstract class BaseRVActivity<T, P extends BasePresenter> extends BaseFra
     }
 
     @Override
-    public void showNetworkError(int errorCode, String errorDesc, String type) {
+    public void showNetworkError(int errorCode, String errorDesc, final String type) {
         mProgress.showEmpty(getResources().getDrawable(RequestType.IMG_DRAWABLE),//设置错误页面图片
                 errorDesc,    //  错误信息1
-                "请稍后在试");           //  错误信息2
+                "",
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        retry(type);
+                    }
+                });           //  错误信息2
 
     }
 
+    /**
+     * 重试
+     */
+    protected void retry(String type ){
+        if (type.equals(adderss+url)){
+            onRefresh();
+        }
+    }
     @Override
     public void showProgress(boolean show) {
         if (isRefresh) {
